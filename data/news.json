@@ -1,0 +1,234 @@
+{
+  "updated": "2026-10-09",
+  "stories": [
+    {
+      "id": "2026-10-08-kramatorsk-bus-stop-strike",
+      "edition": "2026-10-09",
+      "rank": 1,
+      "date": "2026-10-08",
+      "tag": "World",
+      "place": "Ukraine",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-08/ukraine-russia-bus-stop-strike-attack-bomb/107245320",
+      "title": "A Russian strike on a bus stop in eastern Ukraine kills at least 33 people",
+      "summary": [
+        "A Russian glide bomb hit two city buses at a bus stop in Kramatorsk, a city near the front line in eastern Ukraine, killing at least 33 people and wounding 18, according to Ukrainian officials.",
+        "City officials said there were no military targets nearby, and President Volodymyr Zelenskyy said the attack would not go unanswered.",
+        "It came a day after a missile hit an apartment block in the northern town of Pryluky and killed 22 people."
+      ],
+      "why": [
+        "Peace talks have stalled because Russia wants Ukraine to give up the rest of the Donetsk region, which Kyiv refuses to do.",
+        "The United Nations has confirmed more than 17,000 civilian deaths since 2022 and says the real number is much higher."
+      ],
+      "keywords": [
+        "civilian",
+        "front line",
+        "missile",
+        "wound",
+        "stall"
+      ]
+    },
+    {
+      "id": "2026-10-08-oil-above-100-gulf-attacks",
+      "edition": "2026-10-09",
+      "rank": 2,
+      "date": "2026-10-08",
+      "tag": "Business",
+      "place": "Global",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/8/us-stocks-slide-as-oil-prices-fluctuate-over-renewed-iran-war-fears",
+      "title": "Oil climbs above $100 as attacks on tankers revive fears for Gulf supplies",
+      "summary": [
+        "Brent crude oil rose to about US$101 a barrel in early trading on Thursday after a rise in attacks on ships in the Gulf and the Strait of Hormuz.",
+        "On Wall Street, shares slipped from record highs, and US government bond yields climbed to their highest level in 24 years.",
+        "Investors worry that expensive oil will push up inflation and keep interest rates high."
+      ],
+      "why": [
+        "A large share of the world's oil travels through the Strait of Hormuz, so even small disruptions can raise fuel prices everywhere.",
+        "Last week the G7 and the International Energy Agency agreed to release 100 million barrels of crude oil and diesel from reserves to calm the market."
+      ],
+      "keywords": [
+        "crude oil",
+        "barrel",
+        "tanker",
+        "inflation",
+        "interest rate"
+      ]
+    },
+    {
+      "id": "2026-10-08-russia-plague-who",
+      "edition": "2026-10-09",
+      "rank": 3,
+      "date": "2026-10-08",
+      "tag": "Health",
+      "place": "Russia",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/8/russia-dismisses-reports-of-second-plague-case-as-false-information",
+      "title": "WHO presses Russia for answers after a fatal plague case in Siberia",
+      "summary": [
+        "A 28-year-old woman who worked at a plague research institute in Irkutsk, Siberia, has died of what doctors suspect was pneumonic plague, the most dangerous form of the disease.",
+        "Russian media then reported a second worker with an unexplained pneumonia, but the Kremlin called most of the reports false and health officials said no staff were infected.",
+        "The World Health Organization has asked Russia for a formal response and says it still does not know the source of the infection."
+      ],
+      "why": [
+        "Under international health rules, countries are expected to report quickly any outbreak that could spread to other countries.",
+        "Plague can be treated with antibiotics if it is found early."
+      ],
+      "keywords": [
+        "plague",
+        "pneumonia",
+        "infection",
+        "outbreak",
+        "antibiotic"
+      ]
+    },
+    {
+      "id": "2026-10-08-anne-carson-nobel-literature",
+      "edition": "2026-10-09",
+      "rank": 4,
+      "date": "2026-10-08",
+      "tag": "Culture",
+      "place": "Canada · Sweden",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-08/canadian-writer-anne-carson-wins-2026-nobel-prize-in-literature/107245306",
+      "title": "Canadian poet Anne Carson wins the 2026 Nobel Prize in Literature",
+      "summary": [
+        "Anne Carson, a 76-year-old poet and essayist from Toronto, has won this year's Nobel Prize in Literature.",
+        "The Swedish Academy praised her bold and inventive work, which plays with ancient Greek and Roman literature and mixes poetry, essay and fiction in new forms.",
+        "Her best-known books include Autobiography of Red, a novel written in verse, and the prize is worth 12 million Swedish kronor, or about US$1.7 million."
+      ],
+      "why": [
+        "Carson was in Iceland when the news came and was very surprised, according to the Academy.",
+        "She is also known for her translations of ancient Greek poetry, including the work of Sappho."
+      ],
+      "keywords": [
+        "poet",
+        "literature",
+        "ancient",
+        "verse",
+        "inventive"
+      ],
+      "senses": {
+        "work": "work#writing"
+      }
+    },
+    {
+      "id": "2026-10-08-japan-beer-brewers-raided",
+      "edition": "2026-10-09",
+      "rank": 5,
+      "date": "2026-10-08",
+      "tag": "Business",
+      "place": "Japan",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-08/japan-raids-biggest-beer-brewers-over-price-collusion-claims/107241114",
+      "title": "Japan's competition watchdog raids the country's four biggest beer makers",
+      "summary": [
+        "Japan's Fair Trade Commission has raided Asahi, Kirin, Sapporo and Suntory, which together sell about 90 per cent of the beer in Japan.",
+        "The watchdog is investigating whether the companies acted as a cartel by raising prices at the same time over several years, blaming costs such as raw materials.",
+        "All four brewers said they would cooperate, and shares in three of them fell nearly 4 per cent after the raids were reported."
+      ],
+      "why": [
+        "Competition laws ban rival companies from agreeing on prices, because that can make customers pay more.",
+        "If the commission finds the law was broken, it can file a criminal complaint."
+      ],
+      "keywords": [
+        "watchdog",
+        "raid",
+        "cartel",
+        "cooperate",
+        "rival"
+      ],
+      "senses": {
+        "finds": "find#judge"
+      }
+    },
+    {
+      "id": "2026-10-08-indonesia-wildfire-haze-lawsuit",
+      "edition": "2026-10-09",
+      "rank": 6,
+      "date": "2026-10-08",
+      "tag": "Environment",
+      "place": "Indonesia",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-08/indonesian-government-sued-over-worsening-wildfire/107237412",
+      "title": "Indonesians take their government to court over months of wildfire smoke",
+      "summary": [
+        "Community groups in West Kalimantan, on the island of Borneo, have sued Indonesia's president, ministers and local leaders, saying the government failed to deal with peatland fires and the haze they create.",
+        "The fires began in July, and the Health Ministry has recorded at least 175,000 cases of respiratory infections linked to the smoke since August.",
+        "The groups want the fires declared a national emergency, free health care for vulnerable people, and those responsible to be prosecuted."
+      ],
+      "why": [
+        "Smoke from Indonesian fires often drifts to Singapore and Malaysia, and burning peatland releases large amounts of carbon.",
+        "Police say they have named 196 suspects and are investigating 96 companies, but the rainy season is not expected in most areas until November."
+      ],
+      "keywords": [
+        "haze",
+        "peatland",
+        "sue",
+        "emergency",
+        "respiratory"
+      ],
+      "senses": {
+        "suspects": "suspect#person",
+        "named": "name#identify",
+        "take": "take to court"
+      }
+    },
+    {
+      "id": "2026-10-07-china-ai-digital-human-id",
+      "edition": "2026-10-09",
+      "rank": 7,
+      "date": "2026-10-07",
+      "tag": "Technology",
+      "place": "China",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-07/china-trials-identity-card-for-ai-digital-humans/107232848",
+      "title": "China gives AI 'digital humans' their own ID cards",
+      "summary": [
+        "Beijing is testing a programme that gives identity cards to AI digital humans, the computer-made characters that appear in ads, videos and livestreams.",
+        "The first card went to a virtual pop idol called Yuri, and it records a name, birthday, address and facial features.",
+        "Supporters say registration will protect intellectual property and fight online scams, while critics warn it could expand state surveillance."
+      ],
+      "why": [
+        "At least 1.3 million Chinese companies are linked to the digital human industry, which was worth about 48 billion yuan, or US$10 billion, in 2025."
+      ],
+      "keywords": [
+        "identity",
+        "virtual",
+        "registration",
+        "scam",
+        "surveillance"
+      ],
+      "senses": {
+        "went": "go#given"
+      }
+    },
+    {
+      "id": "2026-10-09-taiwan-nuclear-restart-ai",
+      "edition": "2026-10-09",
+      "rank": 8,
+      "date": "2026-10-09",
+      "tag": "Technology",
+      "place": "Taiwan",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-09/taiwan-restart-nuclear-power-plants-locals-response/107229114",
+      "title": "Taiwan moves toward restarting nuclear power as AI drives up electricity demand",
+      "summary": [
+        "Taiwan's Nuclear Safety Commission has finished reviewing plans to restart the Maanshan nuclear power plant, which was shut down in May 2025.",
+        "If safety checks go well, the plant could produce power again as early as 2028, helping to meet rising demand from chip factories, data centres and artificial intelligence.",
+        "Taiwan imports about 96 per cent of its energy, and last year gas and coal produced more than 80 per cent of its electricity."
+      ],
+      "why": [
+        "Taiwan turned away from nuclear power after Japan's Fukushima disaster in 2011, so a restart would be a major change in policy.",
+        "Critics say the plant is too small to make a big difference and that the problem of radioactive waste is still unsolved."
+      ],
+      "keywords": [
+        "nuclear",
+        "electricity",
+        "demand",
+        "radioactive",
+        "restart"
+      ]
+    }
+  ]
+}

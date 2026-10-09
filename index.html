@@ -1,0 +1,1460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>World News Words</title>
+<meta name="description" content="Read today's world news and learn its words in Japanese, English or Farsi. Tap any word, save it, and study it with flashcards.">
+<meta name="theme-color" content="#F3F4EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23E4A300'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='19' fill='%231D1B14'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Schibsted+Grotesk:wght@400..700&family=Vazirmatn:wght@400;600&display=swap">
+<style>
+/* Layout: one 40rem reading column under a sticky header (brand + language picker, News / Words tabs).
+   A tapped word opens a bottom sheet; study mode is a full-screen ring of word cards. */
+:root{
+  --paper:#F3F4EC;--surface:#FDFDF8;--card:#FFFFFF;--wash:#E7E8DC;--tint:#F7F0D4;
+  --ink:#1D1B14;--ink-2:#55503E;--ink-3:#736D5A;--rule:#D8D7C8;
+  --hl:#E4A300;--hl-ink:#805300;--hl-wash:#FAECB8;--on-hl:#1D1B14;
+  --guide:#E1C46E;--guide-faint:#F1E4B6;--ring:#9C9686;
+  --new:#2A64C2;--learn:#BF3F2C;--due:#27753F;
+  --t-world:#3F5AA8;--t-politics:#7A4B9A;--t-business:#1F7273;--t-health:#B23A48;--t-science:#2F6FB0;
+  --t-tech:#16807A;--t-env:#437538;--t-culture:#A04D7E;--t-sport:#A3570B;
+  --shadow:0 1px 0 rgb(29 27 20 / .05), 0 14px 34px -16px rgb(29 27 20 / .38);
+  --f-display:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --f-body:"Newsreader","Iowan Old Style",Georgia,serif;
+  --f-ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-ja:"Klee One","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  --f-fa:"Vazirmatn","Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,sans-serif;
+  --header-h:64px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#14130E;--surface:#1C1A15;--card:#22201A;--wash:#2A2820;--tint:#29251A;
+  --ink:#ECE8D9;--ink-2:#BCB5A0;--ink-3:#8D8672;--rule:#36332A;
+  --hl:#EFB11E;--hl-ink:#F2C04C;--hl-wash:#3A2F12;--on-hl:#191506;
+  --guide:#6E5C27;--guide-faint:#3A3220;--ring:#8C8778;
+  --new:#6D9EEE;--learn:#EE7C62;--due:#5DBC79;
+  --t-world:#93A8E8;--t-politics:#C29BE0;--t-business:#60C1BF;--t-health:#F08A97;--t-science:#86B6E8;
+  --t-tech:#5FCBC2;--t-env:#87BC79;--t-culture:#E39AC6;--t-sport:#EFA055;
+  --shadow:0 1px 0 rgb(0 0 0 / .4), 0 16px 38px -16px rgb(0 0 0 / .75);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#14130E;--surface:#1C1A15;--card:#22201A;--wash:#2A2820;--tint:#29251A;
+  --ink:#ECE8D9;--ink-2:#BCB5A0;--ink-3:#8D8672;--rule:#36332A;
+  --hl:#EFB11E;--hl-ink:#F2C04C;--hl-wash:#3A2F12;--on-hl:#191506;
+  --guide:#6E5C27;--guide-faint:#3A3220;--ring:#8C8778;
+  --new:#6D9EEE;--learn:#EE7C62;--due:#5DBC79;
+  --t-world:#93A8E8;--t-politics:#C29BE0;--t-business:#60C1BF;--t-health:#F08A97;--t-science:#86B6E8;
+  --t-tech:#5FCBC2;--t-env:#87BC79;--t-culture:#E39AC6;--t-sport:#EFA055;
+  --shadow:0 1px 0 rgb(0 0 0 / .4), 0 16px 38px -16px rgb(0 0 0 / .75);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:0}
+body.studying{overflow:hidden}
+[hidden]{display:none!important}
+img{max-width:100%}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--hl-ink);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.ic{display:inline-grid;place-items:center;line-height:0;flex:none}
+.ic svg{width:20px;height:20px}
+.label{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+[lang="ja"]{font-family:var(--f-ja)}
+[lang="fa"]{font-family:var(--f-fa)}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:20;margin-inline:-16px;padding-inline:16px;padding-top:env(safe-area-inset-top,0px);background:var(--paper);border-bottom:1px solid var(--rule)}
+@supports ((-webkit-backdrop-filter:blur(8px)) or (backdrop-filter:blur(8px))){
+  .top{background:color-mix(in srgb,var(--paper) 86%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2)}
+}
+.top-in{max-width:40rem;margin:0 auto;height:var(--header-h);display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto}
+.mark{width:32px;height:32px;flex:none;border-radius:10px;background:var(--hl);color:var(--on-hl);display:grid;place-items:center;font:700 17px/1 var(--f-display)}
+.mark[lang="ja"]{font:600 17px/1 var(--f-ja)}
+.mark[lang="fa"]{font:600 19px/1 var(--f-fa)}
+.brand-txt{min-width:0;display:grid;gap:1px}
+.brand-name{font-family:var(--f-display);font-weight:650;font-size:20px;line-height:1.05;letter-spacing:-.012em;font-variation-settings:"opsz" 30;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lang-pick{display:inline-flex;align-items:center;gap:5px;font:500 12.5px/1.2 var(--f-ui);color:var(--ink-3)}
+.lang-pick select{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:2px 16px 2px 0;font:650 12.5px/1.2 var(--f-ui);color:var(--ink);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);
+  background-position:calc(100% - 7px) 55%,calc(100% - 3px) 55%;background-size:4px 4px,4px 4px;background-repeat:no-repeat}
+.lang-pick select:focus-visible{outline:2px solid var(--hl-ink);outline-offset:2px}
+.lang-pick option{color:#1D1B14;background:#fff}
+.tabs{display:flex;align-self:stretch}
+.tab{position:relative;display:inline-flex;align-items:center;gap:7px;padding:0 10px;border:0;background:none;color:var(--ink-3);font:600 15px/1 var(--f-ui);cursor:pointer;touch-action:manipulation}
+.tab:hover,.tab[aria-selected="true"]{color:var(--ink)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;left:8px;right:8px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--hl)}
+.badge{min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--hl);color:var(--on-hl);font:700 12px/21px var(--f-ui);text-align:center;font-variant-numeric:tabular-nums}
+.badge.bump{animation:bump .5s ease}
+@keyframes bump{40%{transform:scale(1.3)}}
+
+.main{max-width:40rem;margin:0 auto;padding-block:0 calc(56px + env(safe-area-inset-bottom,0px))}
+body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
+
+/* ---------- news ---------- */
+.news-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;padding-block:18px 2px}
+.hint{margin-block:12px 4px;padding:14px 16px;border-radius:12px;background:var(--hl-wash);display:grid;gap:10px}
+.hint p{margin:0;font-size:14.5px;line-height:1.5}
+.hint-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.demo{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px;min-width:0}
+.demo-w{font-family:var(--f-body);font-size:17px;background:var(--hl);color:var(--on-hl);padding:0 4px;border-radius:3px}
+.demo-arrow{color:var(--ink-3)}
+.demo-t{font-weight:600;font-size:20px;line-height:1.1}
+.demo-t[data-l="en"]{font:500 15px/1.35 var(--f-ui)}
+.demo-r{font:400 13px var(--f-ui);color:var(--ink-2)}
+.edition{margin:26px 0 0;padding-bottom:8px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.edition h2{margin:0;font-family:var(--f-display);font-weight:650;font-size:21px;letter-spacing:-.01em}
+.story{padding-block:22px 28px;border-top:1px solid var(--rule)}
+.edition + .story{border-top:0}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px}
+.tag{display:inline-flex;align-items:center;gap:7px;color:var(--tag,var(--ink-3))}
+.tag::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}
+.headline{margin:10px 0 12px;font-family:var(--f-display);font-weight:600;font-size:clamp(23px,5.8vw,28px);line-height:1.17;letter-spacing:-.014em;text-wrap:balance;font-variation-settings:"opsz" 42}
+.body{margin:0;font-family:var(--f-body);font-size:18.5px;line-height:1.62;font-variation-settings:"opsz" 16}
+.why{margin:16px 0 0;font-family:var(--f-body);font-style:italic;font-size:16.5px;line-height:1.56;color:var(--ink-2);font-variation-settings:"opsz" 14}
+.why-l{display:block;margin-bottom:3px;font:600 11.5px/1.3 var(--f-ui);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--hl-ink)}
+.kws{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px}
+.kws .label{margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:5px;border:0;border-radius:999px;padding:7px 14px;background:var(--hl-wash);color:var(--ink);font:500 14px/1.15 var(--f-ui);cursor:pointer;touch-action:manipulation}
+.chip .ic{display:none}
+.chip .ic svg{width:15px;height:15px}
+.chip.saved{background:var(--hl);color:var(--on-hl)}
+.chip.saved .ic{display:inline-grid}
+.chip:focus-visible{outline:none;background:var(--ink);color:var(--paper)}
+.src{display:inline-flex;align-items:center;gap:4px;margin-top:16px;font:600 13.5px/1.3 var(--f-ui);color:var(--hl-ink);text-decoration:none}
+.src:hover{text-decoration:underline;text-underline-offset:3px}
+.src .ic svg{width:16px;height:16px}
+.foot{margin:10px 0 0;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;line-height:1.55;color:var(--ink-3);display:grid;gap:6px}
+.foot p{margin:0}
+
+/* tappable words */
+.w{cursor:pointer;border-radius:3px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+@media (hover:hover){.w:hover{background-color:var(--hl-wash)}}
+.w.kw{text-decoration-line:underline;text-decoration-style:dotted;text-decoration-color:var(--hl);text-decoration-thickness:2px;text-underline-offset:4px}
+.w.saved{background-image:linear-gradient(transparent 60%,var(--hl-wash) 60%)}
+.w.sel{background:var(--hl);color:var(--on-hl);box-shadow:0 0 0 2px var(--hl)}
+
+/* loading + error states */
+.sk-story{padding-block:24px;border-top:1px solid var(--rule);display:grid;gap:10px}
+.sk-story:first-child{border-top:0}
+.sk{height:14px;border-radius:6px;background:var(--wash)}
+.sk.m{width:38%;height:11px}
+.sk.t{height:24px;width:92%}
+.sk.t2{height:24px;width:62%}
+.sk.p2{width:84%}
+@media (prefers-reduced-motion:no-preference){.sk{animation:pulse 1.6s ease-in-out infinite}}
+@keyframes pulse{50%{opacity:.5}}
+.state{padding:34px 0;display:grid;gap:10px;justify-items:start}
+.state h2{margin:0;font-family:var(--f-display);font-weight:600;font-size:22px}
+.state p{margin:0;color:var(--ink-2);max-width:32rem}
+
+/* ---------- buttons ---------- */
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 18px;background:var(--hl);color:var(--on-hl);font:650 15px/1.2 var(--f-ui);cursor:pointer;touch-action:manipulation}
+.primary:hover{filter:brightness(1.04)}
+.primary:disabled{cursor:default;background:var(--wash);color:var(--ink-3);filter:none}
+.primary.big{width:100%;padding:14px 18px;font-size:16px}
+.primary.done{background:transparent;color:var(--due);box-shadow:inset 0 0 0 1px var(--rule);cursor:default;filter:none}
+.ghost{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);border-radius:10px;padding:9px 13px;background:var(--surface);color:var(--ink);font:600 14px/1.2 var(--f-ui);cursor:pointer;touch-action:manipulation;text-decoration:none}
+.ghost:hover{border-color:var(--ink-3)}
+.ghost.sm{padding:6px 11px;font-size:13.5px}
+.ghost .ic svg{width:18px;height:18px}
+.ghost.danger{color:var(--learn)}
+.icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;flex:none;border:0;border-radius:50%;background:transparent;color:var(--ink-2);cursor:pointer;touch-action:manipulation}
+.icon-btn:hover{background:var(--wash);color:var(--ink)}
+.link-btn{border:0;background:none;padding:0;color:var(--hl-ink);font:600 13.5px/1.35 var(--f-ui);cursor:pointer;text-align:left}
+.link-btn:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- lookup sheet ---------- */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:center;padding-inline:8px;pointer-events:none}
+.sheet-in{pointer-events:auto;width:100%;max-width:41rem;max-height:min(62vh,34rem);overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--rule);border-bottom:0;border-radius:18px 18px 0 0;box-shadow:var(--shadow);padding:4px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+@media (prefers-reduced-motion:no-preference){.sheet:not([hidden]) .sheet-in{animation:rise .24s cubic-bezier(.2,.8,.2,1)}}
+@keyframes rise{from{transform:translateY(28px);opacity:0}}
+.sh-grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:6px auto 4px}
+.sh-top{display:flex;align-items:center;gap:2px}
+.sh-phrase{flex:1;min-width:0;padding-left:40px;text-align:center;font-family:var(--f-body);font-weight:600;font-size:20px;line-height:1.25;overflow-wrap:anywhere}
+.sh-ctx{margin:2px 0 0;padding:0 8px;text-align:center;font-family:var(--f-body);font-style:italic;font-size:14px;line-height:1.45;color:var(--ink-3);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sh-ctx mark{background:none;color:var(--ink-2);font-weight:600}
+#shBody{margin-top:14px;display:grid;gap:14px}
+.sh-head{display:flex;align-items:center;gap:4px;min-width:0}
+.sh-word{font-weight:600;font-size:clamp(34px,10vw,44px);line-height:1.2;letter-spacing:.01em;overflow-wrap:anywhere;min-width:0}
+.sh-word[lang="en"]{font-family:var(--f-display);font-size:clamp(32px,9vw,40px);letter-spacing:-.01em}
+.sh-read{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-top:-8px}
+.sh-read .kana{font-size:17px;color:var(--ink-2)}
+.sh-read .rom{font:500 14px var(--f-ui);color:var(--ink-3)}
+.sh-read .ipa{font:500 15px "Charis SIL","Doulos SIL","Gentium Plus","Lucida Sans Unicode","Segoe UI",var(--f-ui);color:var(--ink-2)}
+.mean{display:grid;gap:3px}
+.mean-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mean-term{font-family:var(--f-body);font-weight:600;font-size:18px}
+.pos{font:600 11px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);border-radius:5px;padding:4px 6px}
+.gloss{margin:0;color:var(--ink-2);font-size:15px}
+.gloss.big{color:var(--ink);font-size:17px;line-height:1.45}
+.kanji-row{display:flex;flex-wrap:wrap;gap:10px}
+.kj{display:grid;justify-items:center;align-content:start;gap:5px;min-width:52px;max-width:92px}
+.kj-c{width:46px;height:46px;display:grid;place-items:center;font:600 27px/1 var(--f-ja);color:var(--ink);border:1px solid var(--guide);background:linear-gradient(var(--guide-faint),var(--guide-faint)) center/100% 1px no-repeat,linear-gradient(var(--guide-faint),var(--guide-faint)) center/1px 100% no-repeat,var(--card)}
+.kj-m{font:500 11.5px/1.25 var(--f-ui);color:var(--ink-2);text-align:center;overflow-wrap:break-word}
+.ex{display:grid;gap:4px;padding:10px 12px 12px 14px;border-radius:12px;background:var(--tint)}
+.ex-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.ex-t{margin:0;min-width:0;font-size:18px;line-height:1.75}
+.ex-t[lang="ja"]{line-height:2}
+.ex-t[lang="en"]{font-family:var(--f-body);font-size:17px;line-height:1.5}
+.ex-t ruby{ruby-align:center}
+.ex-t rt{font-size:.52em;color:var(--ink-2)}
+.ex-r{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink-3)}
+.ex-en{margin:0;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.sh-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.sh-actions .primary{flex:1 1 12rem}
+.sh-src{font:500 12.5px var(--f-ui);color:var(--ink-3)}
+
+/* ---------- words tab ---------- */
+.study-panel{margin-top:18px;padding:18px;border-radius:16px;background:var(--surface);border:1px solid var(--rule);display:grid;gap:16px}
+.sp-title{margin:0;font-family:var(--f-display);font-weight:600;font-size:24px;line-height:1.15;letter-spacing:-.01em}
+.sp-sub{margin:4px 0 0;color:var(--ink-2);font-size:14px}
+.counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.count{display:grid;gap:5px}
+.count b{font:700 30px/1 var(--f-ui);font-variant-numeric:tabular-nums}
+.count.new b{color:var(--new)}
+.count.learn b{color:var(--learn)}
+.count.due b{color:var(--due)}
+.note{margin:14px 0 0;padding:10px 12px;border-radius:10px;background:var(--wash);font-size:13.5px;color:var(--ink-2)}
+.tools-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px;margin-top:22px}
+.seg-wrap{display:grid;gap:6px}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--wash)}
+.seg button{border:0;background:none;padding:7px 12px;border-radius:8px;font:600 13.5px/1.2 var(--f-ui);color:var(--ink-2);cursor:pointer}
+.seg button[aria-checked="true"]{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px}
+.help{margin:8px 0 0;font-size:12.5px;line-height:1.45;color:var(--ink-3)}
+.search{display:block;margin-top:18px}
+.search input{width:100%;padding:11px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink);font:500 15px var(--f-ui)}
+.search input::placeholder{color:var(--ink-3)}
+.wlist{list-style:none;margin:10px 0 0;padding:0}
+.wrow{border-top:1px solid var(--rule)}
+.wrow:last-child{border-bottom:1px solid var(--rule)}
+.wbtn{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:3px 12px;padding:13px 2px;border:0;background:none;text-align:left;cursor:pointer}
+.w-main{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;min-width:0}
+.w-tl{font-weight:600;font-size:22px;line-height:1.3}
+.w-tl[lang="en"]{font-family:var(--f-display);font-size:20px}
+.w-sub{font-size:13.5px;color:var(--ink-2)}
+.w-en{grid-column:1;font-size:14px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill{grid-column:2;grid-row:1 / span 2;font:700 11px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:6px;white-space:nowrap}
+.pill.new{color:var(--new);background:color-mix(in srgb,var(--new) 13%,transparent)}
+.pill.learn{color:var(--learn);background:color-mix(in srgb,var(--learn) 13%,transparent)}
+.pill.due{color:var(--due);background:color-mix(in srgb,var(--due) 13%,transparent)}
+.pill.later{color:var(--ink-3);box-shadow:inset 0 0 0 1px var(--rule);text-transform:none;letter-spacing:0;font-weight:600}
+.wdetail{display:grid;gap:12px;padding:0 2px 18px}
+.wdetail .sh-read{margin-top:0;align-items:center}
+.wd-ctx{margin:0;font-family:var(--f-body);font-style:italic;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
+.wd-ctx mark,.tc-ctx mark{background:var(--hl-wash);color:var(--ink);font-style:normal;padding:0 2px;border-radius:2px}
+.wd-from{display:inline-flex;align-items:center;gap:6px}
+.wd-from .ic svg{width:16px;height:16px}
+.wnone{padding:18px 2px;color:var(--ink-3)}
+.empty{margin-top:24px;display:grid;justify-items:center;text-align:center;gap:8px;padding:8px 8px 30px}
+.empty svg,.fin svg{width:124px;height:104px}
+.empty h3{margin:4px 0 0;font-family:var(--f-display);font-weight:600;font-size:21px}
+.empty p{margin:0 0 6px;color:var(--ink-2);max-width:22rem}
+.art-card{fill:var(--card);stroke:var(--rule);stroke-width:1.2}
+.art-line{stroke:var(--wash);stroke-width:5;stroke-linecap:round}
+.art-hole{fill:var(--paper);stroke:var(--rule)}
+.art-ring{fill:none;stroke:var(--ring);stroke-width:3}
+
+/* ---------- study ---------- */
+.study{position:fixed;inset:0;z-index:40;background:var(--paper);display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
+.st-top{display:flex;align-items:center;gap:10px;width:100%;max-width:40rem;margin:0 auto}
+.st-counts{display:flex;gap:16px;margin-left:auto;font:700 16px/1 var(--f-ui);font-variant-numeric:tabular-nums}
+.st-counts .n{color:var(--new)}
+.st-counts .l{color:var(--learn)}
+.st-counts .d{color:var(--due)}
+.st-counts .cur{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.st-stage{overflow-y:auto;display:grid;place-items:center;padding:36px 4px 18px}
+.deck{position:relative;width:min(100%,24rem)}
+.deck.more::before,.deck.more::after{content:"";position:absolute;inset:0;border-radius:12px;background:var(--card);border:1px solid var(--rule)}
+.deck.more::before{transform:translate(-5px,8px) rotate(-2.4deg)}
+.deck.more::after{transform:translate(6px,4px) rotate(1.7deg)}
+.tcard{position:relative;z-index:1;min-height:15rem;padding:46px 22px 24px;border-radius:12px;background:var(--card);border:1px solid var(--rule);box-shadow:var(--shadow);display:grid;align-content:center;gap:16px;cursor:pointer}
+.tcard.shown{cursor:default}
+.tc-hole{position:absolute;left:20px;top:13px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:1px solid var(--rule)}
+.tc-ring{position:absolute;left:5px;top:-24px;width:44px;height:58px;overflow:visible;pointer-events:none;z-index:2}
+.tc-ring circle{fill:none;stroke:var(--ring);stroke-width:3.2}
+.tc-front{display:grid;justify-items:center;gap:8px;text-align:center}
+.tc-word{font-weight:600;font-size:clamp(40px,12.5vw,58px);line-height:1.2;overflow-wrap:anywhere}
+.tc-word[lang="en"]{font-family:var(--f-display);font-size:clamp(34px,10vw,46px)}
+.tc-mean{font-family:var(--f-display);font-weight:600;font-size:clamp(26px,7.5vw,34px);line-height:1.15}
+.tc-def{font-family:var(--f-body);font-size:20px;line-height:1.4}
+.tc-ctx{margin:0;font-family:var(--f-body);font-style:italic;font-size:15px;line-height:1.5;color:var(--ink-2);text-align:left}
+.tc-back{display:grid;gap:12px;padding-top:16px;border-top:1px dashed var(--rule);text-align:left}
+.tc-back .sh-word{font-size:clamp(30px,9vw,40px)}
+.st-actions{width:100%;max-width:30rem;margin:0 auto}
+.grades{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.g{display:grid;justify-items:center;gap:4px;padding:11px 4px;border-radius:12px;border:1px solid var(--rule);background:var(--surface);font:650 14.5px/1.1 var(--f-ui);color:var(--gc);cursor:pointer;touch-action:manipulation}
+.g small{font:500 12px/1 var(--f-ui);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.g:hover{border-color:var(--gc)}
+.g.again{--gc:var(--learn)}
+.g.hard{--gc:var(--ink-2)}
+.g.good{--gc:var(--due)}
+.g.easy{--gc:var(--new)}
+.kbd{font:500 12px var(--f-ui);color:var(--ink-3);text-align:center;margin:8px 0 0}
+@media (hover:none){.kbd{display:none}}
+.fin{display:grid;justify-items:center;text-align:center;gap:8px;max-width:22rem}
+.fin h2{margin:0;font-family:var(--f-display);font-weight:600;font-size:26px}
+.fin p{margin:0;color:var(--ink-2)}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + var(--header-h) + 10px);z-index:60;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:12px;background:var(--ink);color:var(--paper);font:500 14px/1.35 var(--f-ui);box-shadow:var(--shadow)}
+.toast button{flex:none;border:0;background:none;padding:0;color:var(--hl);font:700 14px var(--f-ui);cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.toast.in{animation:drop .22s ease}}
+@keyframes drop{from{opacity:0;transform:translate(-50%,-8px)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <div class="mark" id="mark" aria-hidden="true">語</div>
+      <div class="brand-txt">
+        <div class="brand-name">World News Words</div>
+        <label class="lang-pick" for="langSel"><span>Learning</span>
+          <select id="langSel">
+            <option value="ja">日本語 Japanese</option>
+            <option value="en">English</option>
+            <option value="fa">فارسی Farsi</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="tabbtn-news" data-tab="news" aria-controls="tab-news" aria-selected="true" type="button">News</button>
+      <button class="tab" role="tab" id="tabbtn-words" data-tab="words" aria-controls="tab-words" aria-selected="false" tabindex="-1" type="button">Words <span class="badge" id="badge" aria-hidden="true" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <section id="tab-news" role="tabpanel" aria-labelledby="tabbtn-news">
+    <div class="news-head">
+      <span class="label" id="todayLine"></span>
+      <span class="label" id="newsCount"></span>
+    </div>
+    <div class="hint" id="hint" hidden>
+      <p><strong>Tap any word</strong> to see it in the language you're learning, then add it to Words to study it as a flashcard. Words with a dotted underline are each story's key words.</p>
+      <div class="hint-row">
+        <span class="demo" id="demo" aria-hidden="true"></span>
+        <button class="ghost sm" id="hintOk" type="button">Got it</button>
+      </div>
+    </div>
+    <div id="newsBody"></div>
+    <div class="foot" id="newsFoot" hidden>
+      <p>Each story is a short summary written for language practice, with a link to the original report. New stories arrive every day.</p>
+      <p>Your saved words stay in this browser on this device. Nobody else can see them. Use <b>Save backup</b> in Words to move them to another device.</p>
+    </div>
+  </section>
+
+  <section id="tab-words" role="tabpanel" aria-labelledby="tabbtn-words" hidden>
+    <div class="study-panel">
+      <div>
+        <h2 class="sp-title" id="spTitle">Your word ring</h2>
+        <p class="sp-sub" id="spSub">Tap words in the news to start your ring.</p>
+      </div>
+      <div class="counts">
+        <div class="count new"><b id="cNew">0</b><span class="label">New</span></div>
+        <div class="count learn"><b id="cLearn">0</b><span class="label">Learning</span></div>
+        <div class="count due"><b id="cDue">0</b><span class="label">Review</span></div>
+      </div>
+      <button class="primary big" id="studyBtn" type="button" disabled>Nothing to study yet</button>
+    </div>
+    <p class="note" id="wordsNote" hidden></p>
+
+    <div class="empty" id="wordsEmpty" hidden>
+      <svg viewBox="0 0 124 104" aria-hidden="true">
+        <defs><clipPath id="emptyClip"><rect x="0" y="0" width="124" height="30"/><circle cx="33" cy="43" r="4.6"/></clipPath></defs>
+        <rect class="art-card" x="26" y="36" width="86" height="58" rx="7" transform="rotate(5 69 65)"/>
+        <rect class="art-card" x="18" y="30" width="86" height="58" rx="7"/>
+        <line class="art-line" x1="48" y1="54" x2="88" y2="54"/>
+        <line class="art-line" x1="48" y1="68" x2="76" y2="68"/>
+        <circle class="art-hole" cx="33" cy="43" r="4.6"/>
+        <circle class="art-ring" cx="33" cy="30" r="13" clip-path="url(#emptyClip)"/>
+      </svg>
+      <h3 id="emptyTitle">Your word ring is empty</h3>
+      <p>Tap any word in a story, then choose Add to Words. It joins your flashcards here.</p>
+      <div class="btn-row" style="justify-content:center">
+        <button class="primary" id="emptyGo" type="button">Read the news</button>
+        <button class="ghost" id="emptyLoad" type="button">Load a backup</button>
+      </div>
+    </div>
+
+    <div id="wordsTools" hidden>
+      <div class="tools-row">
+        <div class="seg-wrap">
+          <span class="label" id="frontLbl">Card front</span>
+          <div class="seg" role="radiogroup" aria-labelledby="frontLbl">
+            <button type="button" role="radio" data-front="word" aria-checked="true" id="frontWord">Word</button>
+            <button type="button" role="radio" data-front="meaning" aria-checked="false" id="frontMeaning">Meaning</button>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="ghost" id="exportBtn" type="button">Export to Anki</button>
+        </div>
+      </div>
+      <p class="help">Export makes a file with readings, meanings and examples. In Anki, choose File → Import.</p>
+      <div class="btn-row" style="margin-top:14px">
+        <button class="ghost sm" id="backupBtn" type="button">Save backup</button>
+        <button class="ghost sm" id="restoreBtn" type="button">Load backup</button>
+      </div>
+      <p class="help">A backup holds your words in all three languages. Load it on another phone or computer to carry on there.</p>
+      <label class="search"><span class="sr">Search your words</span><input id="wordSearch" type="search" placeholder="Search your words" autocomplete="off"></label>
+      <ul class="wlist" id="wordList"></ul>
+    </div>
+    <input type="file" id="restoreFile" accept=".json,application/json" hidden>
+  </section>
+</main>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-in" role="dialog" aria-modal="false" aria-labelledby="shPhrase">
+    <div class="sh-grip" aria-hidden="true"></div>
+    <div class="sh-top">
+      <div class="sh-phrase" id="shPhrase"></div>
+      <button class="icon-btn" id="shClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
+    </div>
+    <p class="sh-ctx" id="shCtx"></p>
+    <div id="shBody" aria-live="polite"></div>
+  </div>
+</div>
+
+<div class="study" id="study" role="dialog" aria-modal="true" aria-label="Study your words" hidden>
+  <div class="st-top">
+    <button class="icon-btn" id="stClose" type="button" aria-label="Close study"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
+    <div class="st-counts" id="stCounts"></div>
+  </div>
+  <div class="st-stage" id="stStage"></div>
+  <div class="st-actions" id="stActions"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(() => {
+"use strict";
+
+/* ---------- constants and helpers ---------- */
+const MIN = 6e4, HOUR = 36e5, DAY = 864e5;
+const WORD_RE = /[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu;
+const LETTER = /\p{L}/u;
+const RUBY = /([々〆ヶ㐀-䶿一-鿿豈-﫿]+)\[([^\][]{1,24})\]/g;
+const LANGS = {
+  ja: { name: "Japanese", own: "日本語", mark: "語", voice: /^ja/i, first: "日本語" },
+  en: { name: "English", own: "English", mark: "A", voice: /^en/i, first: "Word" },
+  fa: { name: "Farsi", own: "فارسی", mark: "آ", voice: /^fa/i, first: "فارسی" },
+};
+const TAGS = { world: "--t-world", politics: "--t-politics", business: "--t-business", health: "--t-health", science: "--t-science", technology: "--t-tech", environment: "--t-env", culture: "--t-culture", sport: "--t-sport" };
+const reduceMotion = (() => { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } })();
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+function addKid(n, c) {
+  if (c == null || c === false) return;
+  if (Array.isArray(c)) { c.forEach(x => addKid(n, x)); return; }
+  n.append(c.nodeType ? c : String(c));
+}
+function h(tag, props) {
+  const n = document.createElement(tag);
+  if (props) for (const k of Object.keys(props)) {
+    const v = props[k];
+    if (v == null || v === false) continue;
+    if (k === "class") n.className = v;
+    else if (k === "text") n.textContent = v;
+    else n.setAttribute(k, v === true ? "" : String(v));
+  }
+  for (let i = 2; i < arguments.length; i++) addKid(n, arguments[i]);
+  return n;
+}
+const SVG = d => '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
+const ICONS = {
+  speak: SVG('<path d="M4 9.5h3.4L12 5.6v12.8l-4.6-3.9H4z"/><path d="M15.6 9.2a4 4 0 0 1 0 5.6M18.2 6.6a7.6 7.6 0 0 1 0 10.8"/>'),
+  check: SVG('<path d="M5 12.6l4.3 4.3L19 7.2"/>'),
+  ext: SVG('<path d="M8 16L16 8M9.5 8H16v6.5"/>'),
+  trash: SVG('<path d="M5 7h14M10 7V5h4v2M7 7l.9 12h8.2L17 7"/>'),
+  arrow: SVG('<path d="M5 12h13M13 7l5 5-5 5"/>'),
+  download: SVG('<path d="M12 4.5v10M7.8 10.6L12 14.8l4.2-4.2M5 19h14"/>'),
+};
+function icon(name) { const s = document.createElement("span"); s.className = "ic"; s.innerHTML = ICONS[name]; return s; }
+const RING_SVG = '<svg class="tc-ring" viewBox="0 0 44 58" aria-hidden="true"><defs><clipPath id="tcRingClip"><rect x="0" y="0" width="44" height="24"/><circle cx="22" cy="44" r="7"/></clipPath></defs><circle cx="22" cy="25" r="19" clip-path="url(#tcRingClip)"/></svg>';
+const FIN_ART = '<svg viewBox="0 0 124 104" aria-hidden="true"><defs><clipPath id="finClip"><rect x="0" y="0" width="124" height="30"/><circle cx="33" cy="43" r="4.6"/></clipPath></defs><rect class="art-card" x="30" y="40" width="86" height="58" rx="7" transform="rotate(7 73 69)"/><rect class="art-card" x="24" y="35" width="86" height="58" rx="7" transform="rotate(3 67 64)"/><rect class="art-card" x="18" y="30" width="86" height="58" rx="7"/><line class="art-line" x1="48" y1="54" x2="88" y2="54"/><line class="art-line" x1="48" y1="68" x2="76" y2="68"/><circle class="art-hole" cx="33" cy="43" r="4.6"/><circle class="art-ring" cx="33" cy="30" r="13" clip-path="url(#finClip)"/></svg>';
+
+const str = (x, max) => typeof x === "string" ? x.trim().slice(0, max || 500) : "";
+const normWord = w => w.toLowerCase().replace(/[’‘]/g, "'");
+const isAcronym = w => w.length >= 2 && w === w.toUpperCase() && w !== w.toLowerCase();
+const plainJa = t => String(t || "").replace(/\[[^\]]*\]/g, "");
+function startOfDay(t) { const x = new Date(t); x.setHours(0, 0, 0, 0); return x.getTime(); }
+function markIn(text, phrase) {
+  const f = document.createDocumentFragment();
+  const i = phrase ? text.toLowerCase().indexOf(phrase.toLowerCase()) : -1;
+  if (i < 0) { f.append(text); return f; }
+  f.append(text.slice(0, i), h("mark", { text: text.slice(i, i + phrase.length) }), text.slice(i + phrase.length));
+  return f;
+}
+function rubyFrag(t) {
+  const f = document.createDocumentFragment();
+  const re = new RegExp(RUBY.source, "g");
+  let last = 0, m;
+  t = String(t || "");
+  while ((m = re.exec(t))) {
+    if (m.index > last) f.append(plainJa(t.slice(last, m.index)));
+    f.append(h("ruby", null, m[1], h("rt", { text: m[2] })));
+    last = re.lastIndex;
+  }
+  if (last < t.length) f.append(plainJa(t.slice(last)));
+  return f;
+}
+function cardId(key) {
+  return String(key || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+    .replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "w";
+}
+
+/* ---------- storage (each browser keeps its own words) ---------- */
+const STORE = {
+  ok: (() => { try { const k = "wnw:test"; localStorage.setItem(k, "1"); localStorage.removeItem(k); return true; } catch (e) { return false; } })(),
+  get(k, d) { try { const v = localStorage.getItem("wnw:" + k); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("wnw:" + k, v); return true; } catch (e) { return false; } },
+};
+const deckKey = l => "v1:cards:" + l;
+
+/* ---------- state ---------- */
+const S = {
+  lang: ["ja", "en", "fa"].includes(STORE.get("lang", "")) ? STORE.get("lang") : "ja",
+  tab: "news", stories: [], updated: "", G: { entries: {}, forms: {} }, dataState: "loading",
+  decks: { ja: new Map(), en: new Map(), fa: new Map() },
+  front: STORE.get("front", "word") === "meaning" ? "meaning" : "word",
+  query: "", openRow: null, sel: null, look: null,
+};
+const deck = () => S.decks[S.lang];
+
+function normCard(id, d, lang) {
+  if (!d || typeof d !== "object") return null;
+  const num = (x, def) => (typeof x === "number" && isFinite(x)) ? x : def;
+  const ex = d.ex && typeof d.ex === "object" ? { en: str(d.ex.en, 240), ja: str(d.ex.ja, 200), fa: str(d.ex.fa, 240), faR: str(d.ex.faR, 300) } : null;
+  const c = {
+    id, lang, key: str(d.key, 80), t: str(d.t, 80), pos: str(d.pos, 30), def: str(d.def, 160), ipa: str(d.ipa, 80),
+    w: str(d.w, 80), k: str(d.k, 80), r: str(d.r, 120),
+    kanji: Array.isArray(d.kanji) ? d.kanji.slice(0, 16).map(x => ({ c: str(x && x.c, 2), m: str(x && x.m, 40) })).filter(x => x.c) : [],
+    ex, phrase: str(d.phrase, 80), context: str(d.context, 400), storyId: str(d.storyId, 140), storyTitle: str(d.storyTitle, 220),
+    added: num(d.added, 0), due: num(d.due, 0), ivl: num(d.ivl, 0), ease: num(d.ease, 2.5), reps: num(d.reps, 0),
+    lapses: num(d.lapses, 0), step: num(d.step, 0), last: num(d.last, 0),
+    state: ["new", "learning", "relearning", "review"].includes(d.state) ? d.state : "new",
+  };
+  return (c.t && c.w) ? c : null;
+}
+function loadDeck(l) {
+  const m = new Map();
+  try {
+    const raw = JSON.parse(STORE.get(deckKey(l), "{}") || "{}");
+    for (const id of Object.keys(raw)) { const c = normCard(id, raw[id], l); if (c) m.set(id, c); }
+  } catch (e) {}
+  S.decks[l] = m;
+}
+let warnedStore = false;
+function saveDeck(l) {
+  const obj = {};
+  for (const [id, c] of S.decks[l]) { const o = Object.assign({}, c); delete o.id; delete o.lang; obj[id] = o; }
+  const ok = STORE.set(deckKey(l), JSON.stringify(obj));
+  if (!ok && !warnedStore) { warnedStore = true; toast("This browser isn't saving words. Use Save backup before you leave."); }
+}
+
+/* ---------- glossary lookup ---------- */
+let PHRASES = new Map();
+function rebuildPhrases() {
+  PHRASES = new Map();
+  for (const [form, key] of Object.entries(S.G.forms)) {
+    if (form.indexOf(" ") < 0 || !S.G.entries[key]) continue;
+    const ws = form.split(" ");
+    if (!PHRASES.has(ws[0])) PHRASES.set(ws[0], []);
+    PHRASES.get(ws[0]).push({ ws, key });
+  }
+  for (const list of PHRASES.values()) list.sort((a, b) => b.ws.length - a.ws.length);
+}
+function candidates(w) {
+  const c = [w];
+  if (/'s$/.test(w)) c.push(w.slice(0, -2)); else if (/s'$/.test(w)) c.push(w.slice(0, -1));
+  for (const x of c.slice()) {
+    if (/ies$/.test(x)) c.push(x.slice(0, -3) + "y");
+    if (/es$/.test(x)) c.push(x.slice(0, -2));
+    if (/s$/.test(x)) c.push(x.slice(0, -1));
+  }
+  return c;
+}
+function lookupKey(word, story) {
+  const E = S.G.entries, F = S.G.forms;
+  const senses = (story && story.senses) || {};
+  const sense = senses[word] || senses[normWord(word)];
+  if (sense && E[sense]) return sense;
+  if (isAcronym(word)) { const k = F[word.replace(/’/g, "'")]; if (k && E[k]) return k; }
+  for (const c of candidates(normWord(word))) {
+    const k = F[c] || (E[c] ? c : null);
+    if (k && E[k]) return k;
+  }
+  return null;
+}
+
+/* ---------- speech ---------- */
+const canSpeak = (() => { try { return "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function"; } catch (e) { return false; } })();
+let VOICES = [];
+function loadVoices() { try { VOICES = speechSynthesis.getVoices() || []; } catch (e) { VOICES = []; } }
+function voiceFor(l) {
+  const re = LANGS[l].voice;
+  const list = VOICES.filter(v => re.test(v.lang));
+  if (l === "en") return list.find(v => /en[-_](AU|GB)/i.test(v.lang)) || list[0] || null;
+  return list[0] || null;
+}
+function hasVoice(l) { return canSpeak && !!voiceFor(l); }
+if (canSpeak) { loadVoices(); try { speechSynthesis.addEventListener("voiceschanged", () => { loadVoices(); if (S.look && !$("#sheet").hidden) showSheetBody(); }); } catch (e) {} }
+function speak(text, l) {
+  if (!canSpeak || !text) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const v = voiceFor(l);
+    u.lang = v ? v.lang : (l === "ja" ? "ja-JP" : l === "fa" ? "fa-IR" : "en-GB");
+    if (v) u.voice = v;
+    u.rate = l === "en" ? 0.95 : 0.9;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function speakBtn(text, l, label) {
+  if (!hasVoice(l) || !text) return null;
+  const b = h("button", { class: "icon-btn speak", type: "button", "aria-label": label || "Play pronunciation" }, icon("speak"));
+  b.addEventListener("click", ev => { ev.stopPropagation(); speak(text, l); });
+  return b;
+}
+
+/* ---------- what a word looks like in each language ---------- */
+function shown(e, l) {
+  if (l === "ja") return { w: e.ja ? e.ja.w : e.w, k: e.ja ? e.ja.k : e.k, r: e.ja ? e.ja.r : e.r, lang: "ja", dir: null };
+  if (l === "fa") return { w: e.fa ? e.fa.w : e.w, k: "", r: e.fa ? e.fa.r : e.r, lang: "fa", dir: "rtl" };
+  return { w: e.t, k: "", r: e.ipa, lang: "en", dir: null };
+}
+function wordEl(cls, v) { return h("div", { class: cls, lang: v.lang, dir: v.dir, text: v.w }); }
+function readingEl(v, e, l) {
+  const read = h("div", { class: "sh-read" });
+  if (l === "ja") {
+    if (v.k && v.k !== v.w) read.append(h("span", { class: "kana", lang: "ja", text: v.k }));
+    if (v.r) read.append(h("span", { class: "rom", text: v.r }));
+  } else if (l === "fa") {
+    if (v.r) read.append(h("span", { class: "rom", text: v.r }));
+  } else if (e.ipa) read.append(h("span", { class: "ipa", text: e.ipa }));
+  return read.childNodes.length ? read : null;
+}
+function meaningEl(e, l) {
+  if (l === "en") return h("div", { class: "mean" }, h("div", { class: "mean-top" }, e.pos ? h("span", { class: "pos", text: e.pos }) : null), e.def ? h("p", { class: "gloss big", text: e.def }) : null);
+  return h("div", { class: "mean" }, h("div", { class: "mean-top" }, h("span", { class: "mean-term", text: e.t }), e.pos ? h("span", { class: "pos", text: e.pos }) : null), e.def ? h("p", { class: "gloss", text: e.def }) : null);
+}
+function kanjiRow(list) {
+  const row = h("div", { class: "kanji-row" });
+  for (const k of list) row.append(h("span", { class: "kj" }, h("span", { class: "kj-c", lang: "ja", text: k.c }), h("span", { class: "kj-m", text: k.m })));
+  return row;
+}
+function exampleEl(ex, l) {
+  if (!ex) return null;
+  let t, plain;
+  if (l === "ja" && ex.ja) { t = h("p", { class: "ex-t", lang: "ja" }); t.append(rubyFrag(ex.ja)); plain = plainJa(ex.ja); }
+  else if (l === "fa" && ex.fa) { t = h("p", { class: "ex-t", lang: "fa", dir: "rtl", text: ex.fa }); plain = ex.fa; }
+  else if (l === "en" && ex.en) { t = h("p", { class: "ex-t", lang: "en", text: ex.en }); plain = ex.en; }
+  else return null;
+  const box = h("div", { class: "ex" }, h("div", { class: "ex-row" }, t, speakBtn(plain, l, "Play the example")));
+  if (l === "fa" && ex.faR) box.append(h("p", { class: "ex-r", text: ex.faR }));
+  if (l !== "en" && ex.en) box.append(h("p", { class: "ex-en", text: ex.en }));
+  return box;
+}
+function headEl(e, l, cls) {
+  const v = shown(e, l);
+  return h("div", { class: "sh-head" }, wordEl(cls || "sh-word", v), speakBtn(v.w, l, "Play " + v.w));
+}
+
+/* ---------- spaced repetition (a small Anki-style scheduler) ---------- */
+function dayStart(now) { const d = new Date(now); if (d.getHours() < 4) d.setDate(d.getDate() - 1); d.setHours(4, 0, 0, 0); return d.getTime(); }
+function dueInDays(now, days) { const d = new Date(dayStart(now)); d.setDate(d.getDate() + days); return d.getTime(); }
+function schedule(c, r, now) {
+  let ivl = c.ivl || 0, ease = c.ease || 2.5, lapses = c.lapses || 0, step = c.step || 0, state = c.state || "new", due;
+  if (state === "review") {
+    if (r === 1) { lapses += 1; ease = Math.max(1.3, ease - 0.2); ivl = Math.max(1, Math.round(ivl * 0.5)); state = "relearning"; step = 0; due = now + 10 * MIN; }
+    else if (r === 2) { ivl = Math.max(ivl + 1, Math.round(ivl * 1.2)); ease = Math.max(1.3, ease - 0.15); due = dueInDays(now, ivl); }
+    else if (r === 3) { ivl = Math.max(ivl + 1, Math.round(ivl * ease)); due = dueInDays(now, ivl); }
+    else { ivl = Math.max(ivl + 1, Math.round(ivl * ease * 1.3)); ease += 0.15; due = dueInDays(now, ivl); }
+  } else {
+    const re = state === "relearning";
+    if (r === 1) { step = 0; due = now + MIN; state = re ? "relearning" : "learning"; }
+    else if (r === 2) { due = now + (step === 0 ? 6 : 10) * MIN; state = re ? "relearning" : "learning"; }
+    else if (r === 3) {
+      if (!re && step === 0) { step = 1; due = now + 10 * MIN; state = "learning"; }
+      else { ivl = re ? Math.max(1, ivl) : 1; step = 0; state = "review"; due = dueInDays(now, ivl); }
+    } else { ivl = re ? Math.max(1, ivl) + 1 : 4; step = 0; state = "review"; due = dueInDays(now, ivl); }
+  }
+  ivl = Math.min(ivl, 3650);
+  return { ivl, ease: Math.round(ease * 100) / 100, reps: (c.reps || 0) + 1, lapses, step, state, due, last: now };
+}
+function shortWhen(ms) {
+  if (ms < HOUR) return Math.max(1, Math.round(ms / MIN)) + "m";
+  if (ms < DAY) return Math.round(ms / HOUR) + "h";
+  const d = Math.round(ms / DAY);
+  return d < 60 ? d + "d" : Math.round(d / 30) + "mo";
+}
+function fmtDays(d) { return d < 60 ? d + "d" : d < 365 ? Math.round(d / 30) + "mo" : (Math.round(d / 36.5) / 10) + "y"; }
+function gradeLabel(c, r, now) { const p = schedule(c, r, now); return p.state === "review" ? fmtDays(p.ivl) : shortWhen(p.due - now); }
+function whenText(ts) {
+  const d = ts - Date.now();
+  if (d < HOUR) return "in " + Math.max(1, Math.round(d / MIN)) + " min";
+  if (d < 12 * HOUR) { const n = Math.round(d / HOUR); return "in " + n + (n === 1 ? " hour" : " hours"); }
+  const days = Math.round((startOfDay(ts) - startOfDay(Date.now())) / DAY);
+  if (days <= 0) return "later today";
+  if (days === 1) return "tomorrow";
+  return "on " + new Date(ts).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+}
+function stats(now) {
+  let fresh = 0, learn = 0, learnNow = 0, review = 0, next = Infinity;
+  for (const c of deck().values()) {
+    const st = c.state || "new";
+    if (st === "new") { fresh++; continue; }
+    if (st === "learning" || st === "relearning") {
+      if (c.due <= now + 20 * MIN) learn++;
+      if (c.due <= now) learnNow++; else next = Math.min(next, c.due);
+    } else if (c.due <= now) review++;
+    else next = Math.min(next, c.due);
+  }
+  return { fresh, learn, review, ready: fresh + learnNow + review, studyable: fresh + learn + review, next };
+}
+function nextCard(now, avoid) {
+  const all = Array.from(deck().values());
+  const learning = c => c.state === "learning" || c.state === "relearning";
+  const pick = (list, key) => list.sort((a, b) => a[key] - b[key])[0];
+  return pick(all.filter(c => learning(c) && c.due <= now), "due")
+    || pick(all.filter(c => c.state === "review" && c.due <= now), "due")
+    || pick(all.filter(c => (c.state || "new") === "new"), "added")
+    || pick(all.filter(c => learning(c) && c.id !== avoid && c.due <= now + 20 * MIN), "due")
+    || null;
+}
+
+/* ---------- toast ---------- */
+let toastTimer = 0;
+function hideToast() { $("#toast").hidden = true; }
+function toast(msg, opt) {
+  const t = $("#toast");
+  t.replaceChildren(h("span", { text: msg }));
+  if (opt && opt.action) {
+    const b = h("button", { type: "button", text: opt.action });
+    b.addEventListener("click", () => { hideToast(); opt.fn(); });
+    t.append(b);
+  }
+  t.hidden = false; t.classList.remove("in"); void t.offsetWidth; t.classList.add("in");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, opt && opt.action ? 5200 : 3600);
+}
+
+/* ---------- news ---------- */
+let SENTS = [];
+function fmtDay(iso, long) {
+  const d = new Date(iso + "T12:00:00");
+  if (isNaN(d)) return iso;
+  const diff = Math.round((startOfDay(Date.now()) - startOfDay(d)) / DAY);
+  if (!long) {
+    if (diff === 0) return "Today";
+    if (diff === 1) return "Yesterday";
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  }
+  const name = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  return diff === 0 ? "Today · " + name : diff === 1 ? "Yesterday · " + name : name;
+}
+function sentenceEl(text, st) {
+  const sp = h("span", { class: "s" });
+  const ws = [], lw = [];
+  const re = new RegExp(WORD_RE.source, "gu");
+  let last = 0, m;
+  while ((m = re.exec(text))) {
+    if (m.index > last) sp.append(text.slice(last, m.index));
+    const tok = m[0];
+    if (LETTER.test(tok)) {
+      const key = lookupKey(tok, st);
+      const node = key ? h("span", { class: "w", text: tok }) : document.createTextNode(tok);
+      ws.push({ tok, key, node }); lw.push(normWord(tok));
+      sp.append(node);
+    } else sp.append(tok);
+    last = re.lastIndex;
+  }
+  if (last < text.length) sp.append(text.slice(last));
+  // phrases: longest match first; skip a phrase that would hide one of the story's key words
+  const keys = st._keys;
+  for (let i = 0; i < lw.length; i++) {
+    const cands = PHRASES.get(lw[i]);
+    if (!cands) continue;
+    for (const p of cands) {
+      const n = p.ws.length;
+      if (i + n > lw.length) continue;
+      let ok = true;
+      for (let j = 1; j < n; j++) if (lw[i + j] !== p.ws[j]) { ok = false; break; }
+      if (!ok) continue;
+      if (!keys.has(p.key) && ws.slice(i, i + n).some(x => keys.has(x.key))) continue;
+      for (let j = 0; j < n; j++) {
+        let x = ws[i + j];
+        if (!x.key) { const el = h("span", { class: "w", text: x.tok }); x.node.replaceWith(el); x.node = el; }
+        x.ph = { start: i, end: i + n - 1, key: p.key };
+      }
+      i += n - 1;
+      break;
+    }
+  }
+  ws.forEach((x, i) => {
+    if (x.node.nodeType !== 1) return;
+    x.node._s = sp; x.node._i = i;
+    if (keys.has(x.ph ? x.ph.key : x.key) || (!x.ph && keys.has(x.key))) x.node.classList.add("kw");
+  });
+  sp._ws = ws; sp._text = text; sp._story = st;
+  SENTS.push(sp);
+  return sp;
+}
+function storyEl(st) {
+  const art = h("article", { class: "story", id: "story-" + st.id });
+  const meta = h("div", { class: "meta label" });
+  if (st.tag) { const t = h("span", { class: "tag", text: st.tag }); const v = TAGS[st.tag.toLowerCase()]; if (v) t.style.setProperty("--tag", "var(" + v + ")"); meta.append(t); }
+  if (st.place) meta.append(h("span", { text: st.place }));
+  if (st.date) meta.append(h("time", { datetime: st.date, text: fmtDay(st.date) }));
+  const hl = h("h3", { class: "headline" }, sentenceEl(st.title, st));
+  const body = h("p", { class: "body" });
+  st.summary.forEach((t, i) => { if (i) body.append(" "); body.append(sentenceEl(t, st)); });
+  art.append(meta, hl, body);
+  if (st.why.length) {
+    const why = h("p", { class: "why" }, h("span", { class: "why-l", text: "Why it matters" }));
+    st.why.forEach((t, i) => { if (i) why.append(" "); why.append(sentenceEl(t, st)); });
+    art.append(why);
+  }
+  const kwList = st.keywords.filter(k => S.G.entries[k]);
+  if (kwList.length) {
+    const kws = h("div", { class: "kws" }, h("span", { class: "label", text: "Key words" }));
+    for (const k of kwList) {
+      const b = h("button", { class: "chip", type: "button" }, icon("check"), h("span", { text: S.G.entries[k].t }));
+      b._key = k; b._story = st;
+      kws.append(b);
+    }
+    art.append(kws);
+  }
+  if (st.url) art.append(h("a", { class: "src", href: st.url, target: "_blank", rel: "noopener noreferrer" }, "Read the original at " + (st.source || "the source"), icon("ext")));
+  return art;
+}
+function renderNews() {
+  const box = $("#newsBody");
+  SENTS = [];
+  box.replaceChildren();
+  S.sel = null;
+  const n = S.stories.length;
+  const up = S.updated ? fmtDay(S.updated) : "";
+  $("#newsCount").textContent = S.dataState === "ready" ? n + (n === 1 ? " story" : " stories") + (up ? " · updated " + (/^(Today|Yesterday)$/.test(up) ? up.toLowerCase() : up) : "") : "";
+  $("#newsFoot").hidden = S.dataState !== "ready";
+  if (S.dataState === "loading") {
+    for (let i = 0; i < 3; i++) box.append(h("div", { class: "sk-story", "aria-hidden": "true" }, h("div", { class: "sk m" }), h("div", { class: "sk t" }), h("div", { class: "sk t2" }), h("div", { class: "sk" }), h("div", { class: "sk" }), h("div", { class: "sk p2" })));
+    box.append(h("p", { class: "sr", text: "Loading today's stories" }));
+    return;
+  }
+  if (S.dataState !== "ready") {
+    const retry = h("button", { class: "ghost", type: "button", text: "Try again" });
+    retry.addEventListener("click", loadData);
+    box.append(h("div", { class: "state" }, h("h2", { text: S.dataState === "empty" ? "No stories yet" : "The news didn't load" }),
+      h("p", { text: S.dataState === "empty" ? "Today's stories will appear here soon." : "Check your connection, then try again." }), S.dataState === "empty" ? null : retry));
+    return;
+  }
+  let edition = null;
+  for (const st of S.stories) {
+    if (st.edition !== edition) {
+      edition = st.edition;
+      const count = S.stories.filter(x => x.edition === edition).length;
+      box.append(h("div", { class: "edition" }, h("h2", { text: fmtDay(edition, true) }), h("span", { class: "label", text: count + (count === 1 ? " story" : " stories") })));
+    }
+    box.append(storyEl(st));
+  }
+  markSaved();
+}
+function markSaved() {
+  const keys = new Set(Array.from(deck().values()).map(c => c.key));
+  for (const sp of SENTS) for (const x of sp._ws) {
+    if (x.node.nodeType !== 1) continue;
+    x.node.classList.toggle("saved", keys.has(x.ph ? x.ph.key : x.key));
+  }
+  $$(".chip").forEach(b => b.classList.toggle("saved", keys.has(b._key)));
+}
+function normStory(d) {
+  if (!d || typeof d.title !== "string" || !d.title.trim()) return null;
+  const lines = x => Array.isArray(x) ? x.filter(s => typeof s === "string" && s.trim()).map(s => s.trim()) : [];
+  let url = "";
+  try { const u = new URL(String(d.url)); if (u.protocol === "https:" || u.protocol === "http:") url = u.href; } catch (e) {}
+  const st = {
+    id: str(d.id, 140) || Math.random().toString(36).slice(2), title: d.title.trim(), source: str(d.source, 80), url,
+    date: str(d.date, 10), edition: str(d.edition, 10) || str(d.date, 10), rank: typeof d.rank === "number" ? d.rank : 99,
+    tag: str(d.tag, 30), place: str(d.place, 60), summary: lines(d.summary), why: lines(d.why),
+    keywords: Array.isArray(d.keywords) ? d.keywords.filter(k => typeof k === "string") : [],
+    senses: d.senses && typeof d.senses === "object" ? d.senses : {},
+  };
+  st._keys = new Set(st.keywords);
+  return st;
+}
+async function loadData() {
+  S.dataState = "loading"; renderNews();
+  try {
+    const opt = { cache: "no-cache" };
+    const [n, g] = await Promise.all([fetch("data/news.json", opt), fetch("data/glossary.json", opt)]);
+    if (!n.ok || !g.ok) throw new Error("http");
+    const news = await n.json(), gl = await g.json();
+    S.G = { entries: gl.entries || {}, forms: gl.forms || {} };
+    rebuildPhrases();
+    S.updated = str(news.updated, 10);
+    S.stories = (Array.isArray(news.stories) ? news.stories : []).map(normStory).filter(Boolean)
+      .sort((a, b) => b.edition.localeCompare(a.edition) || a.rank - b.rank || b.date.localeCompare(a.date));
+    S.dataState = S.stories.length ? "ready" : "empty";
+  } catch (e) {
+    S.dataState = "error";
+  }
+  renderNews();
+  renderDemo();
+  if (S.tab === "news" && location.hash.indexOf("#story-") === 0) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+}
+
+/* ---------- lookup sheet ---------- */
+function setSheetH() {
+  const sh = $("#sheet");
+  document.documentElement.style.setProperty("--sheet-h", (sh.hidden ? 0 : $(".sheet-in").offsetHeight) + "px");
+}
+function clearSel() { $$(".w.sel").forEach(w => w.classList.remove("sel")); }
+function openWord(sp, i, alone) {
+  const x = sp._ws[i];
+  const usePh = x.ph && !alone;
+  const start = usePh ? x.ph.start : i, end = usePh ? x.ph.end : i;
+  const key = usePh ? x.ph.key : x.key;
+  if (!key) return;
+  clearSel();
+  for (let k = start; k <= end; k++) { const n = sp._ws[k].node; if (n.nodeType === 1) n.classList.add("sel"); }
+  const phrase = sp._ws.slice(start, end + 1).map(y => y.tok).join(" ");
+  S.sel = { sp, start, end };
+  S.look = { key, phrase, context: sp._text, story: sp._story, alt: usePh && x.key && x.key !== key ? { sp, i, tok: x.tok } : null };
+  showSheet();
+  requestAnimationFrame(() => requestAnimationFrame(() => ensureVisible(sp._ws[start].node, sp._ws[end].node)));
+}
+function openChip(key, st) {
+  for (const sp of SENTS) {
+    if (sp._story !== st) continue;
+    const i = sp._ws.findIndex(x => (x.ph ? x.ph.key : x.key) === key);
+    if (i >= 0) { openWord(sp, i); return; }
+  }
+  clearSel(); S.sel = null;
+  S.look = { key, phrase: S.G.entries[key].t, context: "", story: st, alt: null };
+  showSheet();
+}
+function showSheet() {
+  const L = S.look;
+  $("#shPhrase").textContent = L.phrase;
+  const ctx = $("#shCtx");
+  ctx.replaceChildren();
+  if (L.context) { ctx.append(markIn(L.context, L.phrase)); ctx.hidden = false; } else ctx.hidden = true;
+  showSheetBody();
+  const sheet = $("#sheet");
+  if (sheet.hidden) { sheet.hidden = false; document.body.classList.add("sheet-open"); }
+  setSheetH();
+}
+function closeSheet() {
+  $("#sheet").hidden = true;
+  document.body.classList.remove("sheet-open");
+  clearSel(); S.sel = null; S.look = null;
+  setSheetH();
+}
+function ensureVisible(a, b) {
+  if (!a || !a.isConnected || a.nodeType !== 1) return;
+  const sheetH = $("#sheet").hidden ? 0 : $(".sheet-in").offsetHeight;
+  const top = a.getBoundingClientRect().top, bottom = (b && b.nodeType === 1 ? b : a).getBoundingClientRect().bottom;
+  const headerB = $(".top").getBoundingClientRect().bottom;
+  const limit = window.innerHeight - sheetH - 16;
+  const behavior = reduceMotion ? "auto" : "smooth";
+  if (bottom > limit) window.scrollBy({ top: bottom - limit, behavior });
+  else if (top < headerB + 8) window.scrollBy({ top: top - headerB - 16, behavior });
+}
+function setAddBtn(btn) {
+  const has = deck().has(btn.dataset.id);
+  btn.classList.toggle("done", has);
+  btn.setAttribute("aria-disabled", String(has));
+  btn.replaceChildren(...(has ? [icon("check"), "In your Words"] : ["Add to Words"]));
+}
+function refreshAddBtn() { const b = $("#shBody .add"); if (b) setAddBtn(b); }
+function showSheetBody() {
+  const L = S.look, l = S.lang;
+  if (!L) return;
+  const e = S.G.entries[L.key];
+  const body = $("#shBody");
+  body.replaceChildren();
+  if (!e) return;
+  body.append(headEl(e, l));
+  const v = shown(e, l);
+  const read = readingEl(v, e, l);
+  if (read) body.append(read);
+  body.append(meaningEl(e, l));
+  const btn = h("button", { class: "primary add", type: "button" });
+  btn.dataset.id = cardId(L.key);
+  setAddBtn(btn);
+  btn.addEventListener("click", () => { if (!deck().has(btn.dataset.id)) addCard(L.key); });
+  const isKey = L.story && L.story._keys && L.story._keys.has(L.key);
+  body.append(h("div", { class: "sh-actions" }, btn, isKey ? h("span", { class: "sh-src", text: "Key word" }) : null));
+  if (l === "ja" && Array.isArray(e.jaKanji) && e.jaKanji.length) body.append(kanjiRow(e.jaKanji));
+  const ex = exampleEl(e.ex, l);
+  if (ex) body.append(ex);
+  if (L.alt) {
+    const ae = S.G.entries[L.alt.sp._ws[L.alt.i].key];
+    if (ae) {
+      const b = h("button", { class: "link-btn", type: "button", text: "Show “" + L.alt.tok + "” on its own" });
+      b.addEventListener("click", () => openWord(L.alt.sp, L.alt.i, true));
+      body.append(b);
+    }
+  }
+  setSheetH();
+}
+
+/* ---------- cards ---------- */
+function addCard(key) {
+  const e = S.G.entries[key];
+  if (!e) return;
+  const L = S.look || {};
+  const l = S.lang, v = shown(e, l);
+  const id = cardId(key);
+  if (deck().has(id)) return;
+  const now = Date.now();
+  const c = normCard(id, {
+    key, t: e.t, pos: e.pos, def: e.def, ipa: e.ipa, w: v.w, k: v.k, r: v.r,
+    kanji: l === "ja" && Array.isArray(e.jaKanji) ? e.jaKanji : [], ex: e.ex || null,
+    phrase: L.phrase || e.t, context: L.context || "", storyId: L.story ? L.story.id : "", storyTitle: L.story ? L.story.title : "",
+    added: now, due: now, state: "new",
+  }, l);
+  deck().set(id, c);
+  saveDeck(l);
+  cardsChanged(true);
+  toast("Added " + v.w + " to Words");
+}
+function deleteCard(c) {
+  const l = c.lang;
+  S.decks[l].delete(c.id);
+  if (S.openRow === c.id) S.openRow = null;
+  saveDeck(l);
+  cardsChanged();
+  toast("Deleted " + c.w, { action: "Undo", fn: () => { S.decks[l].set(c.id, c); saveDeck(l); cardsChanged(); } });
+}
+function cardsChanged(added) {
+  const prev = +$("#badge").textContent || 0;
+  const s = renderCounts();
+  if (added && s.ready > prev) { const b = $("#badge"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
+  markSaved();
+  refreshAddBtn();
+  if (ST.open) { renderStudyCounts(); if (ST.id && !deck().has(ST.id)) nextStudy(); }
+  else renderWordsBody();
+}
+
+/* ---------- words tab ---------- */
+function sortedCards() { return Array.from(deck().values()).sort((a, b) => b.added - a.added); }
+function renderCounts() {
+  const s = stats(Date.now());
+  const badge = $("#badge");
+  badge.textContent = s.ready;
+  badge.hidden = s.ready === 0;
+  $("#tabbtn-words").setAttribute("aria-label", s.ready ? "Words, " + s.ready + " to study" : "Words");
+  $("#cNew").textContent = s.fresh;
+  $("#cLearn").textContent = s.learn;
+  $("#cDue").textContent = s.review;
+  const n = deck().size, name = LANGS[S.lang].name;
+  $("#spTitle").textContent = n ? n + " " + name + (n === 1 ? " word" : " words") : "Your " + name + " words";
+  const btn = $("#studyBtn");
+  if (s.studyable) {
+    btn.disabled = false;
+    btn.textContent = "Study " + s.studyable + (s.studyable === 1 ? " card" : " cards");
+    $("#spSub").textContent = "Flip each card, then rate how well you knew it.";
+  } else {
+    btn.disabled = true;
+    btn.textContent = "Nothing to study yet";
+    $("#spSub").textContent = n ? "All caught up. " + (isFinite(s.next) ? "Next review " + whenText(s.next) + "." : "") : "Tap words in the news to start your ring.";
+  }
+  return s;
+}
+function statePill(c, now) {
+  const st = c.state || "new";
+  if (st === "new") return h("span", { class: "pill new", text: "New" });
+  if (c.due <= now) return st === "review" ? h("span", { class: "pill due", text: "Due" }) : h("span", { class: "pill learn", text: "Learning" });
+  return h("span", { class: "pill later", title: "Next review", text: "in " + shortWhen(c.due - now) });
+}
+function goStory(id) {
+  setTab("news");
+  requestAnimationFrame(() => {
+    const el = document.getElementById("story-" + id);
+    if (!el) { toast("That story is no longer on the front page."); return; }
+    const top = el.getBoundingClientRect().top + window.scrollY - ($(".top").offsetHeight + 12);
+    window.scrollTo({ top, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+function wordDetail(c) {
+  const l = c.lang, box = h("div", { class: "wdetail" });
+  const read = readingEl(c, c, l) || h("div", { class: "sh-read" });
+  if (c.pos) read.append(h("span", { class: "pos", text: c.pos }));
+  box.append(read);
+  if (l === "en" && c.def) box.append(h("p", { class: "gloss big", text: c.def }));
+  if (l === "ja" && c.kanji.length) box.append(kanjiRow(c.kanji));
+  const ex = exampleEl(c.ex, l);
+  if (ex) box.append(ex);
+  if (c.context) box.append(h("p", { class: "wd-ctx" }, markIn(c.context, c.phrase || c.t)));
+  if (c.storyId) {
+    const b = h("button", { class: "link-btn wd-from", type: "button" }, "From: " + (c.storyTitle || "a news story"), icon("arrow"));
+    b.addEventListener("click", () => goStory(c.storyId));
+    box.append(b);
+  }
+  const actions = h("div", { class: "btn-row" });
+  if (hasVoice(l)) { const sp = h("button", { class: "ghost sm", type: "button" }, icon("speak"), "Listen"); sp.addEventListener("click", () => speak(c.w, l)); actions.append(sp); }
+  const del = h("button", { class: "ghost sm danger", type: "button" }, icon("trash"), "Delete");
+  del.addEventListener("click", () => deleteCard(c));
+  actions.append(del);
+  box.append(actions);
+  return box;
+}
+function wordRow(c, now) {
+  const open = S.openRow === c.id, l = c.lang;
+  const li = h("li", { class: "wrow" });
+  const sub = l === "ja" ? (c.k && c.k !== c.w ? c.k : "") : l === "fa" ? c.r : c.ipa;
+  const btn = h("button", { class: "wbtn", type: "button", "aria-expanded": String(open) },
+    h("span", { class: "w-main" }, h("span", { class: "w-tl", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }), sub ? h("span", { class: "w-sub", lang: l === "ja" ? "ja" : null, text: sub }) : null),
+    h("span", { class: "w-en", text: l === "en" ? c.def : c.t + (c.def ? " · " + c.def : "") }),
+    statePill(c, now));
+  btn.addEventListener("click", () => { S.openRow = open ? null : c.id; renderWordsBody(); });
+  li.append(btn);
+  if (open) li.append(wordDetail(c));
+  return li;
+}
+function renderWordsBody() {
+  const n = deck().size;
+  const note = $("#wordsNote");
+  note.hidden = STORE.ok;
+  if (!STORE.ok) note.textContent = "This browser isn't letting the page save words, so they last only for this visit. Use Save backup before you close the page.";
+  $("#emptyTitle").textContent = "No " + LANGS[S.lang].name + " words yet";
+  $("#wordsEmpty").hidden = n > 0;
+  $("#wordsTools").hidden = n === 0;
+  const fw = $("#frontWord");
+  fw.textContent = LANGS[S.lang].first;
+  if (S.lang === "fa") fw.setAttribute("lang", "fa"); else if (S.lang === "ja") fw.setAttribute("lang", "ja"); else fw.removeAttribute("lang");
+  $("#frontMeaning").textContent = S.lang === "en" ? "Meaning" : "English";
+  $$(".seg button").forEach(b => b.setAttribute("aria-checked", String(b.dataset.front === S.front)));
+  const list = $("#wordList");
+  list.replaceChildren();
+  if (!n) return;
+  const q = S.query, now = Date.now();
+  const shownCards = sortedCards().filter(c => !q || [c.t, c.phrase, c.w, c.k, c.r, c.def].some(x => String(x || "").toLowerCase().includes(q)));
+  for (const c of shownCards) list.append(wordRow(c, now));
+  if (!shownCards.length) list.append(h("li", { class: "wnone", text: "No words match “" + S.query + "”." }));
+}
+function renderWords() { renderCounts(); renderWordsBody(); }
+
+/* ---------- files: Anki export and backups ---------- */
+function download(name, text, type) {
+  try {
+    const url = URL.createObjectURL(new Blob([text], { type: type || "text/plain;charset=utf-8" }));
+    const a = h("a", { href: url, download: name });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    return true;
+  } catch (e) { return false; }
+}
+function ankiText() {
+  const l = S.lang;
+  const esc = t => String(t || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/[\t\r\n]+/g, " ");
+  const ruby = t => {
+    const re = new RegExp(RUBY.source, "g");
+    let out = "", last = 0, m;
+    t = String(t || "");
+    while ((m = re.exec(t))) { out += esc(plainJa(t.slice(last, m.index))) + "<ruby>" + esc(m[1]) + "<rt>" + esc(m[2]) + "</rt></ruby>"; last = re.lastIndex; }
+    return out + esc(plainJa(t.slice(last)));
+  };
+  const rows = ["#separator:tab", "#html:true", "#tags:world-news-words " + LANGS[l].name.toLowerCase()];
+  for (const c of sortedCards().reverse()) {
+    let front, back;
+    if (l === "ja") {
+      front = '<div style="font-size:2em">' + esc(c.w) + "</div>";
+      back = esc(c.k) + (c.r ? " · " + esc(c.r) : "") + "<br><b>" + esc(c.t) + "</b>" + (c.pos ? " (" + esc(c.pos) + ")" : "") + (c.def ? "<br>" + esc(c.def) : "");
+      if (c.kanji.length) back += "<br><small>" + c.kanji.map(k => esc(k.c) + " " + esc(k.m)).join(" · ") + "</small>";
+      if (c.ex && c.ex.ja) back += "<br><br>" + ruby(c.ex.ja) + (c.ex.en ? "<br><i>" + esc(c.ex.en) + "</i>" : "");
+    } else if (l === "fa") {
+      front = '<div dir="rtl" style="font-size:2em">' + esc(c.w) + "</div>";
+      back = esc(c.r) + "<br><b>" + esc(c.t) + "</b>" + (c.pos ? " (" + esc(c.pos) + ")" : "") + (c.def ? "<br>" + esc(c.def) : "");
+      if (c.ex && c.ex.fa) back += '<br><br><div dir="rtl">' + esc(c.ex.fa) + "</div>" + esc(c.ex.faR) + (c.ex.en ? "<br><i>" + esc(c.ex.en) + "</i>" : "");
+    } else {
+      front = '<div style="font-size:2em">' + esc(c.t) + "</div>";
+      back = esc(c.ipa) + (c.pos ? " · " + esc(c.pos) : "") + "<br>" + esc(c.def);
+      if (c.ex && c.ex.en) back += "<br><br><i>" + esc(c.ex.en) + "</i>";
+    }
+    if (c.context) back += "<br><br><small>“" + esc(c.context) + "”</small>";
+    rows.push(front + "\t" + back);
+  }
+  return rows.join("\n") + "\n";
+}
+function onExport() {
+  if (!deck().size) { toast("Add some words first."); return; }
+  if (download("world-news-words-" + LANGS[S.lang].name.toLowerCase() + "-anki.txt", ankiText())) toast("Saved " + deck().size + " cards. In Anki, choose File → Import.");
+  else toast("This browser blocked the download.");
+}
+function onBackup() {
+  const decks = {};
+  for (const l of Object.keys(S.decks)) { decks[l] = {}; for (const [id, c] of S.decks[l]) { const o = Object.assign({}, c); delete o.id; delete o.lang; decks[l][id] = o; } }
+  const total = Object.values(S.decks).reduce((a, m) => a + m.size, 0);
+  if (!total) { toast("There are no words to back up yet."); return; }
+  const stamp = new Date().toISOString().slice(0, 10);
+  const ok = download("world-news-words-backup-" + stamp + ".json", JSON.stringify({ app: "world-news-words", version: 1, saved: new Date().toISOString(), decks }, null, 1), "application/json");
+  toast(ok ? "Backup saved with " + total + (total === 1 ? " word." : " words.") : "This browser blocked the download.");
+}
+function onRestoreFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    let data;
+    try { data = JSON.parse(String(reader.result)); } catch (e) { toast("That file isn't a World News Words backup."); return; }
+    if (!data || data.app !== "world-news-words" || !data.decks || typeof data.decks !== "object") { toast("That file isn't a World News Words backup."); return; }
+    let added = 0, updated = 0;
+    for (const l of Object.keys(S.decks)) {
+      const src = data.decks[l];
+      if (!src || typeof src !== "object") continue;
+      for (const id of Object.keys(src)) {
+        const c = normCard(id, src[id], l);
+        if (!c) continue;
+        const cur = S.decks[l].get(id);
+        if (!cur) { S.decks[l].set(id, c); added++; }
+        else if ((c.last || 0) > (cur.last || 0) || c.reps > cur.reps) { S.decks[l].set(id, c); updated++; }
+      }
+      saveDeck(l);
+    }
+    cardsChanged();
+    toast(added || updated ? "Loaded " + added + " new and " + updated + " updated words." : "Your words were already up to date.");
+  };
+  reader.onerror = () => toast("That file couldn't be read.");
+  reader.readAsText(file);
+}
+
+/* ---------- study ---------- */
+const ST = { open: false, id: null, shown: false, done: 0, lastFocus: null };
+function openStudy() {
+  if (!stats(Date.now()).studyable) return;
+  ST.open = true; ST.done = 0; ST.lastFocus = document.activeElement;
+  closeSheet();
+  $("#study").hidden = false;
+  document.body.classList.add("studying");
+  nextStudy();
+  setTimeout(() => { const b = $("#showBtn") || $("#stClose"); if (b) b.focus(); }, 0);
+}
+function closeStudy() {
+  ST.open = false; ST.id = null;
+  $("#study").hidden = true;
+  document.body.classList.remove("studying");
+  renderWords();
+  try { if (ST.lastFocus && ST.lastFocus.isConnected) ST.lastFocus.focus(); } catch (e) {}
+}
+function nextStudy(avoid) { const c = nextCard(Date.now(), avoid); ST.id = c ? c.id : null; ST.shown = false; renderStudy(); }
+function renderStudyCounts() {
+  const s = stats(Date.now());
+  const cur = ST.id && deck().get(ST.id);
+  const kind = cur ? (cur.state === "review" ? "d" : (cur.state || "new") === "new" ? "n" : "l") : "";
+  const box = $("#stCounts");
+  box.replaceChildren(
+    h("span", { class: "n" + (kind === "n" ? " cur" : ""), title: "New", text: s.fresh }),
+    h("span", { class: "l" + (kind === "l" ? " cur" : ""), title: "Learning", text: s.learn }),
+    h("span", { class: "d" + (kind === "d" ? " cur" : ""), title: "Review", text: s.review }));
+  box.setAttribute("aria-label", s.fresh + " new, " + s.learn + " learning, " + s.review + " to review");
+}
+function studyFront(c) {
+  const l = c.lang, f = h("div", { class: "tc-front" });
+  if (S.front === "word") {
+    f.append(h("div", { class: "tc-word", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }));
+    const sb = speakBtn(c.w, l, "Play " + c.w);
+    if (sb) f.append(sb);
+  } else if (l === "en") {
+    f.append(h("div", { class: "tc-def", text: c.def }));
+    if (c.pos) f.append(h("span", { class: "pos", text: c.pos }));
+  } else {
+    f.append(h("div", { class: "tc-mean", text: c.t }));
+    if (c.pos) f.append(h("span", { class: "pos", text: c.pos }));
+    if (c.context) f.append(h("p", { class: "tc-ctx" }, markIn(c.context, c.phrase || c.t)));
+  }
+  return f;
+}
+function studyBack(c) {
+  const l = c.lang, b = h("div", { class: "tc-back" });
+  if (S.front === "meaning") b.append(h("div", { class: "sh-head" }, h("div", { class: "sh-word", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }), speakBtn(c.w, l, "Play " + c.w)));
+  const read = readingEl(c, c, l);
+  if (read) b.append(read);
+  if (S.front === "word") b.append(l === "en" ? h("p", { class: "gloss big", text: c.def }) : meaningEl(c, l));
+  else if (l !== "en" && c.def) b.append(h("p", { class: "gloss", text: c.def }));
+  if (l === "ja" && c.kanji.length) b.append(kanjiRow(c.kanji));
+  const ex = exampleEl(c.ex, l);
+  if (ex) b.append(ex);
+  if (S.front === "word" && c.context) b.append(h("p", { class: "tc-ctx" }, markIn(c.context, c.phrase || c.t)));
+  return b;
+}
+function renderStudy() {
+  renderStudyCounts();
+  const stage = $("#stStage"), actions = $("#stActions");
+  stage.replaceChildren(); actions.replaceChildren();
+  const c = ST.id && deck().get(ST.id);
+  if (!c) {
+    const s = stats(Date.now());
+    const art = h("div"); art.innerHTML = FIN_ART;
+    const msg = (ST.done ? "You studied " + ST.done + (ST.done === 1 ? " card. " : " cards. ") : "") + (isFinite(s.next) ? "Next review " + whenText(s.next) + "." : "Add more words from the news to keep going.");
+    stage.append(h("div", { class: "fin" }, art.firstChild, h("h2", { text: "All caught up" }), h("p", { text: msg })));
+    const back = h("button", { class: "primary big", type: "button", text: "Back to Words" });
+    back.addEventListener("click", closeStudy);
+    actions.append(back);
+    return;
+  }
+  const dk = h("div", { class: "deck" + (stats(Date.now()).studyable > 1 ? " more" : "") });
+  const card = h("div", { class: "tcard" + (ST.shown ? " shown" : "") });
+  card.innerHTML = RING_SVG;
+  card.append(h("span", { class: "tc-hole", "aria-hidden": "true" }), studyFront(c));
+  if (ST.shown) card.append(studyBack(c));
+  else card.addEventListener("click", reveal);
+  dk.append(card);
+  stage.append(dk);
+  stage.scrollTop = 0;
+  if (!ST.shown) {
+    const b = h("button", { class: "primary big", id: "showBtn", type: "button", text: "Show answer" });
+    b.addEventListener("click", reveal);
+    actions.append(b, h("p", { class: "kbd", text: "Space to flip" }));
+  } else {
+    const now = Date.now();
+    const grid = h("div", { class: "grades", role: "group", "aria-label": "How well did you know it?" });
+    [["Again", "again", 1], ["Hard", "hard", 2], ["Good", "good", 3], ["Easy", "easy", 4]].forEach(([label, cls, r]) => {
+      const lab = gradeLabel(c, r, now);
+      const b = h("button", { class: "g " + cls, type: "button", "aria-label": label + ", next in " + lab }, h("span", { text: label }), h("small", { text: lab }));
+      b.addEventListener("click", () => rate(r));
+      grid.append(b);
+    });
+    actions.append(grid, h("p", { class: "kbd", text: "Keys 1–4 to rate" }));
+  }
+}
+function reveal() {
+  if (!ST.id || ST.shown) return;
+  ST.shown = true;
+  renderStudy();
+  const g = $(".g.good");
+  if (g) try { g.focus({ preventScroll: true }); } catch (e) {}
+}
+function rate(r) {
+  const c = ST.id && deck().get(ST.id);
+  if (!c || !ST.shown) return;
+  deck().set(c.id, Object.assign({}, c, schedule(c, r, Date.now())));
+  saveDeck(c.lang);
+  ST.done++;
+  renderCounts();
+  nextStudy(c.id);
+  const b = $("#showBtn");
+  if (b) try { b.focus({ preventScroll: true }); } catch (e) {}
+}
+
+/* ---------- language, tabs and events ---------- */
+function renderDemo() {
+  const e = S.G.entries.inflation || S.G.entries[Object.keys(S.G.entries)[0]];
+  const box = $("#demo");
+  box.replaceChildren();
+  if (!e) return;
+  const v = shown(e, S.lang);
+  box.append(h("span", { class: "demo-w", text: e.t }), h("span", { class: "demo-arrow", text: "→" }));
+  if (S.lang === "en") box.append(h("span", { class: "demo-t", "data-l": "en", text: e.def }));
+  else box.append(h("span", { class: "demo-t", lang: v.lang, dir: v.dir, text: v.w }), v.r ? h("span", { class: "demo-r", text: v.r }) : null);
+}
+function setLang(l) {
+  if (!LANGS[l]) l = "ja";
+  S.lang = l;
+  STORE.set("lang", l);
+  $("#langSel").value = l;
+  const mk = $("#mark");
+  mk.textContent = LANGS[l].mark;
+  if (l === "en") mk.removeAttribute("lang"); else mk.setAttribute("lang", l);
+  S.openRow = null;
+  if (ST.open) closeStudy();
+  renderDemo();
+  markSaved();
+  if (S.look && !$("#sheet").hidden) showSheetBody();
+  renderWords();
+}
+const scrollMem = { news: 0, words: 0 };
+function setTab(t, save) {
+  if (t !== "news" && t !== "words") t = "news";
+  const changed = S.tab !== t;
+  if (changed) scrollMem[S.tab] = window.scrollY;
+  S.tab = t;
+  $$(".tab").forEach(b => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; });
+  $("#tab-news").hidden = t !== "news";
+  $("#tab-words").hidden = t !== "words";
+  if (save !== false) STORE.set("tab", t);
+  if (t === "words") { closeSheet(); renderWords(); }
+  if (changed) window.scrollTo(0, scrollMem[t] || 0);
+}
+function onKey(e) {
+  const inField = e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+  if (ST.open) {
+    if (e.key === "Escape") { closeStudy(); return; }
+    if (inField || e.metaKey || e.ctrlKey || e.altKey) return;
+    const onButton = e.target && e.target.closest && e.target.closest("button");
+    if (!ST.shown && (e.key === " " || e.key === "Enter") && !onButton) { e.preventDefault(); reveal(); return; }
+    if (ST.shown && /^[1-4]$/.test(e.key)) { e.preventDefault(); rate(+e.key); }
+    return;
+  }
+  if (e.key === "Escape" && !$("#sheet").hidden) closeSheet();
+}
+function bind() {
+  $$(".tab").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+  $(".tabs").addEventListener("keydown", e => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const t = S.tab === "news" ? "words" : "news";
+    setTab(t);
+    $("#tabbtn-" + t).focus();
+  });
+  $("#langSel").addEventListener("change", e => setLang(e.target.value));
+  $("#newsBody").addEventListener("click", e => {
+    const w = e.target.closest(".w");
+    if (w && w._s) { openWord(w._s, w._i); return; }
+    const chip = e.target.closest(".chip");
+    if (chip && chip._key) openChip(chip._key, chip._story);
+  });
+  $("#shClose").addEventListener("click", closeSheet);
+  $("#hintOk").addEventListener("click", () => { $("#hint").hidden = true; STORE.set("hint", "1"); });
+  $("#studyBtn").addEventListener("click", openStudy);
+  $("#stClose").addEventListener("click", closeStudy);
+  $("#emptyGo").addEventListener("click", () => setTab("news"));
+  $$(".seg button").forEach(b => b.addEventListener("click", () => { S.front = b.dataset.front; STORE.set("front", S.front); renderWordsBody(); if (ST.open) renderStudy(); }));
+  $("#exportBtn").addEventListener("click", onExport);
+  $("#backupBtn").addEventListener("click", onBackup);
+  const pick = () => { const f = $("#restoreFile"); f.value = ""; f.click(); };
+  $("#restoreBtn").addEventListener("click", pick);
+  $("#emptyLoad").addEventListener("click", pick);
+  $("#restoreFile").addEventListener("change", e => onRestoreFile(e.target.files && e.target.files[0]));
+  $("#wordSearch").addEventListener("input", e => { S.query = e.target.value.trim().toLowerCase(); renderWordsBody(); });
+  document.addEventListener("keydown", onKey);
+  window.addEventListener("storage", e => {
+    if (!e.key || e.key.indexOf("wnw:" + "v1:cards:") !== 0) return;
+    const l = e.key.slice(("wnw:v1:cards:").length);
+    if (S.decks[l]) { loadDeck(l); cardsChanged(); }
+  });
+  window.addEventListener("hashchange", () => { if (location.hash === "#words") setTab("words"); else if (location.hash === "#news") setTab("news"); });
+  if ("ResizeObserver" in window) new ResizeObserver(setSheetH).observe($(".sheet-in"));
+  setInterval(() => { renderCounts(); if (ST.open && !ST.id) nextStudy(); }, 30000);
+}
+
+/* ---------- boot ---------- */
+function boot() {
+  for (const l of Object.keys(S.decks)) loadDeck(l);
+  bind();
+  $("#todayLine").textContent = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  $("#hint").hidden = STORE.get("hint", "") === "1";
+  setLang(S.lang);
+  setTab(location.hash === "#words" ? "words" : (STORE.get("tab", "news") === "words" ? "words" : "news"), false);
+  loadData();
+}
+boot();
+})();
+</script>
+</body>
+</html>

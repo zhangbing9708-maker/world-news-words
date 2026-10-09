@@ -1,6 +1,235 @@
 {
-  "updated": "2026-10-09",
+  "updated": "2026-10-10",
   "stories": [
+    {
+      "id": "2026-10-09-navi-pillay-nobel-peace-prize",
+      "edition": "2026-10-10",
+      "rank": 1,
+      "date": "2026-10-09",
+      "tag": "World",
+      "place": "Norway",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-09/nobel-peace-prize-2026-winner-judge-navi-pillay/107249984",
+      "title": "South African judge Navi Pillay wins the 2026 Nobel Peace Prize",
+      "summary": [
+        "The Norwegian Nobel Committee has given the 2026 Nobel Peace Prize to Navi Pillay, an 85-year-old judge from South Africa.",
+        "Pillay is a former UN human rights chief, and she has worked as a judge at the International Criminal Court and at a UN court for crimes in Rwanda.",
+        "The committee said her work had greatly widened the reach of international law.",
+        "It chose her from 287 nominations, and it had not yet spoken to her when it announced the prize in Oslo."
+      ],
+      "why": [
+        "The committee said that ending conflicts without violence depends on countries following international law."
+      ],
+      "keywords": [
+        "judge",
+        "human rights",
+        "international law",
+        "nomination",
+        "committee"
+      ],
+      "senses": {
+        "work": "work#task"
+      }
+    },
+    {
+      "id": "2026-10-09-us-sanctions-international-criminal-court",
+      "edition": "2026-10-10",
+      "rank": 2,
+      "date": "2026-10-09",
+      "tag": "Politics",
+      "place": "United States",
+      "source": "The Jerusalem Post",
+      "url": "https://www.jpost.com/international/article-911181",
+      "title": "The US puts sanctions on the International Criminal Court",
+      "summary": [
+        "The United States has placed sanctions on the International Criminal Court as a whole, only hours after a former judge of the court won the Nobel Peace Prize.",
+        "Secretary of State Marco Rubio said the US would not allow the court to prosecute Americans.",
+        "Washington objects to the court's arrest warrants for Israeli leaders, including Prime Minister Benjamin Netanyahu.",
+        "The measures start in six months, and they could stop banks and other companies from working with the court."
+      ],
+      "why": [
+        "The court has 125 member countries, and European Union leaders said they would act to keep it working.",
+        "UN Secretary-General António Guterres criticised the decision, while Netanyahu welcomed it."
+      ],
+      "keywords": [
+        "sanction",
+        "arrest warrant",
+        "object",
+        "measure",
+        "member"
+      ],
+      "senses": {
+        "stop": "stop#prevent",
+        "act": "act#do"
+      }
+    },
+    {
+      "id": "2026-10-09-panama-earthquake-tsunami-warning",
+      "edition": "2026-10-10",
+      "rank": 3,
+      "date": "2026-10-09",
+      "tag": "World",
+      "place": "Panama",
+      "source": "Euronews",
+      "url": "https://www.euronews.com/2026/10/09/tsunami-threat-after-76-magnitude-earthquake-strikes-panama-usgs-says",
+      "title": "A strong earthquake shakes Panama and causes tsunami warnings",
+      "summary": [
+        "A magnitude 7.6 earthquake struck near the southern coast of Panama on Friday morning, local time, according to the US Geological Survey.",
+        "Warnings of dangerous tsunami waves were issued for several countries on the Pacific coast, and people in Panama City ran out of buildings into the streets.",
+        "Damage was reported in central provinces, where a church fell down, but there were no early reports of deaths."
+      ],
+      "why": [
+        "President José Raúl Mulino asked people to stay calm.",
+        "Several strong aftershocks followed the main earthquake."
+      ],
+      "keywords": [
+        "earthquake",
+        "tsunami",
+        "magnitude",
+        "aftershock",
+        "coast"
+      ],
+      "senses": {
+        "struck": "strike#hit",
+        "streets": "street#road",
+        "fell": "fall#drop",
+        "calm": "calm#adj",
+        "followed": "follow#after"
+      }
+    },
+    {
+      "id": "2026-10-09-houthi-missile-riyadh-airport",
+      "edition": "2026-10-10",
+      "rank": 4,
+      "date": "2026-10-09",
+      "tag": "World",
+      "place": "Saudi Arabia",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/9/saudi-arabia-reopens-riyadh-airport-after-houthi-attack-kills-three",
+      "title": "Houthi missile attack hits the main airport in Saudi Arabia's capital",
+      "summary": [
+        "Yemen's Houthi group says it fired a ballistic missile at King Khalid International Airport in Riyadh, the capital of Saudi Arabia.",
+        "The national airline Saudia said one of its pilots was killed and one of its planes was damaged.",
+        "Saudi officials say attacks on the country's airports this week have killed three civilians and injured 36 people.",
+        "The airport reopened on Friday, and officials said flights were back to normal."
+      ],
+      "why": [
+        "The Houthis, who are backed by Iran, have told airlines to avoid Saudi airspace.",
+        "The war in Yemen had been mostly frozen for years, but fighting grew again after the US war on Iran began."
+      ],
+      "keywords": [
+        "airport",
+        "pilot",
+        "airspace",
+        "ballistic",
+        "capital"
+      ],
+      "senses": {
+        "fired": "fire#shoot",
+        "backed": "back#support"
+      }
+    },
+    {
+      "id": "2026-10-10-firmus-cancels-share-sale",
+      "edition": "2026-10-10",
+      "rank": 5,
+      "date": "2026-10-10",
+      "tag": "Business",
+      "place": "Australia",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-10/how-firmus-the-biggest-ipo-in-three-decades-fell-over/107247100",
+      "title": "AI company Firmus cancels Australia's biggest share sale in decades",
+      "summary": [
+        "Firmus Technologies, a Sydney company that builds data centres for artificial intelligence, has cancelled its plan to list on the Australian stock exchange.",
+        "It wanted to raise about $7 billion at a value of $43.7 billion, which would have made it the biggest float since Telstra in 1997.",
+        "Some investors said the price was too high, while the company blamed unstable markets.",
+        "Chipmaker Nvidia owns 7.2 per cent of Firmus, which now plans to look for private funding and try to list on the Nasdaq next year."
+      ],
+      "why": [
+        "The failed sale comes amid fears of an AI bubble, where company values rise much faster than their earnings."
+      ],
+      "keywords": [
+        "stock exchange",
+        "float",
+        "funding",
+        "unstable",
+        "bubble"
+      ],
+      "senses": {
+        "list": "list#stock",
+        "raise": "raise#money",
+        "share": "share#stock",
+        "owns": "own#have",
+        "plans": "plan#intend"
+      }
+    },
+    {
+      "id": "2026-10-09-stolen-renoir-paintings-found",
+      "edition": "2026-10-10",
+      "rank": 6,
+      "date": "2026-10-09",
+      "tag": "Culture",
+      "place": "France",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-09/stolen-renoirs-found-french-museum-six-arrested/107250236",
+      "title": "Police find two Renoir paintings stolen from a French museum",
+      "summary": [
+        "Two paintings by the French artist Renoir have been found, and six people have been arrested, officials in southern France said on Friday.",
+        "The paintings, Portrait of Madame Colonna Romano and Young Woman at the Well, were taken from the Renoir Museum in Cagnes-sur-Mer last month.",
+        "The thieves cut through a fence and climbed in through a window, and the robbery lasted less than three minutes.",
+        "They took four paintings but left two of them behind as they escaped."
+      ],
+      "why": [
+        "The town's mayor, Bryan Masson, said the paintings are part of the town's heritage.",
+        "The theft has led to new calls for better security at museums in France, a year after jewels were stolen from the Louvre in Paris."
+      ],
+      "keywords": [
+        "painting",
+        "museum",
+        "thief",
+        "heritage",
+        "security"
+      ],
+      "senses": {
+        "well": "well#water",
+        "climbed": "climb#move",
+        "lasted": "last#continue",
+        "calls": "call#demand"
+      }
+    },
+    {
+      "id": "2026-10-10-lady-elliot-island-birds-return",
+      "edition": "2026-10-10",
+      "rank": 7,
+      "date": "2026-10-10",
+      "tag": "Environment",
+      "place": "Australia",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-10/guano-mine-rehabilitation-on-lady-elliot-island-birds-return/107138364",
+      "title": "Birds return to an Australian reef island once destroyed by mining",
+      "summary": [
+        "Lady Elliot Island, a small coral island at the southern end of the Great Barrier Reef, was stripped bare by guano mining more than 150 years ago.",
+        "Miners removed about 20,000 tonnes of guano, which is seabird droppings used as fertiliser, and the island stayed almost empty of plants for more than 100 years.",
+        "Families who ran tourism on the island have planted more than 20,000 trees, and the work is now about 70 per cent complete.",
+        "About 100,000 black noddies, a type of seabird, now nest there each year, up from only a few thousand about 60 years ago."
+      ],
+      "why": [
+        "A researcher called it an extraordinary recovery, and it shows that damaged nature can come back with long-term care."
+      ],
+      "keywords": [
+        "coral",
+        "seabird",
+        "fertiliser",
+        "nest",
+        "recovery"
+      ],
+      "senses": {
+        "end": "end#part",
+        "plants": "plant#flora",
+        "planted": "plant#grow",
+        "work": "work#task"
+      }
+    },
     {
       "id": "2026-10-08-kramatorsk-bus-stop-strike",
       "edition": "2026-10-09",

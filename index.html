@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>World News Words</title>
-<meta name="description" content="Read today's world news and learn its words in Japanese, English or Farsi. Tap any word, save it, and study it with flashcards.">
+<meta name="description" content="Read today's world news and learn its words in Japanese, Chinese, English or Farsi. Tap any word, save it, and study it with flashcards.">
 <meta name="theme-color" content="#F3F4EC" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23E4A300'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='19' fill='%231D1B14'%3EW%3C/text%3E%3C/svg%3E">
@@ -12,8 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Schibsted+Grotesk:wght@400..700&family=Vazirmatn:wght@400;600&display=swap">
 <style>
-/* Layout: one 40rem reading column under a sticky header (brand + language picker, News / Words tabs).
-   A tapped word opens a bottom sheet; study mode is a full-screen ring of word cards. */
+/* Layout: one 40rem reading column under a sticky header (brand + language picker; News / Words / ABC tabs).
+   A tapped word or letter opens a bottom sheet; study mode is a full-screen ring of word cards. */
 :root{
   --paper:#F3F4EC;--surface:#FDFDF8;--card:#FFFFFF;--wash:#E7E8DC;--tint:#F7F0D4;
   --ink:#1D1B14;--ink-2:#55503E;--ink-3:#736D5A;--rule:#D8D7C8;
@@ -27,8 +27,10 @@
   --f-body:"Newsreader","Iowan Old Style",Georgia,serif;
   --f-ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-ja:"Klee One","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  --f-zh:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
   --f-fa:"Vazirmatn","Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,sans-serif;
-  --header-h:64px;
+  --f-ipa:"Charis SIL","Doulos SIL","Gentium Plus","Lucida Sans Unicode","Segoe UI",system-ui,sans-serif;
+  --top-h:64px;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -67,6 +69,7 @@ button,select,input,textarea{font:inherit;color:inherit}
 .ic svg{width:20px;height:20px}
 .label{font:600 11.5px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 [lang="ja"]{font-family:var(--f-ja)}
+[lang="zh"]{font-family:var(--f-zh)}
 [lang="fa"]{font-family:var(--f-fa)}
 
 /* ---------- header ---------- */
@@ -74,10 +77,11 @@ button,select,input,textarea{font:inherit;color:inherit}
 @supports ((-webkit-backdrop-filter:blur(8px)) or (backdrop-filter:blur(8px))){
   .top{background:color-mix(in srgb,var(--paper) 86%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2)}
 }
-.top-in{max-width:40rem;margin:0 auto;height:var(--header-h);display:flex;align-items:center;gap:10px}
+.top-in{max-width:40rem;margin:0 auto;min-height:64px;display:flex;align-items:center;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto}
 .mark{width:32px;height:32px;flex:none;border-radius:10px;background:var(--hl);color:var(--on-hl);display:grid;place-items:center;font:700 17px/1 var(--f-display)}
 .mark[lang="ja"]{font:600 17px/1 var(--f-ja)}
+.mark[lang="zh"]{font:600 17px/1 var(--f-zh)}
 .mark[lang="fa"]{font:600 19px/1 var(--f-fa)}
 .brand-txt{min-width:0;display:grid;gap:1px}
 .brand-name{font-family:var(--f-display);font-weight:650;font-size:20px;line-height:1.05;letter-spacing:-.012em;font-variation-settings:"opsz" 30;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -85,18 +89,23 @@ button,select,input,textarea{font:inherit;color:inherit}
 .lang-pick select{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:2px 16px 2px 0;font:650 12.5px/1.2 var(--f-ui);color:var(--ink);cursor:pointer;
   background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);
   background-position:calc(100% - 7px) 55%,calc(100% - 3px) 55%;background-size:4px 4px,4px 4px;background-repeat:no-repeat}
-.lang-pick select:focus-visible{outline:2px solid var(--hl-ink);outline-offset:2px}
 .lang-pick option{color:#1D1B14;background:#fff}
 .tabs{display:flex;align-self:stretch}
-.tab{position:relative;display:inline-flex;align-items:center;gap:7px;padding:0 10px;border:0;background:none;color:var(--ink-3);font:600 15px/1 var(--f-ui);cursor:pointer;touch-action:manipulation}
+.tab{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 10px;border:0;background:none;color:var(--ink-3);font:600 15px/1 var(--f-ui);cursor:pointer;touch-action:manipulation}
 .tab:hover,.tab[aria-selected="true"]{color:var(--ink)}
 .tab[aria-selected="true"]::after{content:"";position:absolute;left:8px;right:8px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--hl)}
 .badge{min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--hl);color:var(--on-hl);font:700 12px/21px var(--f-ui);text-align:center;font-variant-numeric:tabular-nums}
 .badge.bump{animation:bump .5s ease}
 @keyframes bump{40%{transform:scale(1.3)}}
+@media (max-width:599px){
+  .top-in{flex-wrap:wrap;gap:0;min-height:0;padding-top:8px}
+  .brand{flex:1 1 100%;padding-bottom:4px}
+  .tabs{flex:1 1 100%;height:42px}
+  .tab{flex:1}
+}
 
 .main{max-width:40rem;margin:0 auto;padding-block:0 calc(56px + env(safe-area-inset-bottom,0px))}
-body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
+body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 
 /* ---------- news ---------- */
 .news-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;padding-block:18px 2px}
@@ -168,12 +177,13 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 .ghost.danger{color:var(--learn)}
 .icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;flex:none;border:0;border-radius:50%;background:transparent;color:var(--ink-2);cursor:pointer;touch-action:manipulation}
 .icon-btn:hover{background:var(--wash);color:var(--ink)}
+.icon-btn.playing{color:var(--hl-ink)}
 .link-btn{border:0;background:none;padding:0;color:var(--hl-ink);font:600 13.5px/1.35 var(--f-ui);cursor:pointer;text-align:left}
 .link-btn:hover{text-decoration:underline;text-underline-offset:3px}
 
-/* ---------- lookup sheet ---------- */
+/* ---------- bottom sheet (word lookup and letter details) ---------- */
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:center;padding-inline:8px;pointer-events:none}
-.sheet-in{pointer-events:auto;width:100%;max-width:41rem;max-height:min(62vh,34rem);overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--rule);border-bottom:0;border-radius:18px 18px 0 0;box-shadow:var(--shadow);padding:4px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet-in{pointer-events:auto;width:100%;max-width:41rem;max-height:min(66vh,36rem);overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--rule);border-bottom:0;border-radius:18px 18px 0 0;box-shadow:var(--shadow);padding:4px 18px calc(18px + env(safe-area-inset-bottom,0px))}
 @media (prefers-reduced-motion:no-preference){.sheet:not([hidden]) .sheet-in{animation:rise .24s cubic-bezier(.2,.8,.2,1)}}
 @keyframes rise{from{transform:translateY(28px);opacity:0}}
 .sh-grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:6px auto 4px}
@@ -187,8 +197,9 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 .sh-word[lang="en"]{font-family:var(--f-display);font-size:clamp(32px,9vw,40px);letter-spacing:-.01em}
 .sh-read{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-top:-8px}
 .sh-read .kana{font-size:17px;color:var(--ink-2)}
+.sh-read .pin{font:500 17px var(--f-ui);color:var(--ink-2)}
 .sh-read .rom{font:500 14px var(--f-ui);color:var(--ink-3)}
-.sh-read .ipa{font:500 15px "Charis SIL","Doulos SIL","Gentium Plus","Lucida Sans Unicode","Segoe UI",var(--f-ui);color:var(--ink-2)}
+.sh-read .ipa{font:500 15px var(--f-ipa);color:var(--ink-2)}
 .mean{display:grid;gap:3px}
 .mean-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .mean-term{font-family:var(--f-body);font-weight:600;font-size:18px}
@@ -197,7 +208,7 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 .gloss.big{color:var(--ink);font-size:17px;line-height:1.45}
 .kanji-row{display:flex;flex-wrap:wrap;gap:10px}
 .kj{display:grid;justify-items:center;align-content:start;gap:5px;min-width:52px;max-width:92px}
-.kj-c{width:46px;height:46px;display:grid;place-items:center;font:600 27px/1 var(--f-ja);color:var(--ink);border:1px solid var(--guide);background:linear-gradient(var(--guide-faint),var(--guide-faint)) center/100% 1px no-repeat,linear-gradient(var(--guide-faint),var(--guide-faint)) center/1px 100% no-repeat,var(--card)}
+.kj-c{width:46px;height:46px;display:grid;place-items:center;font-weight:600;font-size:27px;line-height:1;color:var(--ink);border:1px solid var(--guide);background:linear-gradient(var(--guide-faint),var(--guide-faint)) center/100% 1px no-repeat,linear-gradient(var(--guide-faint),var(--guide-faint)) center/1px 100% no-repeat,var(--card)}
 .kj-m{font:500 11.5px/1.25 var(--f-ui);color:var(--ink-2);text-align:center;overflow-wrap:break-word}
 .ex{display:grid;gap:4px;padding:10px 12px 12px 14px;border-radius:12px;background:var(--tint)}
 .ex-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
@@ -263,6 +274,57 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 .art-hole{fill:var(--paper);stroke:var(--rule)}
 .art-ring{fill:none;stroke:var(--ring);stroke-width:3}
 
+/* ---------- ABC tab ---------- */
+.abc-head{display:grid;gap:12px;padding-block:18px 4px}
+.abc-title{margin:0;font-family:var(--f-display);font-weight:650;font-size:26px;letter-spacing:-.012em}
+.abc-seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;border-radius:12px;background:var(--wash)}
+.abc-seg button{display:grid;justify-items:center;gap:2px;border:0;border-radius:9px;background:none;padding:8px 4px;cursor:pointer;color:var(--ink-2)}
+.abc-seg button b{font-weight:600;font-size:17px;line-height:1.2}
+.abc-seg button small{font:600 11px/1.1 var(--f-ui);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+.abc-seg button[aria-checked="true"]{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.abc-intro{margin:6px 0 0;font-family:var(--f-body);font-size:17px;line-height:1.55;color:var(--ink-2);max-width:36rem}
+.abc-toggle{margin-top:12px}
+.abc-sec{margin-top:26px}
+.abc-sec h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:20px;letter-spacing:-.01em}
+.abc-note{margin:3px 0 12px;font-size:13.5px;line-height:1.45;color:var(--ink-3)}
+.abc-grid{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:6px}
+@media (min-width:600px){.abc-grid{grid-template-columns:repeat(var(--cols-w,var(--cols)),minmax(0,1fr))}}
+.tile{display:grid;justify-items:center;align-content:center;gap:3px;min-height:68px;padding:8px 2px 7px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink);cursor:pointer;touch-action:manipulation;min-width:0}
+.tile:hover{border-color:var(--ink-3)}
+.tile.on{border-color:var(--hl);background:var(--hl-wash)}
+.tile.blank{border:0;background:none;cursor:default}
+.tile-g{font-weight:600;font-size:25px;line-height:1.15;white-space:nowrap}
+.tile-g[lang="en"]{font-family:var(--f-display);font-size:23px}
+.tile-g.pinyin{font:600 21px/1.15 var(--f-ui)}
+.tile-r{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.2 var(--f-ui);color:var(--ink-3);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tone-svg{width:26px;height:16px;flex:none;overflow:visible}
+.tone-svg path{fill:none;stroke:var(--hl-ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tone-svg circle{fill:var(--hl-ink)}
+.abc-tips{margin-top:28px;padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--rule)}
+.abc-tips h3{margin:0 0 8px;font-family:var(--f-display);font-weight:650;font-size:19px}
+.abc-tips ul{margin:0;padding-left:18px;display:grid;gap:7px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.ad-hero{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.ad-box{display:grid;justify-items:center;gap:4px}
+.ad-glyph{min-width:92px;height:92px;padding:0 10px;display:grid;place-items:center;font-weight:600;font-size:56px;line-height:1;color:var(--ink);border:1px solid var(--guide);border-radius:4px;
+  background:linear-gradient(var(--guide-faint),var(--guide-faint)) center/100% 1px no-repeat,linear-gradient(var(--guide-faint),var(--guide-faint)) center/1px 100% no-repeat,var(--card)}
+.ad-glyph.lines{font-family:var(--f-display);font-size:58px;border:0;border-radius:0;padding:0 14px;
+  background:linear-gradient(var(--guide),var(--guide)) 0 22%/100% 1px no-repeat,linear-gradient(var(--guide-faint),var(--guide-faint)) 0 50%/100% 1px no-repeat,linear-gradient(var(--guide),var(--guide)) 0 78%/100% 1px no-repeat,var(--card)}
+.ad-glyph.plain{border-radius:12px;background:var(--card)}
+.ad-glyph.pinyin{font:600 44px/1 var(--f-ui)}
+.ad-cap{font:600 11px/1.2 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.ad-say{display:grid;gap:2px}
+.ad-big{font:600 24px/1.2 var(--f-ui)}
+.ad-big.ipa{font-family:var(--f-ipa);font-weight:500}
+.ad-sub{font-size:14px;color:var(--ink-2)}
+.ad-forms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;direction:rtl}
+.ad-form{display:grid;justify-items:center;gap:3px;padding:8px 2px;border-radius:10px;background:var(--tint)}
+.ad-form b{font:600 30px/1.3 var(--f-fa)}
+.ad-form span{font:500 11px/1.2 var(--f-ui);color:var(--ink-3);direction:ltr}
+.ad-sounds{display:flex;flex-wrap:wrap;gap:6px}
+.ad-sound{display:inline-flex;align-items:baseline;gap:6px;border:1px solid var(--rule);border-radius:999px;padding:6px 12px;background:var(--surface);cursor:pointer;font-size:14px}
+.ad-sound .ipa{font-family:var(--f-ipa);color:var(--ink-2)}
+.ad-note{margin:0;font-size:14px;line-height:1.5;color:var(--ink-2)}
+
 /* ---------- study ---------- */
 .study{position:fixed;inset:0;z-index:40;background:var(--paper);display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
 .st-top{display:flex;align-items:center;gap:10px;width:100%;max-width:40rem;margin:0 auto}
@@ -305,7 +367,7 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 .fin p{margin:0;color:var(--ink-2)}
 
 /* ---------- toast ---------- */
-.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + var(--header-h) + 10px);z-index:60;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:12px;background:var(--ink);color:var(--paper);font:500 14px/1.35 var(--f-ui);box-shadow:var(--shadow)}
+.toast{position:fixed;left:50%;top:calc(var(--top-h) + 10px);z-index:60;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:12px;background:var(--ink);color:var(--paper);font:500 14px/1.35 var(--f-ui);box-shadow:var(--shadow)}
 .toast button{flex:none;border:0;background:none;padding:0;color:var(--hl);font:700 14px var(--f-ui);cursor:pointer}
 @media (prefers-reduced-motion:no-preference){.toast.in{animation:drop .22s ease}}
 @keyframes drop{from{opacity:0;transform:translate(-50%,-8px)}}
@@ -313,7 +375,7 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 </style>
 </head>
 <body>
-<header class="top">
+<header class="top" id="top">
   <div class="top-in">
     <div class="brand">
       <div class="mark" id="mark" aria-hidden="true">語</div>
@@ -322,6 +384,7 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
         <label class="lang-pick" for="langSel"><span>Learning</span>
           <select id="langSel">
             <option value="ja">日本語 Japanese</option>
+            <option value="zh">中文 Chinese</option>
             <option value="en">English</option>
             <option value="fa">فارسی Farsi</option>
           </select>
@@ -331,6 +394,7 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
     <div class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" role="tab" id="tabbtn-news" data-tab="news" aria-controls="tab-news" aria-selected="true" type="button">News</button>
       <button class="tab" role="tab" id="tabbtn-words" data-tab="words" aria-controls="tab-words" aria-selected="false" tabindex="-1" type="button">Words <span class="badge" id="badge" aria-hidden="true" hidden>0</span></button>
+      <button class="tab" role="tab" id="tabbtn-abc" data-tab="abc" aria-controls="tab-abc" aria-selected="false" tabindex="-1" type="button">ABC</button>
     </div>
   </div>
 </header>
@@ -352,6 +416,7 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
     <div class="foot" id="newsFoot" hidden>
       <p>Each story is a short summary written for language practice, with a link to the original report. New stories arrive every day.</p>
       <p>Your saved words stay in this browser on this device. Nobody else can see them. Use <b>Save backup</b> in Words to move them to another device.</p>
+      <p>Farsi audio is made with an open-source Persian computer voice, so the odd word may sound a little off.</p>
     </div>
   </section>
 
@@ -406,11 +471,24 @@ body.sheet-open #tab-news{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
         <button class="ghost sm" id="backupBtn" type="button">Save backup</button>
         <button class="ghost sm" id="restoreBtn" type="button">Load backup</button>
       </div>
-      <p class="help">A backup holds your words in all three languages. Load it on another phone or computer to carry on there.</p>
+      <p class="help">A backup holds your words in all four languages. Load it on another phone or computer to carry on there.</p>
       <label class="search"><span class="sr">Search your words</span><input id="wordSearch" type="search" placeholder="Search your words" autocomplete="off"></label>
       <ul class="wlist" id="wordList"></ul>
     </div>
     <input type="file" id="restoreFile" accept=".json,application/json" hidden>
+  </section>
+
+  <section id="tab-abc" role="tabpanel" aria-labelledby="tabbtn-abc" hidden>
+    <div class="abc-head">
+      <h2 class="abc-title">Alphabets</h2>
+      <div class="abc-seg" role="radiogroup" aria-label="Writing system">
+        <button type="button" role="radio" data-abc="ja" aria-checked="true" aria-label="Japanese kana"><b lang="ja">かな</b><small>Japanese</small></button>
+        <button type="button" role="radio" data-abc="zh" aria-checked="false" aria-label="Chinese pinyin"><b lang="zh">拼音</b><small>Pinyin</small></button>
+        <button type="button" role="radio" data-abc="en" aria-checked="false" aria-label="English alphabet"><b>Aa</b><small>English</small></button>
+        <button type="button" role="radio" data-abc="fa" aria-checked="false" aria-label="Persian alphabet"><b lang="fa">الفبا</b><small>Farsi</small></button>
+      </div>
+    </div>
+    <div id="abcBody"></div>
   </section>
 </main>
 
@@ -447,10 +525,12 @@ const WORD_RE = /[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu;
 const LETTER = /\p{L}/u;
 const RUBY = /([々〆ヶ㐀-䶿一-鿿豈-﫿]+)\[([^\][]{1,24})\]/g;
 const LANGS = {
-  ja: { name: "Japanese", own: "日本語", mark: "語", voice: /^ja/i, first: "日本語" },
-  en: { name: "English", own: "English", mark: "A", voice: /^en/i, first: "Word" },
-  fa: { name: "Farsi", own: "فارسی", mark: "آ", voice: /^fa/i, first: "فارسی" },
+  ja: { name: "Japanese", mark: "語", voice: /^ja/i, first: "日本語", firstLang: "ja" },
+  zh: { name: "Chinese", mark: "中", voice: /^zh/i, first: "中文", firstLang: "zh" },
+  en: { name: "English", mark: "A", voice: /^en/i, first: "Word", firstLang: null },
+  fa: { name: "Farsi", mark: "آ", voice: /^fa/i, first: "فارسی", firstLang: "fa" },
 };
+const AUDIO_BASE = "data/audio/fa/";
 const TAGS = { world: "--t-world", politics: "--t-politics", business: "--t-business", health: "--t-health", science: "--t-science", technology: "--t-tech", environment: "--t-env", culture: "--t-culture", sport: "--t-sport" };
 const reduceMotion = (() => { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } })();
 const $ = (s, r) => (r || document).querySelector(s);
@@ -480,7 +560,6 @@ const ICONS = {
   ext: SVG('<path d="M8 16L16 8M9.5 8H16v6.5"/>'),
   trash: SVG('<path d="M5 7h14M10 7V5h4v2M7 7l.9 12h8.2L17 7"/>'),
   arrow: SVG('<path d="M5 12h13M13 7l5 5-5 5"/>'),
-  download: SVG('<path d="M12 4.5v10M7.8 10.6L12 14.8l4.2-4.2M5 19h14"/>'),
 };
 function icon(name) { const s = document.createElement("span"); s.className = "ic"; s.innerHTML = ICONS[name]; return s; }
 const RING_SVG = '<svg class="tc-ring" viewBox="0 0 44 58" aria-hidden="true"><defs><clipPath id="tcRingClip"><rect x="0" y="0" width="44" height="24"/><circle cx="22" cy="44" r="7"/></clipPath></defs><circle cx="22" cy="25" r="19" clip-path="url(#tcRingClip)"/></svg>';
@@ -526,23 +605,29 @@ const deckKey = l => "v1:cards:" + l;
 
 /* ---------- state ---------- */
 const S = {
-  lang: ["ja", "en", "fa"].includes(STORE.get("lang", "")) ? STORE.get("lang") : "ja",
+  lang: LANGS[STORE.get("lang", "")] ? STORE.get("lang") : "ja",
   tab: "news", stories: [], updated: "", G: { entries: {}, forms: {} }, dataState: "loading",
-  decks: { ja: new Map(), en: new Map(), fa: new Map() },
+  decks: { ja: new Map(), zh: new Map(), en: new Map(), fa: new Map() },
   front: STORE.get("front", "word") === "meaning" ? "meaning" : "word",
   query: "", openRow: null, sel: null, look: null,
+  abc: null, abcState: "idle", abcLang: STORE.get("abc", ""), abcKana: STORE.get("kana", "h") === "k" ? "k" : "h", abcCell: null,
 };
 const deck = () => S.decks[S.lang];
 
+function normEx(x) {
+  if (!x || typeof x !== "object") return null;
+  const o = {};
+  for (const k of ["en", "ja", "zh", "zhP", "fa", "faR", "faA"]) { const v = str(x[k], 400); if (v) o[k] = v; }
+  return Object.keys(o).length ? o : null;
+}
 function normCard(id, d, lang) {
   if (!d || typeof d !== "object") return null;
   const num = (x, def) => (typeof x === "number" && isFinite(x)) ? x : def;
-  const ex = d.ex && typeof d.ex === "object" ? { en: str(d.ex.en, 240), ja: str(d.ex.ja, 200), fa: str(d.ex.fa, 240), faR: str(d.ex.faR, 300) } : null;
   const c = {
     id, lang, key: str(d.key, 80), t: str(d.t, 80), pos: str(d.pos, 30), def: str(d.def, 160), ipa: str(d.ipa, 80),
-    w: str(d.w, 80), k: str(d.k, 80), r: str(d.r, 120),
+    w: str(d.w, 80), k: str(d.k, 80), r: str(d.r, 120), a: str(d.a, 24),
     kanji: Array.isArray(d.kanji) ? d.kanji.slice(0, 16).map(x => ({ c: str(x && x.c, 2), m: str(x && x.m, 40) })).filter(x => x.c) : [],
-    ex, phrase: str(d.phrase, 80), context: str(d.context, 400), storyId: str(d.storyId, 140), storyTitle: str(d.storyTitle, 220),
+    ex: normEx(d.ex), phrase: str(d.phrase, 80), context: str(d.context, 400), storyId: str(d.storyId, 140), storyTitle: str(d.storyTitle, 220),
     added: num(d.added, 0), due: num(d.due, 0), ivl: num(d.ivl, 0), ease: num(d.ease, 2.5), reps: num(d.reps, 0),
     lapses: num(d.lapses, 0), step: num(d.step, 0), last: num(d.last, 0),
     state: ["new", "learning", "relearning", "review"].includes(d.state) ? d.state : "new",
@@ -600,7 +685,7 @@ function lookupKey(word, story) {
   return null;
 }
 
-/* ---------- speech ---------- */
+/* ---------- sound: device voices, and recorded files for Farsi ---------- */
 const canSpeak = (() => { try { return "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function"; } catch (e) { return false; } })();
 let VOICES = [];
 function loadVoices() { try { VOICES = speechSynthesis.getVoices() || []; } catch (e) { VOICES = []; } }
@@ -608,41 +693,73 @@ function voiceFor(l) {
   const re = LANGS[l].voice;
   const list = VOICES.filter(v => re.test(v.lang));
   if (l === "en") return list.find(v => /en[-_](AU|GB)/i.test(v.lang)) || list[0] || null;
+  if (l === "zh") return list.find(v => /zh[-_](CN|Hans)/i.test(v.lang)) || list[0] || null;
   return list[0] || null;
 }
 function hasVoice(l) { return canSpeak && !!voiceFor(l); }
-if (canSpeak) { loadVoices(); try { speechSynthesis.addEventListener("voiceschanged", () => { loadVoices(); if (S.look && !$("#sheet").hidden) showSheetBody(); }); } catch (e) {} }
-function speak(text, l) {
-  if (!canSpeak || !text) return;
+let player = null, playingBtn = null;
+function stopSound() {
+  try { if (canSpeak) speechSynthesis.cancel(); } catch (e) {}
+  try { if (player) player.pause(); } catch (e) {}
+  if (playingBtn) { playingBtn.classList.remove("playing"); playingBtn = null; }
+}
+function say(l, text, audio, btn) {
+  stopSound();
+  if (btn) { playingBtn = btn; btn.classList.add("playing"); }
+  const done = () => { if (btn && playingBtn === btn) { btn.classList.remove("playing"); playingBtn = null; } };
+  if (audio) {
+    try {
+      if (!player) player = new Audio();
+      player.src = AUDIO_BASE + audio + ".mp3";
+      player.onended = done; player.onerror = () => { done(); toast("That sound didn't load. Check your connection."); };
+      const p = player.play();
+      if (p && p.catch) p.catch(() => done());
+    } catch (e) { done(); }
+    return;
+  }
+  if (!canSpeak || !text) { done(); return; }
   try {
-    speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     const v = voiceFor(l);
-    u.lang = v ? v.lang : (l === "ja" ? "ja-JP" : l === "fa" ? "fa-IR" : "en-GB");
+    u.lang = v ? v.lang : ({ ja: "ja-JP", zh: "zh-CN", fa: "fa-IR" }[l] || "en-GB");
     if (v) u.voice = v;
-    u.rate = l === "en" ? 0.95 : 0.9;
+    u.rate = l === "en" ? 0.95 : 0.88;
+    u.onend = done; u.onerror = done;
     speechSynthesis.speak(u);
-  } catch (e) {}
+  } catch (e) { done(); }
 }
-function speakBtn(text, l, label) {
-  if (!hasVoice(l) || !text) return null;
+function canSay(l, audio) { return !!audio || hasVoice(l); }
+function speakBtn(l, text, audio, label) {
+  if (!text || !canSay(l, audio)) return null;
   const b = h("button", { class: "icon-btn speak", type: "button", "aria-label": label || "Play pronunciation" }, icon("speak"));
-  b.addEventListener("click", ev => { ev.stopPropagation(); speak(text, l); });
+  b.addEventListener("click", ev => { ev.stopPropagation(); say(l, text, audio, b); });
   return b;
+}
+if (canSpeak) {
+  loadVoices();
+  try { speechSynthesis.addEventListener("voiceschanged", () => { loadVoices(); if (!$("#sheet").hidden) refreshSheet(); }); } catch (e) {}
 }
 
 /* ---------- what a word looks like in each language ---------- */
 function shown(e, l) {
-  if (l === "ja") return { w: e.ja ? e.ja.w : e.w, k: e.ja ? e.ja.k : e.k, r: e.ja ? e.ja.r : e.r, lang: "ja", dir: null };
-  if (l === "fa") return { w: e.fa ? e.fa.w : e.w, k: "", r: e.fa ? e.fa.r : e.r, lang: "fa", dir: "rtl" };
-  return { w: e.t, k: "", r: e.ipa, lang: "en", dir: null };
+  if (l === "ja") return e.ja ? { w: e.ja.w, k: e.ja.k, r: e.ja.r, lang: "ja" } : { w: e.w, k: e.k, r: e.r, lang: "ja" };
+  if (l === "zh") return e.zh ? { w: e.zh.w, k: "", r: e.zh.p, lang: "zh" } : { w: e.w, k: "", r: e.r, lang: "zh" };
+  if (l === "fa") return e.fa ? { w: e.fa.w, k: "", r: e.fa.r, a: e.fa.a || "", lang: "fa", dir: "rtl" } : { w: e.w, k: "", r: e.r, a: e.a || "", lang: "fa", dir: "rtl" };
+  return { w: e.t, k: "", r: e.ipa, lang: "en" };
 }
-function wordEl(cls, v) { return h("div", { class: cls, lang: v.lang, dir: v.dir, text: v.w }); }
+function charsOf(e, l) {
+  if (l === "ja") return Array.isArray(e.jaKanji) ? e.jaKanji : (e.kanji || []);
+  if (l === "zh") return Array.isArray(e.zhChars) ? e.zhChars : (e.kanji || []);
+  return [];
+}
+function wordEl(cls, v) { return h("div", { class: cls, lang: v.lang, dir: v.dir || null, text: v.w }); }
 function readingEl(v, e, l) {
   const read = h("div", { class: "sh-read" });
   if (l === "ja") {
     if (v.k && v.k !== v.w) read.append(h("span", { class: "kana", lang: "ja", text: v.k }));
     if (v.r) read.append(h("span", { class: "rom", text: v.r }));
+  } else if (l === "zh") {
+    if (v.r) read.append(h("span", { class: "pin", text: v.r }));
   } else if (l === "fa") {
     if (v.r) read.append(h("span", { class: "rom", text: v.r }));
   } else if (e.ipa) read.append(h("span", { class: "ipa", text: e.ipa }));
@@ -652,26 +769,27 @@ function meaningEl(e, l) {
   if (l === "en") return h("div", { class: "mean" }, h("div", { class: "mean-top" }, e.pos ? h("span", { class: "pos", text: e.pos }) : null), e.def ? h("p", { class: "gloss big", text: e.def }) : null);
   return h("div", { class: "mean" }, h("div", { class: "mean-top" }, h("span", { class: "mean-term", text: e.t }), e.pos ? h("span", { class: "pos", text: e.pos }) : null), e.def ? h("p", { class: "gloss", text: e.def }) : null);
 }
-function kanjiRow(list) {
+function kanjiRow(list, l) {
   const row = h("div", { class: "kanji-row" });
-  for (const k of list) row.append(h("span", { class: "kj" }, h("span", { class: "kj-c", lang: "ja", text: k.c }), h("span", { class: "kj-m", text: k.m })));
+  for (const k of list) row.append(h("span", { class: "kj" }, h("span", { class: "kj-c", lang: l, text: k.c }), h("span", { class: "kj-m", text: k.m })));
   return row;
 }
 function exampleEl(ex, l) {
   if (!ex) return null;
-  let t, plain;
+  let t, plain, audio = "", sub = "";
   if (l === "ja" && ex.ja) { t = h("p", { class: "ex-t", lang: "ja" }); t.append(rubyFrag(ex.ja)); plain = plainJa(ex.ja); }
-  else if (l === "fa" && ex.fa) { t = h("p", { class: "ex-t", lang: "fa", dir: "rtl", text: ex.fa }); plain = ex.fa; }
+  else if (l === "zh" && ex.zh) { t = h("p", { class: "ex-t", lang: "zh", text: ex.zh }); plain = ex.zh; sub = ex.zhP || ""; }
+  else if (l === "fa" && ex.fa) { t = h("p", { class: "ex-t", lang: "fa", dir: "rtl", text: ex.fa }); plain = ex.fa; audio = ex.faA || ""; sub = ex.faR || ""; }
   else if (l === "en" && ex.en) { t = h("p", { class: "ex-t", lang: "en", text: ex.en }); plain = ex.en; }
   else return null;
-  const box = h("div", { class: "ex" }, h("div", { class: "ex-row" }, t, speakBtn(plain, l, "Play the example")));
-  if (l === "fa" && ex.faR) box.append(h("p", { class: "ex-r", text: ex.faR }));
+  const box = h("div", { class: "ex" }, h("div", { class: "ex-row" }, t, speakBtn(l, plain, audio, "Play the example")));
+  if (sub) box.append(h("p", { class: "ex-r", text: sub }));
   if (l !== "en" && ex.en) box.append(h("p", { class: "ex-en", text: ex.en }));
   return box;
 }
 function headEl(e, l, cls) {
   const v = shown(e, l);
-  return h("div", { class: "sh-head" }, wordEl(cls || "sh-word", v), speakBtn(v.w, l, "Play " + v.w));
+  return h("div", { class: "sh-head" }, wordEl(cls || "sh-word", v), speakBtn(l, v.w, v.a, "Play " + v.w));
 }
 
 /* ---------- spaced repetition (a small Anki-style scheduler) ---------- */
@@ -797,7 +915,7 @@ function sentenceEl(text, st) {
       if (!ok) continue;
       if (!keys.has(p.key) && ws.slice(i, i + n).some(x => keys.has(x.key))) continue;
       for (let j = 0; j < n; j++) {
-        let x = ws[i + j];
+        const x = ws[i + j];
         if (!x.key) { const el = h("span", { class: "w", text: x.tok }); x.node.replaceWith(el); x.node = el; }
         x.ph = { start: i, end: i + n - 1, key: p.key };
       }
@@ -808,7 +926,7 @@ function sentenceEl(text, st) {
   ws.forEach((x, i) => {
     if (x.node.nodeType !== 1) return;
     x.node._s = sp; x.node._i = i;
-    if (keys.has(x.ph ? x.ph.key : x.key) || (!x.ph && keys.has(x.key))) x.node.classList.add("kw");
+    if (keys.has(x.ph ? x.ph.key : x.key)) x.node.classList.add("kw");
   });
   sp._ws = ws; sp._text = text; sp._story = st;
   SENTS.push(sp);
@@ -915,15 +1033,43 @@ async function loadData() {
   }
   renderNews();
   renderDemo();
-  if (S.tab === "news" && location.hash.indexOf("#story-") === 0) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
 }
 
-/* ---------- lookup sheet ---------- */
+/* ---------- bottom sheet ---------- */
 function setSheetH() {
   const sh = $("#sheet");
   document.documentElement.style.setProperty("--sheet-h", (sh.hidden ? 0 : $(".sheet-in").offsetHeight) + "px");
 }
-function clearSel() { $$(".w.sel").forEach(w => w.classList.remove("sel")); }
+function clearSel() { $$(".w.sel, .tile.on").forEach(w => w.classList.remove("sel", "on")); }
+function openSheet(title, context) {
+  $("#shPhrase").textContent = title;
+  const ctx = $("#shCtx");
+  ctx.replaceChildren();
+  if (context) { ctx.append(context); ctx.hidden = false; } else ctx.hidden = true;
+  const sheet = $("#sheet");
+  if (sheet.hidden) { sheet.hidden = false; document.body.classList.add("sheet-open"); }
+  setSheetH();
+}
+function closeSheet() {
+  stopSound();
+  $("#sheet").hidden = true;
+  document.body.classList.remove("sheet-open");
+  clearSel(); S.sel = null; S.look = null; S.abcCell = null;
+  setSheetH();
+}
+function refreshSheet() { if (S.look) showSheetBody(); else if (S.abcCell) showLetter(); }
+function ensureVisible(a, b) {
+  if (!a || !a.isConnected || a.nodeType !== 1) return;
+  const sheetH = $("#sheet").hidden ? 0 : $(".sheet-in").offsetHeight;
+  const top = a.getBoundingClientRect().top, bottom = (b && b.nodeType === 1 ? b : a).getBoundingClientRect().bottom;
+  const headerB = $("#top").getBoundingClientRect().bottom;
+  const limit = window.innerHeight - sheetH - 16;
+  const behavior = reduceMotion ? "auto" : "smooth";
+  if (bottom > limit) window.scrollBy({ top: bottom - limit, behavior });
+  else if (top < headerB + 8) window.scrollBy({ top: top - headerB - 16, behavior });
+}
+
+/* word lookup */
 function openWord(sp, i, alone) {
   const x = sp._ws[i];
   const usePh = x.ph && !alone;
@@ -933,9 +1079,10 @@ function openWord(sp, i, alone) {
   clearSel();
   for (let k = start; k <= end; k++) { const n = sp._ws[k].node; if (n.nodeType === 1) n.classList.add("sel"); }
   const phrase = sp._ws.slice(start, end + 1).map(y => y.tok).join(" ");
-  S.sel = { sp, start, end };
+  S.sel = { sp, start, end }; S.abcCell = null;
   S.look = { key, phrase, context: sp._text, story: sp._story, alt: usePh && x.key && x.key !== key ? { sp, i, tok: x.tok } : null };
-  showSheet();
+  openSheet(phrase, markIn(sp._text, phrase));
+  showSheetBody();
   requestAnimationFrame(() => requestAnimationFrame(() => ensureVisible(sp._ws[start].node, sp._ws[end].node)));
 }
 function openChip(key, st) {
@@ -944,36 +1091,10 @@ function openChip(key, st) {
     const i = sp._ws.findIndex(x => (x.ph ? x.ph.key : x.key) === key);
     if (i >= 0) { openWord(sp, i); return; }
   }
-  clearSel(); S.sel = null;
+  clearSel(); S.sel = null; S.abcCell = null;
   S.look = { key, phrase: S.G.entries[key].t, context: "", story: st, alt: null };
-  showSheet();
-}
-function showSheet() {
-  const L = S.look;
-  $("#shPhrase").textContent = L.phrase;
-  const ctx = $("#shCtx");
-  ctx.replaceChildren();
-  if (L.context) { ctx.append(markIn(L.context, L.phrase)); ctx.hidden = false; } else ctx.hidden = true;
+  openSheet(S.look.phrase, null);
   showSheetBody();
-  const sheet = $("#sheet");
-  if (sheet.hidden) { sheet.hidden = false; document.body.classList.add("sheet-open"); }
-  setSheetH();
-}
-function closeSheet() {
-  $("#sheet").hidden = true;
-  document.body.classList.remove("sheet-open");
-  clearSel(); S.sel = null; S.look = null;
-  setSheetH();
-}
-function ensureVisible(a, b) {
-  if (!a || !a.isConnected || a.nodeType !== 1) return;
-  const sheetH = $("#sheet").hidden ? 0 : $(".sheet-in").offsetHeight;
-  const top = a.getBoundingClientRect().top, bottom = (b && b.nodeType === 1 ? b : a).getBoundingClientRect().bottom;
-  const headerB = $(".top").getBoundingClientRect().bottom;
-  const limit = window.innerHeight - sheetH - 16;
-  const behavior = reduceMotion ? "auto" : "smooth";
-  if (bottom > limit) window.scrollBy({ top: bottom - limit, behavior });
-  else if (top < headerB + 8) window.scrollBy({ top: top - headerB - 16, behavior });
 }
 function setAddBtn(btn) {
   const has = deck().has(btn.dataset.id);
@@ -1000,7 +1121,8 @@ function showSheetBody() {
   btn.addEventListener("click", () => { if (!deck().has(btn.dataset.id)) addCard(L.key); });
   const isKey = L.story && L.story._keys && L.story._keys.has(L.key);
   body.append(h("div", { class: "sh-actions" }, btn, isKey ? h("span", { class: "sh-src", text: "Key word" }) : null));
-  if (l === "ja" && Array.isArray(e.jaKanji) && e.jaKanji.length) body.append(kanjiRow(e.jaKanji));
+  const chars = charsOf(e, l);
+  if (chars.length) body.append(kanjiRow(chars, l));
   const ex = exampleEl(e.ex, l);
   if (ex) body.append(ex);
   if (L.alt) {
@@ -1024,8 +1146,8 @@ function addCard(key) {
   if (deck().has(id)) return;
   const now = Date.now();
   const c = normCard(id, {
-    key, t: e.t, pos: e.pos, def: e.def, ipa: e.ipa, w: v.w, k: v.k, r: v.r,
-    kanji: l === "ja" && Array.isArray(e.jaKanji) ? e.jaKanji : [], ex: e.ex || null,
+    key, t: e.t, pos: e.pos, def: e.def, ipa: e.ipa, w: v.w, k: v.k, r: v.r, a: v.a || "",
+    kanji: charsOf(e, l), ex: e.ex || null,
     phrase: L.phrase || e.t, context: L.context || "", storyId: L.story ? L.story.id : "", storyTitle: L.story ? L.story.title : "",
     added: now, due: now, state: "new",
   }, l);
@@ -1088,7 +1210,7 @@ function goStory(id) {
   requestAnimationFrame(() => {
     const el = document.getElementById("story-" + id);
     if (!el) { toast("That story is no longer on the front page."); return; }
-    const top = el.getBoundingClientRect().top + window.scrollY - ($(".top").offsetHeight + 12);
+    const top = el.getBoundingClientRect().top + window.scrollY - ($("#top").offsetHeight + 12);
     window.scrollTo({ top, behavior: reduceMotion ? "auto" : "smooth" });
   });
 }
@@ -1098,7 +1220,7 @@ function wordDetail(c) {
   if (c.pos) read.append(h("span", { class: "pos", text: c.pos }));
   box.append(read);
   if (l === "en" && c.def) box.append(h("p", { class: "gloss big", text: c.def }));
-  if (l === "ja" && c.kanji.length) box.append(kanjiRow(c.kanji));
+  if ((l === "ja" || l === "zh") && c.kanji.length) box.append(kanjiRow(c.kanji, l));
   const ex = exampleEl(c.ex, l);
   if (ex) box.append(ex);
   if (c.context) box.append(h("p", { class: "wd-ctx" }, markIn(c.context, c.phrase || c.t)));
@@ -1108,7 +1230,7 @@ function wordDetail(c) {
     box.append(b);
   }
   const actions = h("div", { class: "btn-row" });
-  if (hasVoice(l)) { const sp = h("button", { class: "ghost sm", type: "button" }, icon("speak"), "Listen"); sp.addEventListener("click", () => speak(c.w, l)); actions.append(sp); }
+  if (canSay(l, c.a)) { const sp = h("button", { class: "ghost sm", type: "button" }, icon("speak"), "Listen"); sp.addEventListener("click", () => say(l, c.w, c.a, sp)); actions.append(sp); }
   const del = h("button", { class: "ghost sm danger", type: "button" }, icon("trash"), "Delete");
   del.addEventListener("click", () => deleteCard(c));
   actions.append(del);
@@ -1118,7 +1240,7 @@ function wordDetail(c) {
 function wordRow(c, now) {
   const open = S.openRow === c.id, l = c.lang;
   const li = h("li", { class: "wrow" });
-  const sub = l === "ja" ? (c.k && c.k !== c.w ? c.k : "") : l === "fa" ? c.r : c.ipa;
+  const sub = l === "ja" ? (c.k && c.k !== c.w ? c.k : "") : (l === "zh" || l === "fa") ? c.r : c.ipa;
   const btn = h("button", { class: "wbtn", type: "button", "aria-expanded": String(open) },
     h("span", { class: "w-main" }, h("span", { class: "w-tl", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }), sub ? h("span", { class: "w-sub", lang: l === "ja" ? "ja" : null, text: sub }) : null),
     h("span", { class: "w-en", text: l === "en" ? c.def : c.t + (c.def ? " · " + c.def : "") }),
@@ -1138,9 +1260,9 @@ function renderWordsBody() {
   $("#wordsTools").hidden = n === 0;
   const fw = $("#frontWord");
   fw.textContent = LANGS[S.lang].first;
-  if (S.lang === "fa") fw.setAttribute("lang", "fa"); else if (S.lang === "ja") fw.setAttribute("lang", "ja"); else fw.removeAttribute("lang");
+  if (LANGS[S.lang].firstLang) fw.setAttribute("lang", LANGS[S.lang].firstLang); else fw.removeAttribute("lang");
   $("#frontMeaning").textContent = S.lang === "en" ? "Meaning" : "English";
-  $$(".seg button").forEach(b => b.setAttribute("aria-checked", String(b.dataset.front === S.front)));
+  $$(".seg button[data-front]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.front === S.front)));
   const list = $("#wordList");
   list.replaceChildren();
   if (!n) return;
@@ -1174,14 +1296,19 @@ function ankiText() {
   const rows = ["#separator:tab", "#html:true", "#tags:world-news-words " + LANGS[l].name.toLowerCase()];
   for (const c of sortedCards().reverse()) {
     let front, back;
+    const meaning = "<b>" + esc(c.t) + "</b>" + (c.pos ? " (" + esc(c.pos) + ")" : "") + (c.def ? "<br>" + esc(c.def) : "");
+    const chars = c.kanji.length ? "<br><small>" + c.kanji.map(k => esc(k.c) + " " + esc(k.m)).join(" · ") + "</small>" : "";
     if (l === "ja") {
       front = '<div style="font-size:2em">' + esc(c.w) + "</div>";
-      back = esc(c.k) + (c.r ? " · " + esc(c.r) : "") + "<br><b>" + esc(c.t) + "</b>" + (c.pos ? " (" + esc(c.pos) + ")" : "") + (c.def ? "<br>" + esc(c.def) : "");
-      if (c.kanji.length) back += "<br><small>" + c.kanji.map(k => esc(k.c) + " " + esc(k.m)).join(" · ") + "</small>";
+      back = esc(c.k) + (c.r ? " · " + esc(c.r) : "") + "<br>" + meaning + chars;
       if (c.ex && c.ex.ja) back += "<br><br>" + ruby(c.ex.ja) + (c.ex.en ? "<br><i>" + esc(c.ex.en) + "</i>" : "");
+    } else if (l === "zh") {
+      front = '<div style="font-size:2em">' + esc(c.w) + "</div>";
+      back = esc(c.r) + "<br>" + meaning + chars;
+      if (c.ex && c.ex.zh) back += "<br><br>" + esc(c.ex.zh) + "<br>" + esc(c.ex.zhP) + (c.ex.en ? "<br><i>" + esc(c.ex.en) + "</i>" : "");
     } else if (l === "fa") {
       front = '<div dir="rtl" style="font-size:2em">' + esc(c.w) + "</div>";
-      back = esc(c.r) + "<br><b>" + esc(c.t) + "</b>" + (c.pos ? " (" + esc(c.pos) + ")" : "") + (c.def ? "<br>" + esc(c.def) : "");
+      back = esc(c.r) + "<br>" + meaning;
       if (c.ex && c.ex.fa) back += '<br><br><div dir="rtl">' + esc(c.ex.fa) + "</div>" + esc(c.ex.faR) + (c.ex.en ? "<br><i>" + esc(c.ex.en) + "</i>" : "");
     } else {
       front = '<div style="font-size:2em">' + esc(c.t) + "</div>";
@@ -1234,6 +1361,158 @@ function onRestoreFile(file) {
   reader.readAsText(file);
 }
 
+/* ---------- ABC tab ---------- */
+const ABC_NAMES = { ja: "Japanese", zh: "Pinyin", en: "English", fa: "Farsi" };
+function abcLang() { return LANGS[S.abcLang] ? S.abcLang : S.lang; }
+async function loadAbc() {
+  if (S.abcState === "loading" || S.abcState === "ready") return;
+  S.abcState = "loading"; renderAbc();
+  try {
+    const r = await fetch("data/alphabets.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error("http");
+    S.abc = await r.json();
+    S.abcState = "ready";
+  } catch (e) { S.abcState = "error"; }
+  renderAbc();
+}
+function toneSvg(t) {
+  const P = { 1: "M3 3 L23 3", 2: "M3 10 L23 3", 3: "M3 8 L11 14 L23 4", 4: "M3 3 L23 14" }[t];
+  const svg = '<svg class="tone-svg" viewBox="0 0 26 16" aria-hidden="true">' + (P ? '<path d="' + P + '"/>' : '<circle cx="13" cy="10" r="2.4"/>') + "</svg>";
+  const s = document.createElement("span"); s.style.display = "inline-flex"; s.innerHTML = svg; return s;
+}
+function tileFor(l, c) {
+  if (!c) return h("span", { class: "tile blank", "aria-hidden": "true" });
+  const b = h("button", { class: "tile", type: "button" });
+  let g, r;
+  if (l === "ja") { g = h("span", { class: "tile-g", lang: "ja", text: S.abcKana === "k" ? (c.g2 || c.g) : c.g }); r = h("span", { class: "tile-r", text: c.r }); }
+  else if (l === "en") { g = h("span", { class: "tile-g", lang: "en", text: c.g2 ? c.g + " " + c.g2 : c.g }); r = h("span", { class: "tile-r", text: c.name || c.r }); }
+  else if (l === "fa") { g = h("span", { class: "tile-g", lang: "fa", dir: "rtl", text: c.g }); r = h("span", { class: "tile-r", text: c.name || c.r }); }
+  else {
+    g = h("span", { class: "tile-g pinyin", text: c.g });
+    r = h("span", { class: "tile-r" });
+    if (c.tone) r.append(toneSvg(c.tone), c.tone === 5 ? "neutral" : ["", "1st", "2nd", "3rd", "4th"][c.tone]);
+    else if (c.ex) r.append(h("span", { lang: "zh", text: c.ex.w }), " " + c.ex.r);
+  }
+  b.append(g, r);
+  b.setAttribute("aria-label", (c.g || "") + (c.r ? ", " + c.r : ""));
+  b._cell = c;
+  return b;
+}
+function renderAbc() {
+  const l = abcLang();
+  $$(".abc-seg button").forEach(b => b.setAttribute("aria-checked", String(b.dataset.abc === l)));
+  const box = $("#abcBody");
+  box.replaceChildren();
+  if (S.abcState !== "ready") {
+    if (S.abcState === "error") {
+      const retry = h("button", { class: "ghost", type: "button", text: "Try again" });
+      retry.addEventListener("click", () => { S.abcState = "idle"; loadAbc(); });
+      box.append(h("div", { class: "state" }, h("h2", { text: "The alphabets didn't load" }), h("p", { text: "Check your connection, then try again." }), retry));
+    } else box.append(h("div", { class: "sk-story", "aria-hidden": "true" }, h("div", { class: "sk t2" }), h("div", { class: "sk" }), h("div", { class: "sk p2" })));
+    return;
+  }
+  const L = S.abc[l];
+  if (!L) return;
+  box.append(h("p", { class: "abc-intro", text: L.intro }));
+  if (l === "ja") {
+    const seg = h("div", { class: "seg abc-toggle", role: "radiogroup", "aria-label": "Kana set" });
+    [["h", "ひらがな hiragana"], ["k", "カタカナ katakana"]].forEach(([v, t]) => {
+      const b = h("button", { type: "button", role: "radio", "aria-checked": String(S.abcKana === v), lang: "ja", text: t });
+      b.addEventListener("click", () => { S.abcKana = v; STORE.set("kana", v); renderAbc(); });
+      seg.append(b);
+    });
+    box.append(seg);
+  }
+  L.sections.forEach((sec, si) => {
+    const cols = Math.max(1, Math.min(8, sec.cols || 4));
+    const wide = l === "ja" ? cols : Math.min(8, Math.round(cols * 1.5));
+    const grid = h("div", { class: "abc-grid", style: "--cols:" + cols + ";--cols-w:" + wide, dir: l === "fa" ? "rtl" : null });
+    (sec.cells || []).forEach(c => { const t = tileFor(l, c); if (c) t._sec = sec; grid.append(t); });
+    box.append(h("section", { class: "abc-sec" }, h("h3", { text: sec.title }), sec.note ? h("p", { class: "abc-note", text: sec.note }) : null, grid));
+  });
+  if (Array.isArray(L.tips) && L.tips.length) {
+    const ul = h("ul");
+    L.tips.forEach(t => ul.append(h("li", { text: t })));
+    box.append(h("div", { class: "abc-tips" }, h("h3", { text: "Tips" }), ul));
+  }
+}
+function exLine(l, ex, cap) {
+  if (!ex || !ex.w) return null;
+  const lang = l === "en" ? "en" : l;
+  const word = h("p", { class: "ex-t", lang, dir: l === "fa" ? "rtl" : null, text: ex.w });
+  const audio = l === "fa" ? (ex.a || "") : "";
+  const box = h("div", { class: "ex" }, h("div", { class: "ex-row" }, word, speakBtn(l === "zh" ? "zh" : l, ex.say || ex.w, audio, "Play " + ex.w)));
+  const meta = [ex.r, ex.m].filter(Boolean).join(" · ");
+  if (meta) box.append(h("p", { class: "ex-r", text: meta }));
+  if (cap) box.prepend(h("span", { class: "ad-cap", text: cap }));
+  return box;
+}
+function playCell(l, c) {
+  if (l === "fa") { if (c.ex && c.ex.a) say("fa", c.ex.w, c.ex.a); return; }
+  const text = l === "ja" ? (S.abcKana === "k" ? (c.g2 || c.say || c.g) : (c.say || c.g)) : (c.say || c.g);
+  if (hasVoice(l)) say(l, text);
+}
+function openLetter(btn) {
+  const l = abcLang(), c = btn._cell;
+  clearSel(); btn.classList.add("on");
+  S.look = null; S.sel = null;
+  S.abcCell = { l, c, btn };
+  const title = l === "en" ? c.g + (c.name ? " · " + c.name : "") : l === "ja" ? (S.abcKana === "k" ? c.g2 : c.g) + " · " + c.r : l === "fa" ? c.g + (c.name ? " · " + c.name : "") : c.g;
+  openSheet(title, null);
+  showLetter();
+  playCell(l, c);
+  requestAnimationFrame(() => requestAnimationFrame(() => ensureVisible(btn)));
+}
+function showLetter() {
+  const A = S.abcCell;
+  if (!A) return;
+  const { l, c } = A;
+  const body = $("#shBody");
+  body.replaceChildren();
+  const hero = h("div", { class: "ad-hero" });
+  const facts = h("div", { class: "ad-say" });
+  const playMain = () => playCell(l, c);
+  const mainBtn = (l === "fa" ? !!(c.ex && c.ex.a) : hasVoice(l)) ? h("button", { class: "icon-btn", type: "button", "aria-label": "Play" }, icon("speak")) : null;
+  if (mainBtn) mainBtn.addEventListener("click", playMain);
+  if (l === "ja") {
+    hero.append(h("div", { class: "ad-box" }, h("div", { class: "ad-glyph", lang: "ja", text: c.g }), h("span", { class: "ad-cap", text: "hiragana" })),
+      h("div", { class: "ad-box" }, h("div", { class: "ad-glyph", lang: "ja", text: c.g2 }), h("span", { class: "ad-cap", text: "katakana" })));
+    facts.append(h("span", { class: "ad-big", text: c.r }), h("span", { class: "ad-sub", text: "romaji" }));
+  } else if (l === "en") {
+    hero.append(h("div", { class: "ad-box" }, h("div", { class: "ad-glyph lines", lang: "en", text: c.g2 ? c.g + c.g2 : c.g }), h("span", { class: "ad-cap", text: c.g2 ? "capital · small" : "letter team" })));
+    facts.append(h("span", { class: "ad-big ipa", text: c.r }), h("span", { class: "ad-sub", text: c.name ? "said “" + c.name + "”" : "one sound" }));
+  } else if (l === "fa") {
+    hero.append(h("div", { class: "ad-box" }, h("div", { class: "ad-glyph plain", lang: "fa", text: c.g }), h("span", { class: "ad-cap", text: c.name || "" })));
+    addKid(facts, [h("span", { class: "ad-big", text: c.r }), c.ipa ? h("span", { class: "ad-sub", text: "sounds like " + c.ipa }) : null]);
+  } else {
+    hero.append(h("div", { class: "ad-box" }, h("div", { class: "ad-glyph plain pinyin", text: c.g }), h("span", { class: "ad-cap", text: c.tone ? (c.tone === 5 ? "neutral tone" : ["", "1st", "2nd", "3rd", "4th"][c.tone] + " tone") : "pinyin" })));
+    addKid(facts, [h("span", { class: "ad-big", text: c.r }), c.ipa ? h("span", { class: "ad-sub", text: c.ipa }) : null]);
+    if (c.tone) facts.append(toneSvg(c.tone));
+  }
+  addKid(hero, [facts, mainBtn]);
+  body.append(hero);
+  if (l === "fa" && Array.isArray(c.forms) && c.forms.length === 4) {
+    const forms = h("div", { class: "ad-forms" });
+    ["alone", "start", "middle", "end"].forEach((lab, i) => forms.append(h("div", { class: "ad-form" }, h("b", { lang: "fa", text: c.forms[i] }), h("span", { text: lab }))));
+    body.append(forms, h("p", { class: "ad-note", text: c.joins === false ? "This letter never joins the letter after it." : "This letter joins the letter after it." }));
+  }
+  if (l === "en" && Array.isArray(c.sounds) && c.sounds.length) {
+    const row = h("div", { class: "ad-sounds" });
+    c.sounds.forEach(s => {
+      const b = h("button", { class: "ad-sound", type: "button" }, h("span", { class: "ipa", text: s.ipa }), h("span", { text: s.w }));
+      b.addEventListener("click", () => { if (hasVoice("en")) say("en", s.w); });
+      row.append(b);
+    });
+    body.append(h("span", { class: "ad-cap", text: "Sounds it makes" }), row);
+  }
+  if (l === "ja") {
+    const k = S.abcKana === "k";
+    addKid(body, [exLine("ja", k ? c.ex2 : c.ex, k ? "Katakana word" : "Hiragana word"), exLine("ja", k ? c.ex : c.ex2, k ? "Hiragana word" : "Katakana word")]);
+  } else addKid(body, exLine(l, c.ex, "Example"));
+  if (c.note) body.append(h("p", { class: "ad-note", text: c.note }));
+  setSheetH();
+}
+
 /* ---------- study ---------- */
 const ST = { open: false, id: null, shown: false, done: 0, lastFocus: null };
 function openStudy() {
@@ -1246,6 +1525,7 @@ function openStudy() {
   setTimeout(() => { const b = $("#showBtn") || $("#stClose"); if (b) b.focus(); }, 0);
 }
 function closeStudy() {
+  stopSound();
   ST.open = false; ST.id = null;
   $("#study").hidden = true;
   document.body.classList.remove("studying");
@@ -1268,7 +1548,7 @@ function studyFront(c) {
   const l = c.lang, f = h("div", { class: "tc-front" });
   if (S.front === "word") {
     f.append(h("div", { class: "tc-word", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }));
-    const sb = speakBtn(c.w, l, "Play " + c.w);
+    const sb = speakBtn(l, c.w, c.a, "Play " + c.w);
     if (sb) f.append(sb);
   } else if (l === "en") {
     f.append(h("div", { class: "tc-def", text: c.def }));
@@ -1282,12 +1562,12 @@ function studyFront(c) {
 }
 function studyBack(c) {
   const l = c.lang, b = h("div", { class: "tc-back" });
-  if (S.front === "meaning") b.append(h("div", { class: "sh-head" }, h("div", { class: "sh-word", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }), speakBtn(c.w, l, "Play " + c.w)));
+  if (S.front === "meaning") b.append(h("div", { class: "sh-head" }, h("div", { class: "sh-word", lang: l, dir: l === "fa" ? "rtl" : null, text: c.w }), speakBtn(l, c.w, c.a, "Play " + c.w)));
   const read = readingEl(c, c, l);
   if (read) b.append(read);
   if (S.front === "word") b.append(l === "en" ? h("p", { class: "gloss big", text: c.def }) : meaningEl(c, l));
   else if (l !== "en" && c.def) b.append(h("p", { class: "gloss", text: c.def }));
-  if (l === "ja" && c.kanji.length) b.append(kanjiRow(c.kanji));
+  if ((l === "ja" || l === "zh") && c.kanji.length) b.append(kanjiRow(c.kanji, l));
   const ex = exampleEl(c.ex, l);
   if (ex) b.append(ex);
   if (S.front === "word" && c.context) b.append(h("p", { class: "tc-ctx" }, markIn(c.context, c.phrase || c.t)));
@@ -1343,6 +1623,7 @@ function reveal() {
 function rate(r) {
   const c = ST.id && deck().get(ST.id);
   if (!c || !ST.shown) return;
+  stopSound();
   deck().set(c.id, Object.assign({}, c, schedule(c, r, Date.now())));
   saveDeck(c.lang);
   ST.done++;
@@ -1361,7 +1642,7 @@ function renderDemo() {
   const v = shown(e, S.lang);
   box.append(h("span", { class: "demo-w", text: e.t }), h("span", { class: "demo-arrow", text: "→" }));
   if (S.lang === "en") box.append(h("span", { class: "demo-t", "data-l": "en", text: e.def }));
-  else box.append(h("span", { class: "demo-t", lang: v.lang, dir: v.dir, text: v.w }), v.r ? h("span", { class: "demo-r", text: v.r }) : null);
+  else addKid(box, [h("span", { class: "demo-t", lang: v.lang, dir: v.dir || null, text: v.w }), v.r ? h("span", { class: "demo-r", text: v.r }) : null]);
 }
 function setLang(l) {
   if (!LANGS[l]) l = "ja";
@@ -1377,18 +1658,22 @@ function setLang(l) {
   markSaved();
   if (S.look && !$("#sheet").hidden) showSheetBody();
   renderWords();
+  if (S.tab === "abc" && !LANGS[S.abcLang]) { if (!$("#sheet").hidden) closeSheet(); renderAbc(); }
 }
-const scrollMem = { news: 0, words: 0 };
+const scrollMem = { news: 0, words: 0, abc: 0 };
 function setTab(t, save) {
-  if (t !== "news" && t !== "words") t = "news";
+  if (!["news", "words", "abc"].includes(t)) t = "news";
   const changed = S.tab !== t;
   if (changed) scrollMem[S.tab] = window.scrollY;
   S.tab = t;
   $$(".tab").forEach(b => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; });
   $("#tab-news").hidden = t !== "news";
   $("#tab-words").hidden = t !== "words";
+  $("#tab-abc").hidden = t !== "abc";
   if (save !== false) STORE.set("tab", t);
-  if (t === "words") { closeSheet(); renderWords(); }
+  if (changed && !$("#sheet").hidden) closeSheet();
+  if (t === "words") renderWords();
+  if (t === "abc") { renderAbc(); loadAbc(); }
   if (changed) window.scrollTo(0, scrollMem[t] || 0);
 }
 function onKey(e) {
@@ -1408,7 +1693,8 @@ function bind() {
   $(".tabs").addEventListener("keydown", e => {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
-    const t = S.tab === "news" ? "words" : "news";
+    const order = ["news", "words", "abc"];
+    const t = order[(order.indexOf(S.tab) + (e.key === "ArrowRight" ? 1 : 2)) % 3];
     setTab(t);
     $("#tabbtn-" + t).focus();
   });
@@ -1419,12 +1705,14 @@ function bind() {
     const chip = e.target.closest(".chip");
     if (chip && chip._key) openChip(chip._key, chip._story);
   });
+  $("#abcBody").addEventListener("click", e => { const t = e.target.closest(".tile"); if (t && t._cell) openLetter(t); });
+  $$(".abc-seg button").forEach(b => b.addEventListener("click", () => { S.abcLang = b.dataset.abc; STORE.set("abc", S.abcLang); if (!$("#sheet").hidden) closeSheet(); renderAbc(); }));
   $("#shClose").addEventListener("click", closeSheet);
   $("#hintOk").addEventListener("click", () => { $("#hint").hidden = true; STORE.set("hint", "1"); });
   $("#studyBtn").addEventListener("click", openStudy);
   $("#stClose").addEventListener("click", closeStudy);
   $("#emptyGo").addEventListener("click", () => setTab("news"));
-  $$(".seg button").forEach(b => b.addEventListener("click", () => { S.front = b.dataset.front; STORE.set("front", S.front); renderWordsBody(); if (ST.open) renderStudy(); }));
+  $$(".seg button[data-front]").forEach(b => b.addEventListener("click", () => { S.front = b.dataset.front; STORE.set("front", S.front); renderWordsBody(); if (ST.open) renderStudy(); }));
   $("#exportBtn").addEventListener("click", onExport);
   $("#backupBtn").addEventListener("click", onBackup);
   const pick = () => { const f = $("#restoreFile"); f.value = ""; f.click(); };
@@ -1434,12 +1722,15 @@ function bind() {
   $("#wordSearch").addEventListener("input", e => { S.query = e.target.value.trim().toLowerCase(); renderWordsBody(); });
   document.addEventListener("keydown", onKey);
   window.addEventListener("storage", e => {
-    if (!e.key || e.key.indexOf("wnw:" + "v1:cards:") !== 0) return;
-    const l = e.key.slice(("wnw:v1:cards:").length);
+    if (!e.key || e.key.indexOf("wnw:v1:cards:") !== 0) return;
+    const l = e.key.slice("wnw:v1:cards:".length);
     if (S.decks[l]) { loadDeck(l); cardsChanged(); }
   });
-  window.addEventListener("hashchange", () => { if (location.hash === "#words") setTab("words"); else if (location.hash === "#news") setTab("news"); });
-  if ("ResizeObserver" in window) new ResizeObserver(setSheetH).observe($(".sheet-in"));
+  window.addEventListener("hashchange", () => { const t = location.hash.slice(1); if (["news", "words", "abc"].includes(t)) setTab(t); });
+  const top = $("#top");
+  const setTopH = () => document.documentElement.style.setProperty("--top-h", top.offsetHeight + "px");
+  setTopH();
+  if ("ResizeObserver" in window) { new ResizeObserver(setSheetH).observe($(".sheet-in")); new ResizeObserver(setTopH).observe(top); }
   setInterval(() => { renderCounts(); if (ST.open && !ST.id) nextStudy(); }, 30000);
 }
 
@@ -1450,7 +1741,8 @@ function boot() {
   $("#todayLine").textContent = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   $("#hint").hidden = STORE.get("hint", "") === "1";
   setLang(S.lang);
-  setTab(location.hash === "#words" ? "words" : (STORE.get("tab", "news") === "words" ? "words" : "news"), false);
+  const hash = location.hash.slice(1);
+  setTab(["news", "words", "abc"].includes(hash) ? hash : (["words", "abc"].includes(STORE.get("tab", "news")) ? STORE.get("tab") : "news"), false);
   loadData();
 }
 boot();

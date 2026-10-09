@@ -2,13 +2,20 @@
 
 **Live site: https://zhangbing9708-maker.github.io/world-news-words/**
 
-Read today's world news in plain English and learn its words in **Japanese, English or Farsi**.
+Read today's world news in plain English and learn its words in **Japanese, Chinese, English or Farsi**.
 
 - **News** – short summaries of the day's top stories, with links to the original reports. Tap any word
   to see it in the language you're learning, with its reading or pronunciation, meaning and, for key
   words, an example sentence.
 - **Words** – words you add become flashcards with Anki-style spaced repetition (Again / Hard / Good /
   Easy). Export them to Anki, or save a backup to move them to another device.
+- **ABC** – reference tables for Japanese hiragana and katakana, Chinese pinyin (tones, initials,
+  finals), the English alphabet and the Persian alphabet (with each letter's joined forms), with example
+  words and tap-to-listen.
+
+Sound: Japanese, Chinese and English use the device's own voices. Most devices have no Persian voice, so
+Farsi words, example sentences and alphabet examples play recorded MP3 files made with an open-source
+Persian voice (Piper "gyro", run with sherpa-onnx) by `tools/make_audio.py`.
 
 ## Many people, one site
 
@@ -20,8 +27,9 @@ move them.
 ## How the news is updated
 
 A scheduled Claude task runs every morning (Perth time). It finds the latest world news, writes new
-learner summaries, adds translations for any new words to `data/glossary.json`, runs
-`tools/check_data.py`, and pushes the change here. GitHub Pages then republishes the site.
+learner summaries, adds Japanese, Chinese, Farsi and English entries for any new words to
+`data/glossary.json`, makes their Farsi audio with `tools/make_audio.py`, runs `tools/check_data.py`, and
+pushes the change here. GitHub Pages then republishes the site.
 
 ## Files
 
@@ -29,7 +37,10 @@ learner summaries, adds translations for any new words to `data/glossary.json`, 
 | --- | --- |
 | `index.html` | The whole app (no build step) |
 | `data/news.json` | Stories, newest edition first |
-| `data/glossary.json` | Every tappable word in Japanese, Farsi and English |
+| `data/glossary.json` | Every tappable word in Japanese, Chinese, Farsi and English |
+| `data/alphabets.json` | The ABC tab's reference tables |
+| `data/audio/fa/` | Recorded Farsi audio (MP3) |
+| `tools/make_audio.py` | Makes Farsi audio for new words |
 | `tools/check_data.py` | Validates the data; `--missing` lists words without translations |
 | `tools/wordlib.py` | Word rules shared with the app (tokenizer, lookup) |
 | `DATA_FORMAT.md` | Format and translation rules for the data |

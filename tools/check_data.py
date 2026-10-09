@@ -33,10 +33,22 @@ PERSIAN_SENT = re.compile(r"^[؀-ۿ‌‏\s\-.,،؛؟!«»:0-9۰-۹()$%]+$")
 ARABIC_ONLY = re.compile(r"[يك]")
 LATIN = re.compile(r"^[a-zāīūēō' \-]+$")
 LATIN_SENT = re.compile(r"^[A-Za-zāīūēōĀĪŪ' \-.,?!:;0-9()$%]+$")
+CJK = re.compile(r"[\u3400-\u4DBF\u4E00-\u9FFF]")
+ZH_W = re.compile(r"^[\u3400-\u4DBF\u4E00-\u9FFF·A-Za-z0-9]+$")
+PINYIN = re.compile(r"^[A-Za-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙ'’ ·\-0-9]+$")
+PINYIN_SENT = re.compile(r"^[A-Za-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙ'’ ·\-0-9.,?!:;，。？！：；、“”\"()（）%]+$")
+HARAKAT = re.compile(r"[\u064B-\u0652\u0670]")
+AUDIO_DIR = os.path.join(ROOT, "data", "audio", "fa")
+ALPHABETS = os.path.join(ROOT, "data", "alphabets.json")
 RUBY_BAD = re.compile(r"[㐀-䶿一-鿿々]+(?!\[)(?![㐀-䶿一-鿿々])")
 
 
-def check_entry(k, e, errs):
+def has_audio(i):
+    return bool(i) and os.path.exists(os.path.join(AUDIO_DIR, str(i) + ".mp3"))
+
+
+def check_entry(k, e, errs, warns=None):
+    warns = warns if warns is not None else []
     where = f"glossary entry '{k}'"
     if k != k.lower():
         errs.append(f"{where}: key must be lowercase")
@@ -59,7 +71,31 @@ def check_entry(k, e, errs):
         errs.append(f"{where}: fa.w must be Persian script (ی and ک): {fa.get('w')!r}")
     if not LATIN.match(str(fa.get("r", ""))):
         errs.append(f"{where}: fa.r bad transliteration: {fa.get('r')!r}")
+    zh = e.get("zh") or {}
+    if not ZH_W.match(str(zh.get("w", ""))):
+        errs.append(f"{where}: zh.w must be Simplified Chinese: {zh.get('w')!r}")
+    if not PINYIN.match(str(zh.get("p", ""))):
+        errs.append(f"{where}: zh.p must be pinyin with tone marks: {zh.get('p')!r}")
+    if fa.get("v") and HARAKAT.sub("", fa["v"]) != HARAKAT.sub("", str(fa.get("w", ""))):
+        errs.append(f"{where}: fa.v must be fa.w plus vowel marks only")
+    if not fa.get("v"):
+        warns.append(f"{where}: no fa.v (vowel-marked spelling for the audio)")
+    if not has_audio(fa.get("a")):
+        warns.append(f"{where}: no Farsi audio (run python3 tools/make_audio.py)")
     if e.get("key"):
+        zc = e.get("zhChars")
+        want_zh = CJK.findall(str(zh.get("w", "")))
+        if not isinstance(zc, list) or [x.get("c") for x in zc if isinstance(x, dict)] != want_zh:
+            errs.append(f"{where}: zhChars must list each character of zh.w {want_zh}")
+        exz = e.get("ex") or {}
+        if not CJK.search(str(exz.get("zh", ""))):
+            errs.append(f"{where}: ex.zh missing")
+        if not PINYIN_SENT.match(str(exz.get("zhP", ""))):
+            errs.append(f"{where}: ex.zhP must be pinyin: {exz.get('zhP')!r}")
+        if exz.get("faV") and HARAKAT.sub("", exz["faV"]) != HARAKAT.sub("", str(exz.get("fa", ""))):
+            errs.append(f"{where}: ex.faV must be ex.fa plus vowel marks only")
+        if not has_audio(exz.get("faA")):
+            warns.append(f"{where}: no Farsi audio for the example (run python3 tools/make_audio.py)")
         jk = e.get("jaKanji")
         want = KANJI.findall(str(ja.get("w", "")))
         if not isinstance(jk, list) or [x.get("c") for x in jk if isinstance(x, dict)] != want:
@@ -93,10 +129,22 @@ def main():
     news = json.load(open(NEWS, encoding="utf-8"))
     glossary = json.load(open(GLOSSARY, encoding="utf-8"))
     entries, forms = glossary.get("entries", {}), glossary.get("forms", {})
-    errs, missing = [], []
+    errs, missing, warns = [], [], []
 
     for k, e in entries.items():
-        check_entry(k, e, errs)
+        check_entry(k, e, errs, warns)
+    if os.path.exists(ALPHABETS):
+        try:
+            alpha = json.load(open(ALPHABETS, encoding="utf-8"))
+            for l in ("ja", "en", "fa", "zh"):
+                if not isinstance(alpha.get(l), dict) or not alpha[l].get("sections"):
+                    errs.append(f"alphabets.json: '{l}' missing")
+            for sec in (alpha.get("fa") or {}).get("sections", []):
+                for c in sec.get("cells", []):
+                    if c and not has_audio((c.get("ex") or {}).get("a")):
+                        warns.append(f"alphabets.json: no audio for Farsi example {(c.get('ex') or {}).get('w')!r}")
+        except ValueError as ex:
+            errs.append(f"alphabets.json: not valid JSON ({ex})")
     for f, k in forms.items():
         if f != f.lower() and not is_acronym(f):
             errs.append(f"glossary form '{f}': must be lowercase (only all-capital acronyms keep capitals)")
@@ -183,7 +231,12 @@ def main():
         print(f"FAIL: {len(errs)} problem(s)")
         print("\n".join(errs[:120]))
         sys.exit(1)
-    print(f"OK: {len(stories)} stories, {len(entries)} glossary entries, {len(forms)} forms; every story word is covered.")
+    for w in warns[:30]:
+        print("WARN:", w)
+    if len(warns) > 30:
+        print(f"WARN: ... {len(warns) - 30} more")
+    print(f"OK: {len(stories)} stories, {len(entries)} glossary entries, {len(forms)} forms; every story word is covered."
+          + (f" {len(warns)} warning(s)." if warns else ""))
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#F3F4EC" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23E4A300'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='19' fill='%231D1B14'%3EW%3C/text%3E%3C/svg%3E">
+<script src="https://accounts.google.com/gsi/client" async defer onerror="window.wnwGisFailed=true"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Schibsted+Grotesk:wght@400..700&family=Vazirmatn:wght@400;600&display=swap">
@@ -274,6 +275,19 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 .art-hole{fill:var(--paper);stroke:var(--rule)}
 .art-ring{fill:none;stroke:var(--ring);stroke-width:3}
 
+/* ---------- Google Drive panel ---------- */
+.drive{margin-top:12px;padding:14px 16px;border-radius:14px;border:1px solid var(--rule);background:var(--surface);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.drive-txt{display:grid;gap:2px;min-width:0;flex:1 1 14rem}
+.drive-txt b{font:650 15px/1.3 var(--f-ui);overflow-wrap:anywhere}
+.drive-txt span{font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+.drive-who{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 16rem}
+.drive-pic{width:36px;height:36px;border-radius:50%;flex:none;object-fit:cover;background:var(--wash)}
+.drive-pic.ph{display:grid;place-items:center;font:700 15px var(--f-ui);color:var(--ink-2)}
+.drive-status.ok{color:var(--due)}
+.drive-status.error{color:var(--learn)}
+.drive .btn-row{align-items:center;gap:14px}
+.ghost:disabled{opacity:.55;cursor:default}
+
 /* ---------- ABC tab ---------- */
 .abc-head{display:grid;gap:12px;padding-block:18px 4px}
 .abc-title{margin:0;font-family:var(--f-display);font-weight:650;font-size:26px;letter-spacing:-.012em}
@@ -415,7 +429,7 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
     <div id="newsBody"></div>
     <div class="foot" id="newsFoot" hidden>
       <p>Each story is a short summary written for language practice, with a link to the original report. New stories arrive every day.</p>
-      <p>Your saved words stay in this browser on this device. Nobody else can see them. Use <b>Save backup</b> in Words to move them to another device.</p>
+      <p>Your saved words stay in this browser on this device, and nobody else can see them. To use them on other devices, sign in with Google on the Words tab to keep them in your own Google Drive, or use <b>Save backup</b>. <a href="privacy.html" style="color:inherit">Privacy</a></p>
       <p>Farsi audio is made with an open-source Persian computer voice, so the odd word may sound a little off.</p>
     </div>
   </section>
@@ -433,6 +447,7 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
       </div>
       <button class="primary big" id="studyBtn" type="button" disabled>Nothing to study yet</button>
     </div>
+    <div class="drive" id="drive" hidden></div>
     <p class="note" id="wordsNote" hidden></p>
 
     <div class="empty" id="wordsEmpty" hidden>
@@ -560,6 +575,7 @@ const ICONS = {
   ext: SVG('<path d="M8 16L16 8M9.5 8H16v6.5"/>'),
   trash: SVG('<path d="M5 7h14M10 7V5h4v2M7 7l.9 12h8.2L17 7"/>'),
   arrow: SVG('<path d="M5 12h13M13 7l5 5-5 5"/>'),
+  cloud: SVG('<path d="M7.5 18.5h9.2a4.3 4.3 0 0 0 .6-8.56A5.9 5.9 0 0 0 6 11.2a3.65 3.65 0 0 0 1.5 7.3z"/><path d="M12 10.5v5.2M9.8 13.4l2.2 2.3 2.2-2.3"/>'),
 };
 function icon(name) { const s = document.createElement("span"); s.className = "ic"; s.innerHTML = ICONS[name]; return s; }
 const RING_SVG = '<svg class="tc-ring" viewBox="0 0 44 58" aria-hidden="true"><defs><clipPath id="tcRingClip"><rect x="0" y="0" width="44" height="24"/><circle cx="22" cy="44" r="7"/></clipPath></defs><circle cx="22" cy="25" r="19" clip-path="url(#tcRingClip)"/></svg>';
@@ -600,8 +616,22 @@ const STORE = {
   ok: (() => { try { const k = "wnw:test"; localStorage.setItem(k, "1"); localStorage.removeItem(k); return true; } catch (e) { return false; } })(),
   get(k, d) { try { const v = localStorage.getItem("wnw:" + k); return v == null ? d : v; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem("wnw:" + k, v); return true; } catch (e) { return false; } },
+  del(k) { try { localStorage.removeItem("wnw:" + k); } catch (e) {} },
 };
-const deckKey = l => "v1:cards:" + l;
+/* Someone signed in with Google keeps their words under their own prefix, so people who share a
+   device never see or mix each other's words. Signed out, the page uses the plain keys. */
+function hashStr(s) {
+  let a = 0xdeadbeef, b = 0x41c6ce57;
+  for (let i = 0; i < s.length; i++) { const ch = s.charCodeAt(i); a = Math.imul(a ^ ch, 2654435761); b = Math.imul(b ^ ch, 1597334677); }
+  a = Math.imul(a ^ (a >>> 16), 2246822507) ^ Math.imul(b ^ (b >>> 13), 3266489909);
+  b = Math.imul(b ^ (b >>> 16), 2246822507) ^ Math.imul(a ^ (a >>> 13), 3266489909);
+  return (4294967296 * (2097151 & b) + (a >>> 0)).toString(36);
+}
+const acctOf = email => email ? "u:" + hashStr(String(email).trim().toLowerCase()) + ":" : "";
+function readUser() { try { const u = JSON.parse(STORE.get("g:user", "null")); return u && typeof u.email === "string" && u.email ? u : null; } catch (e) { return null; } }
+let ACCT = acctOf((readUser() || {}).email);
+const deckKey = l => ACCT + "v1:cards:" + l;
+const acctKey = k => ACCT + k;
 
 /* ---------- state ---------- */
 const S = {
@@ -629,7 +659,7 @@ function normCard(id, d, lang) {
     kanji: Array.isArray(d.kanji) ? d.kanji.slice(0, 16).map(x => ({ c: str(x && x.c, 2), m: str(x && x.m, 40) })).filter(x => x.c) : [],
     ex: normEx(d.ex), phrase: str(d.phrase, 80), context: str(d.context, 400), storyId: str(d.storyId, 140), storyTitle: str(d.storyTitle, 220),
     added: num(d.added, 0), due: num(d.due, 0), ivl: num(d.ivl, 0), ease: num(d.ease, 2.5), reps: num(d.reps, 0),
-    lapses: num(d.lapses, 0), step: num(d.step, 0), last: num(d.last, 0),
+    lapses: num(d.lapses, 0), step: num(d.step, 0), last: num(d.last, 0), mod: num(d.mod, 0),
     state: ["new", "learning", "relearning", "review"].includes(d.state) ? d.state : "new",
   };
   return (c.t && c.w) ? c : null;
@@ -648,6 +678,8 @@ function saveDeck(l) {
   for (const [id, c] of S.decks[l]) { const o = Object.assign({}, c); delete o.id; delete o.lang; obj[id] = o; }
   const ok = STORE.set(deckKey(l), JSON.stringify(obj));
   if (!ok && !warnedStore) { warnedStore = true; toast("This browser isn't saving words. Use Save backup before you leave."); }
+  if (!GD.applying) driveChanged();
+  return ok;
 }
 
 /* ---------- glossary lookup ---------- */
@@ -1152,17 +1184,19 @@ function addCard(key) {
     added: now, due: now, state: "new",
   }, l);
   deck().set(id, c);
+  untomb(l, id);
   saveDeck(l);
   cardsChanged(true);
   toast("Added " + v.w + " to Words");
 }
 function deleteCard(c) {
-  const l = c.lang;
+  const l = c.lang, acct = ACCT;
   S.decks[l].delete(c.id);
+  tomb(l, c.id);
   if (S.openRow === c.id) S.openRow = null;
   saveDeck(l);
   cardsChanged();
-  toast("Deleted " + c.w, { action: "Undo", fn: () => { S.decks[l].set(c.id, c); saveDeck(l); cardsChanged(); } });
+  toast("Deleted " + c.w, { action: "Undo", fn: () => { if (ACCT !== acct) return; untomb(l, c.id); S.decks[l].set(c.id, Object.assign({}, c, { mod: Date.now() })); saveDeck(l); cardsChanged(); } });
 }
 function cardsChanged(added) {
   const prev = +$("#badge").textContent || 0;
@@ -1348,9 +1382,10 @@ function onRestoreFile(file) {
       for (const id of Object.keys(src)) {
         const c = normCard(id, src[id], l);
         if (!c) continue;
-        const cur = S.decks[l].get(id);
-        if (!cur) { S.decks[l].set(id, c); added++; }
-        else if ((c.last || 0) > (cur.last || 0) || c.reps > cur.reps) { S.decks[l].set(id, c); updated++; }
+        c.mod = Date.now();        // a restored word comes back even if it was deleted before
+        untomb(l, id);
+        const k = mergeCard(l, id, c, TOMBS[l] || {});
+        if (k === "added") added++; else if (k === "updated") updated++;
       }
       saveDeck(l);
     }
@@ -1359,6 +1394,391 @@ function onRestoreFile(file) {
   };
   reader.onerror = () => toast("That file couldn't be read.");
   reader.readAsText(file);
+}
+
+/* ---------- Google Drive sync (each person's words in their own Drive) ---------- */
+const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
+const GD = {
+  clientId: "426684444407-97huladl5eak85n1i4urms610mbulo96.apps.googleusercontent.com",
+  scope: "openid email profile " + DRIVE_SCOPE,
+  fileName: "World News Words – my words.json",
+  appTag: "world-news-words",
+  token: "", exp: 0, client: null, user: readUser(), gen: 0,
+  fileId: "", last: 0, dirty: false,
+  state: "idle", msg: "", confirm: false, timer: 0, busy: false, again: false, applying: false,
+};
+const DRIVE_API = "https://www.googleapis.com/drive/v3/files", DRIVE_UPLOAD = "https://www.googleapis.com/upload/drive/v3/files";
+const tombKey = () => acctKey("v1:deleted");
+const okId = id => /^[a-z0-9-]{1,80}$/.test(id);
+function loadTombs() { try { const t = JSON.parse(STORE.get(tombKey(), "{}") || "{}"); return t && typeof t === "object" ? t : {}; } catch (e) { return {}; } }
+let TOMBS = loadTombs();
+function saveTombs() { STORE.set(tombKey(), JSON.stringify(TOMBS)); }
+function tomb(l, id) { (TOMBS[l] = TOMBS[l] || {})[id] = Date.now(); saveTombs(); }
+function untomb(l, id) { if (TOMBS[l] && TOMBS[l][id]) { delete TOMBS[l][id]; saveTombs(); } }
+function loadSyncState() {
+  GD.fileId = STORE.get(acctKey("g:file"), "");
+  GD.last = +STORE.get(acctKey("g:last"), "0") || 0;
+  GD.dirty = !!GD.user && !!STORE.get(acctKey("g:dirty"), "");
+}
+loadSyncState();
+/* A card is alive from its newest add, review or restore; a deletion only wins over what happened before it. */
+const alive = c => Math.max(c.last || 0, c.added || 0, c.mod || 0);
+const tokenValid = () => !!GD.token && Date.now() < GD.exp;
+const gisReady = () => !!(window.google && google.accounts && google.accounts.oauth2);
+const wordCount = () => Object.values(S.decks).reduce((a, m) => a + m.size, 0);
+/* Every change leaves a new mark, so a sync can tell whether more changes came in while it was uploading. */
+function markDirty() { GD.dirty = true; STORE.set(acctKey("g:dirty"), Date.now().toString(36) + Math.random().toString(36).slice(2, 6)); }
+function driveChanged() {
+  if (!GD.user) return;
+  markDirty();
+  clearTimeout(GD.timer);
+  GD.timer = setTimeout(() => { if (tokenValid()) syncNow(); else if (!GD.busy) { GD.state = "pending"; renderDrive(); } }, 4000);
+  renderDriveStatus();
+}
+/* Put another copy of a card into the deck. The copy with the latest review keeps its progress, and the card stays
+   alive if either copy was added, reviewed or restored after it was deleted. Returns "added", "updated" or "". */
+function mergeCard(l, id, c, T) {
+  const cur = S.decks[l].get(id);
+  if (!cur) {
+    if (T[id] >= alive(c)) return "";
+    S.decks[l].set(id, c);
+    return "added";
+  }
+  const newer = (c.last || 0) !== (cur.last || 0) ? (c.last || 0) > (cur.last || 0) : (c.reps || 0) > (cur.reps || 0);
+  const a = Math.max(alive(c), alive(cur));
+  if (newer) { if (a > alive(c)) c.mod = a; S.decks[l].set(id, c); return "updated"; }
+  if (a > alive(cur)) cur.mod = a;
+  return "";
+}
+
+/* Change whose words the page shows: a person who just signed in, or nobody (null). When someone signs in on a
+   device where words were saved while signed out, those words move into their account. */
+function switchAccount(user, moveGuest) {
+  const guest = ACCT ? null : S.decks;
+  GD.gen++;
+  clearTimeout(GD.timer);
+  hideToast();
+  GD.user = user || null;
+  STORE.set("g:user", user ? JSON.stringify(user) : "null");
+  ACCT = acctOf(user && user.email);
+  const langs = Object.keys(S.decks);
+  S.decks = {};
+  for (const l of langs) loadDeck(l);
+  TOMBS = loadTombs();
+  loadSyncState();
+  Object.assign(GD, { state: "idle", msg: "", confirm: false, busy: false, again: false });
+  let moved = 0;
+  if (user && guest && moveGuest) {
+    for (const l of langs) {
+      const T = TOMBS[l] || {};
+      for (const [id, c] of guest[l]) if (mergeCard(l, id, Object.assign({}, c), T)) moved++;
+    }
+    GD.applying = true;
+    let saved = true;
+    for (const l of langs) saved = saveDeck(l) && saved;
+    GD.applying = false;
+    if (saved) { for (const l of langs) STORE.del("v1:cards:" + l); STORE.del("v1:deleted"); }
+    if (moved) markDirty();
+  }
+  S.openRow = null;
+  return moved;
+}
+
+function connectDrive() {
+  if (!gisReady()) {
+    toast(window.wnwGisFailed ? "Google sign-in couldn't load. Check your connection, or allow accounts.google.com in your blocker." : "Google sign-in is still loading. Try again in a moment.");
+    return;
+  }
+  try {
+    if (!GD.client) GD.client = google.accounts.oauth2.initTokenClient({ client_id: GD.clientId, scope: GD.scope, callback: onToken, error_callback: onTokenError });
+    GD.state = "waiting"; GD.msg = ""; GD.confirm = false; renderDrive();
+    GD.client.requestAccessToken(GD.user ? { prompt: "", login_hint: GD.user.email } : { prompt: "select_account" });
+  } catch (e) {
+    GD.state = GD.user ? "pending" : "idle"; renderDrive();
+    toast("Google sign-in couldn't start. Reload the page and try again.");
+  }
+}
+async function onToken(resp) {
+  if (!resp || resp.error || !resp.access_token) {
+    GD.state = GD.user ? "pending" : "idle"; renderDrive();
+    if (resp && resp.error && resp.error !== "access_denied") toast("Google sign-in didn't finish. Try again.");
+    return;
+  }
+  const o = google.accounts.oauth2;
+  if (o.hasGrantedAllScopes && !o.hasGrantedAllScopes(resp, DRIVE_SCOPE)) {
+    GD.state = "error"; GD.msg = "Google didn't give the site access to Drive. Sign in again and allow it to use the one file it makes.";
+    renderDrive(); return;
+  }
+  // The new token is only used once we know whose it is, so it can never sync one person's words into another's Drive.
+  const gen = GD.gen, tok = resp.access_token;
+  const exp = Date.now() + (Math.max(120, +resp.expires_in || 3600) - 60) * 1000;
+  GD.state = "syncing"; GD.msg = "Signing in…"; renderDrive();
+  const u = await fetchUser(tok);
+  if (gen !== GD.gen) return;
+  if (!u) {
+    GD.state = GD.user ? "pending" : "idle"; GD.msg = ""; renderDrive();
+    toast("Couldn't reach Google to finish signing in. Try again.");
+    return;
+  }
+  const signin = acctOf(u.email) !== ACCT;
+  let moved = 0;
+  if (signin) { moved = switchAccount(u, !GD.user); cardsChanged(); }
+  else { GD.user = u; STORE.set("g:user", JSON.stringify(u)); }
+  GD.token = tok; GD.exp = exp;
+  syncNow({ announce: true, signin, moved });
+}
+function onTokenError(err) {
+  const t = err && err.type;
+  GD.state = GD.user ? "pending" : "idle"; GD.msg = ""; renderDrive();
+  if (t === "popup_failed_to_open") toast("Your browser blocked the Google window. Allow pop-ups for this site, then try again.");
+  else if (t === "popup_closed") toast("The Google window closed before sign-in finished.");
+}
+async function gapi(url, opts, token) {
+  opts = opts || {};
+  const tok = token || GD.token;
+  const ctl = typeof AbortController === "function" ? new AbortController() : null;
+  const timer = ctl ? setTimeout(() => ctl.abort(), 30000) : 0;
+  let res, text = "";
+  try {
+    res = await fetch(url, Object.assign({}, opts, { signal: ctl ? ctl.signal : undefined, headers: Object.assign({ Authorization: "Bearer " + tok }, opts.headers || {}) }));
+    text = await res.text();
+  } finally { clearTimeout(timer); }
+  let data;
+  try { data = text ? JSON.parse(text) : {}; } catch (e) { data = text; }
+  if (!res.ok) {
+    if (res.status === 401 && GD.token === tok) { GD.token = ""; GD.exp = 0; }
+    const e = new Error("http " + res.status);
+    e.code = res.status;
+    const er = data && typeof data === "object" && data.error;
+    e.reason = (er && ((er.errors && er.errors[0] && er.errors[0].reason) || er.status)) || "";
+    throw e;
+  }
+  return data;
+}
+async function fetchUser(tok) {
+  try {
+    const x = await gapi("https://www.googleapis.com/oauth2/v3/userinfo", null, tok);
+    if (x && x.email) return { name: str(x.name, 80), email: str(x.email, 120), picture: str(x.picture, 500) };
+  } catch (e) {}
+  try {
+    const a = await gapi("https://www.googleapis.com/drive/v3/about?fields=" + encodeURIComponent("user(displayName,emailAddress,photoLink)"), null, tok);
+    const x = a && a.user;
+    if (x && x.emailAddress) return { name: str(x.displayName, 80), email: str(x.emailAddress, 120), picture: str(x.photoLink, 500) };
+  } catch (e) {}
+  return null;
+}
+/* The site's files in this person's Drive, oldest first. Normally there is exactly one. */
+async function findFiles() {
+  const q = "appProperties has { key='app' and value='" + GD.appTag + "' } and trashed=false";
+  const r = await gapi(DRIVE_API + "?q=" + encodeURIComponent(q) + "&orderBy=createdTime&pageSize=10&spaces=drive&fields=" + encodeURIComponent("files(id,createdTime)"));
+  const files = (r && Array.isArray(r.files) ? r.files : []).filter(f => f && f.id);
+  if (GD.fileId && !files.some(f => f.id === GD.fileId)) {
+    try {
+      const f = await gapi(DRIVE_API + "/" + encodeURIComponent(GD.fileId) + "?fields=id,trashed,createdTime");
+      if (f && f.id && !f.trashed) files.push(f);
+    } catch (e) { if (e.code === 401) throw e; }
+  }
+  return files.sort((a, b) => String(a.createdTime || "").localeCompare(String(b.createdTime || "")));
+}
+function snapshot() {
+  const decks = {};
+  for (const l of Object.keys(S.decks)) { decks[l] = {}; for (const [id, c] of S.decks[l]) { const o = Object.assign({}, c); delete o.id; delete o.lang; decks[l][id] = o; } }
+  return { app: "world-news-words", version: 1, saved: new Date().toISOString(), decks, deleted: TOMBS };
+}
+const readableCopy = d => !!d && typeof d === "object" && d.app === "world-news-words";
+/* Merge a saved copy into the words on this device (see mergeCard). Deletions newer than a card remove it. */
+function mergeIn(data) {
+  const r = { added: 0, updated: 0, removed: 0 };
+  const cutoff = Date.now() - 180 * DAY;
+  const remoteT = data.deleted && typeof data.deleted === "object" ? data.deleted : {};
+  for (const l of Object.keys(S.decks)) {
+    const T = TOMBS[l] = TOMBS[l] || {};
+    const rt = remoteT[l] && typeof remoteT[l] === "object" ? remoteT[l] : {};
+    for (const [id, ts] of Object.entries(rt)) if (okId(id) && typeof ts === "number" && ts > (T[id] || 0)) T[id] = ts;
+    for (const id of Object.keys(T)) if (!(T[id] >= cutoff)) delete T[id];
+    const src = data.decks && typeof data.decks[l] === "object" && data.decks[l] ? data.decks[l] : {};
+    for (const id of Object.keys(src)) {
+      if (!okId(id)) continue;
+      const c = normCard(id, src[id], l);
+      const k = c ? mergeCard(l, id, c, T) : "";
+      if (k) r[k]++;
+    }
+    for (const id of Object.keys(T)) { const cur = S.decks[l].get(id); if (cur && T[id] >= alive(cur)) { S.decks[l].delete(id); r.removed++; } }
+  }
+  return r;
+}
+function syncMessage(got, o) {
+  const words = k => k + (k === 1 ? " word" : " words");
+  const head = o.signin ? "Signed in. " : "";
+  const moved = o.moved || 0, n = got.added + got.updated + got.removed;
+  const movedTxt = moved === 1 ? "1 word from this device is now in your Google Drive." : words(moved) + " from this device are now in your Google Drive.";
+  if (!n) return head + (moved ? movedTxt : "Your words are saved to your Google Drive.");
+  const pulled = got.updated || got.removed
+    ? "Updated from your Google Drive: " + [got.added && got.added + " new", got.updated && got.updated + " changed", got.removed && got.removed + " removed"].filter(Boolean).join(", ") + "."
+    : "Loaded " + words(got.added) + " from your Google Drive.";
+  return head + pulled + (moved ? " " + movedTxt : "");
+}
+/* Download the Drive copy, merge it with this device, and upload the result. */
+async function syncNow(opt) {
+  const o = opt || {};
+  if (!GD.user) return;
+  if (GD.busy) { GD.again = o.announce ? o : (GD.again || true); return; }
+  if (!tokenValid()) { GD.state = "pending"; renderDrive(); return; }
+  const gen = GD.gen;
+  let ok = false;
+  clearTimeout(GD.timer);
+  GD.busy = true; GD.state = "syncing"; GD.msg = ""; renderDrive();
+  try {
+    const files = await findFiles();
+    if (gen !== GD.gen) return;
+    const copies = [];
+    for (const f of files) {
+      let data = await gapi(DRIVE_API + "/" + encodeURIComponent(f.id) + "?alt=media");
+      if (gen !== GD.gen) return;
+      if (typeof data === "string") { try { data = JSON.parse(data); } catch (e) { data = null; } }
+      if (readableCopy(data)) copies.push({ f, data });   // a file that isn't ours to read is never overwritten
+    }
+    if (copies.some(x => +x.data.version > 1)) { const e = new Error("newer"); e.code = "newer"; throw e; }
+    // Merge, save and take the snapshot in one go, so a change from another tab can't slip in between.
+    const got = { added: 0, updated: 0, removed: 0 };
+    for (const x of copies) { const r = mergeIn(x.data); got.added += r.added; got.updated += r.updated; got.removed += r.removed; }
+    GD.applying = true;
+    for (const l of Object.keys(S.decks)) saveDeck(l);
+    saveTombs();
+    GD.applying = false;
+    const mark = STORE.get(acctKey("g:dirty"), "");
+    const body = JSON.stringify(snapshot());
+    let id = copies.length ? copies[0].f.id : "";
+    if (id) {
+      await gapi(DRIVE_UPLOAD + "/" + encodeURIComponent(id) + "?uploadType=media&fields=id", { method: "PATCH", headers: { "Content-Type": "application/json; charset=UTF-8" }, body });
+    } else {
+      const b = "wnw" + Math.random().toString(36).slice(2);
+      const meta = { name: GD.fileName, mimeType: "application/json", appProperties: { app: GD.appTag }, description: "Word cards saved by World News Words: https://zhangbing9708-maker.github.io/world-news-words/" };
+      const multi = "--" + b + "\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n" + JSON.stringify(meta) + "\r\n--" + b + "\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n" + body + "\r\n--" + b + "--";
+      const f = await gapi(DRIVE_UPLOAD + "?uploadType=multipart&fields=id", { method: "POST", headers: { "Content-Type": "multipart/related; boundary=" + b }, body: multi });
+      id = (f && f.id) || "";
+    }
+    if (gen !== GD.gen) return;
+    // Two devices that connected at the same moment can each make a file. Their words are merged above,
+    // so the newer copies go to the Drive trash and every device keeps using the oldest file.
+    for (const x of copies.slice(1)) {
+      try { await gapi(DRIVE_API + "/" + encodeURIComponent(x.f.id) + "?fields=id", { method: "PATCH", headers: { "Content-Type": "application/json; charset=UTF-8" }, body: JSON.stringify({ trashed: true }) }); } catch (e) {}
+      if (gen !== GD.gen) return;
+    }
+    GD.fileId = id; STORE.set(acctKey("g:file"), id);
+    GD.last = Date.now(); STORE.set(acctKey("g:last"), String(GD.last));
+    if (STORE.get(acctKey("g:dirty"), "") === mark) STORE.set(acctKey("g:dirty"), "");
+    GD.dirty = !!STORE.get(acctKey("g:dirty"), "");
+    GD.state = "ok"; ok = true;
+    if (got.added || got.updated || got.removed) cardsChanged();
+    if (o.announce) toast(syncMessage(got, o));
+  } catch (e) {
+    GD.applying = false;
+    if (gen !== GD.gen) return;
+    GD.dirty = !!STORE.get(acctKey("g:dirty"), "");
+    GD.msg = "";
+    if (e.code === 401) { GD.state = "pending"; if (o.announce) toast("Your Google sign-in has expired. Tap Sync now to sign in again."); }
+    else {
+      GD.state = "error";
+      const why = e.reason || "";
+      if (e.code === "newer") GD.msg = "This page is out of date. Reload it to sync your words.";
+      else if (e.code === 404) { GD.fileId = ""; STORE.set(acctKey("g:file"), ""); GD.msg = "Your Drive file was moved or deleted. Tap Sync now to make a new one."; }
+      else if (why === "storageQuotaExceeded") GD.msg = "Your Google Drive is full, so your words couldn't be saved.";
+      else if (e.code === 429 || /rateLimit/i.test(why)) GD.msg = "Google Drive is busy. Tap Sync now again in a minute.";
+      else if (e.code === 403) GD.msg = "Google Drive refused the request. Sign out, then sign in again.";
+      else GD.msg = "Couldn't reach Google Drive. Check your connection and tap Sync now.";
+    }
+  } finally {
+    if (gen === GD.gen) {
+      GD.busy = false;
+      renderDrive();
+      const again = GD.again;
+      GD.again = false;
+      if ((again || (ok && GD.dirty)) && tokenValid()) setTimeout(() => syncNow(typeof again === "object" ? again : null), 1500);
+    }
+  }
+}
+async function askSignOut() {
+  if (GD.busy) { toast("Your words are syncing. Try again in a moment."); return; }
+  if (tokenValid()) {               // save the very latest first
+    await syncNow();
+    if (!GD.user || GD.busy) return;
+  }
+  if (GD.dirty || (!GD.last && wordCount())) { GD.confirm = true; renderDrive(); return; }
+  signOut(true);
+}
+/* Sign out on this device. When everything is already in Drive, the copy here is removed too, so the next person to
+   use this browser sees none of these words; otherwise it waits here until the same account signs in again.
+   Google access isn't revoked, so the person's other devices stay signed in. */
+function signOut(removeLocal) {
+  if (removeLocal) {
+    for (const l of Object.keys(S.decks)) STORE.del(deckKey(l));
+    for (const k of ["v1:deleted", "g:file", "g:last", "g:dirty"]) STORE.del(acctKey(k));
+  }
+  GD.token = ""; GD.exp = 0;
+  switchAccount(null, false);
+  cardsChanged();
+  renderDrive();
+  toast(removeLocal ? "Signed out. Your words are safe in your Google Drive." : "Signed out. Your newest changes wait on this device until you sign in here again.");
+}
+function agoText(ts) {
+  if (!ts) return "";
+  const d = Date.now() - ts;
+  if (d < 45e3) return "just now";
+  if (d < HOUR) return Math.round(d / MIN) + " min ago";
+  if (d < DAY) return Math.round(d / HOUR) + " h ago";
+  return new Date(ts).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+}
+function driveStatusText() {
+  if (GD.state === "waiting") return "Waiting for Google…";
+  if (GD.state === "syncing") return GD.msg || "Syncing with your Google Drive…";
+  if (GD.state === "error") return GD.msg;
+  if (GD.dirty) return tokenValid() ? "Saving your changes…" : "New changes aren't in your Drive yet. Tap Sync now.";
+  if (GD.state === "ok") return "Saved to your Google Drive · " + agoText(GD.last);
+  return GD.last ? "Last synced " + agoText(GD.last) + ". Tap Sync now to get changes from your other devices." : "Tap Sync now to load your words from Google Drive.";
+}
+const driveStatusClass = () => GD.state === "ok" && GD.dirty ? "pending" : GD.state;
+function renderDriveStatus() {
+  const s = $("#driveStatus");
+  if (!s || !GD.user || GD.confirm) return;
+  s.textContent = driveStatusText();
+  s.className = "drive-status " + driveStatusClass();
+}
+function renderDrive() {
+  const box = $("#drive");
+  if (!box) return;
+  box.replaceChildren();
+  if (!GD.clientId) { box.hidden = true; return; }
+  box.hidden = false;
+  if (!GD.user) {
+    const err = GD.state === "error" && GD.msg;
+    const b = h("button", { class: "ghost", type: "button" }, icon("cloud"), GD.state === "waiting" || GD.state === "syncing" ? "Signing in…" : "Sign in with Google");
+    b.disabled = GD.state === "syncing";
+    b.addEventListener("click", connectDrive);
+    box.append(h("div", { class: "drive-txt" }, h("b", { text: "Save your words in Google Drive" }),
+      h("span", { class: err ? "drive-status error" : null, role: err ? "status" : null, text: err || "Sign in with your Google account to keep your words in your own Drive and load them on any device. The site can open only the one file it makes." })), b);
+    return;
+  }
+  const pic = GD.user.picture ? h("img", { class: "drive-pic", src: GD.user.picture, alt: "", referrerpolicy: "no-referrer" })
+    : h("span", { class: "drive-pic ph", "aria-hidden": "true", text: (GD.user.name || GD.user.email || "?").slice(0, 1).toUpperCase() });
+  const who = h("b", { text: GD.user.name ? GD.user.name + " · " + GD.user.email : GD.user.email });
+  const sync = h("button", { class: "ghost sm", type: "button" }, icon("cloud"), GD.busy ? "Syncing…" : "Sync now");
+  sync.disabled = GD.busy;
+  sync.addEventListener("click", () => { GD.confirm = false; if (tokenValid()) syncNow({ announce: true }); else connectDrive(); });
+  if (GD.confirm) {
+    const go = h("button", { class: "link-btn", type: "button", text: "Sign out anyway" });
+    go.addEventListener("click", () => signOut(false));
+    const no = h("button", { class: "link-btn", type: "button", text: "Cancel" });
+    no.addEventListener("click", () => { GD.confirm = false; renderDrive(); });
+    box.append(h("div", { class: "drive-who" }, pic, h("div", { class: "drive-txt" }, who,
+      h("span", { class: "drive-status error", role: "status", text: "Some of your words aren't in your Google Drive yet. Tap Sync now to save them first. If you sign out anyway, they wait on this device until you sign in here again." }))),
+      h("div", { class: "btn-row" }, sync, go, no));
+    return;
+  }
+  const out = h("button", { class: "link-btn", type: "button", text: "Sign out" });
+  out.addEventListener("click", askSignOut);
+  box.append(h("div", { class: "drive-who" }, pic, h("div", { class: "drive-txt" }, who, h("span", { class: "drive-status " + driveStatusClass(), id: "driveStatus", role: "status", text: driveStatusText() }))),
+    h("div", { class: "btn-row" }, sync, out));
 }
 
 /* ---------- ABC tab ---------- */
@@ -1722,16 +2142,34 @@ function bind() {
   $("#wordSearch").addEventListener("input", e => { S.query = e.target.value.trim().toLowerCase(); renderWordsBody(); });
   document.addEventListener("keydown", onKey);
   window.addEventListener("storage", e => {
-    if (!e.key || e.key.indexOf("wnw:v1:cards:") !== 0) return;
-    const l = e.key.slice("wnw:v1:cards:".length);
-    if (S.decks[l]) { loadDeck(l); cardsChanged(); }
+    if (!e.key) return;
+    if (e.key === "wnw:g:user") {
+      const u = readUser();
+      if (acctOf(u && u.email) !== ACCT) { GD.token = ""; GD.exp = 0; switchAccount(u, false); cardsChanged(); }
+      else if (u) GD.user = u;
+      renderDrive();
+      return;
+    }
+    // Another tab changed this person's words: if this tab can reach Drive, it saves them there.
+    const syncSoon = () => { if (GD.user && tokenValid()) { clearTimeout(GD.timer); GD.timer = setTimeout(() => syncNow(), 4000); } };
+    if (e.key === "wnw:" + tombKey()) { TOMBS = loadTombs(); syncSoon(); return; }
+    if (e.key === "wnw:" + acctKey("g:dirty")) { GD.dirty = !!GD.user && !!e.newValue; renderDriveStatus(); if (GD.dirty) syncSoon(); return; }
+    if (["g:file", "g:last"].some(k => e.key === "wnw:" + acctKey(k))) { if (!GD.busy) { loadSyncState(); renderDrive(); } return; }
+    const pre = "wnw:" + deckKey("");
+    if (e.key.indexOf(pre) !== 0) return;
+    const l = e.key.slice(pre.length);
+    if (S.decks[l]) { loadDeck(l); cardsChanged(); syncSoon(); }
   });
   window.addEventListener("hashchange", () => { const t = location.hash.slice(1); if (["news", "words", "abc"].includes(t)) setTab(t); });
   const top = $("#top");
   const setTopH = () => document.documentElement.style.setProperty("--top-h", top.offsetHeight + "px");
   setTopH();
   if ("ResizeObserver" in window) { new ResizeObserver(setSheetH).observe($(".sheet-in")); new ResizeObserver(setTopH).observe(top); }
-  setInterval(() => { renderCounts(); if (ST.open && !ST.id) nextStudy(); }, 30000);
+  setInterval(() => { renderCounts(); if (ST.open && !ST.id) nextStudy(); renderDriveStatus(); }, 30000);
+  document.addEventListener("visibilitychange", () => {
+    if (!GD.user || !tokenValid() || GD.busy) return;
+    if (document.hidden ? GD.dirty : Date.now() - GD.last > 60000) syncNow();
+  });
 }
 
 /* ---------- boot ---------- */
@@ -1741,6 +2179,7 @@ function boot() {
   $("#todayLine").textContent = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   $("#hint").hidden = STORE.get("hint", "") === "1";
   setLang(S.lang);
+  renderDrive();
   const hash = location.hash.slice(1);
   setTab(["news", "words", "abc"].includes(hash) ? hash : (["words", "abc"].includes(STORE.get("tab", "news")) ? STORE.get("tab") : "news"), false);
   loadData();

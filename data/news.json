@@ -1,6 +1,267 @@
 {
-  "updated": "2026-10-10",
+  "updated": "2026-10-11",
   "stories": [
+    {
+      "id": "2026-10-10-zaporizhzhia-attack-miami-talks",
+      "edition": "2026-10-11",
+      "rank": 1,
+      "date": "2026-10-10",
+      "tag": "World",
+      "place": "Ukraine",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/10/us-hosts-productive-trilateral-talks-to-end-russia-ukraine-war",
+      "title": "Russian attack kills 20 in a Ukrainian city as peace talks are held in Miami",
+      "summary": [
+        "A Russian attack on the southern Ukrainian city of Zaporizhzhia early on Saturday killed 20 people, including three children.",
+        "Officials said Russia hit several places at the same time, and part of an apartment building fell down.",
+        "At the same time, officials from the US, Ukraine and Europe met in Miami to discuss a plan to end the war.",
+        "US envoy Steve Witkoff called the talks constructive, and they covered energy, grain exports and security guarantees."
+      ],
+      "why": [
+        "It was the third attack this week in which many civilians died, and the war is now in its fifth year."
+      ],
+      "keywords": [
+        "civilian",
+        "envoy",
+        "constructive",
+        "guarantee",
+        "grain"
+      ],
+      "senses": {
+        "met": "meet#gather"
+      }
+    },
+    {
+      "id": "2026-10-10-us-russian-diesel-sanctions",
+      "edition": "2026-10-11",
+      "rank": 2,
+      "date": "2026-10-10",
+      "tag": "Business",
+      "place": "United States",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/10/why-is-us-turning-to-russia-for-diesel-despite-sanctions",
+      "title": "The US lets Russia sell diesel again to bring down high fuel prices",
+      "summary": [
+        "US President Donald Trump has agreed a deal with Russian President Vladimir Putin to allow Russian diesel onto world markets.",
+        "Russia will first supply more than 300,000 tonnes of diesel, then 500,000 tonnes in November and more later.",
+        "The US Treasury said it would give a temporary licence so that the fuel can be sold despite sanctions.",
+        "US diesel reached a record average price of $6.52 a gallon in September, as the war with Iran has largely closed the Strait of Hormuz."
+      ],
+      "why": [
+        "Ukrainian President Volodymyr Zelenskyy called it a weak decision, and the EU said it was not the time to ease pressure on Russia.",
+        "Some experts say the amounts are small, because the US alone uses about 3.7 million barrels of diesel a day."
+      ],
+      "keywords": [
+        "diesel",
+        "sanction",
+        "temporary",
+        "licence",
+        "supply#provide"
+      ],
+      "senses": {
+        "supply": "supply#provide",
+        "bring": "bring down"
+      }
+    },
+    {
+      "id": "2026-10-10-india-cockroach-protest-detentions",
+      "edition": "2026-10-11",
+      "rank": 3,
+      "date": "2026-10-10",
+      "tag": "Politics",
+      "place": "India",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/10/indias-cockroach-leaders-detained-new-delhi-in-lockdown",
+      "title": "Indian police detain more than 1,000 people to stop a protest in New Delhi",
+      "summary": [
+        "Police in New Delhi detained more than 1,000 people on Saturday to stop a large protest against India's chief election official, Gyanesh Kumar.",
+        "The protest was called by youth groups, including the Cockroach Janta Party, whose founder Abhijeet Dipke was taken off a plane in Delhi.",
+        "Trains to the city were cancelled, mobile internet was switched off, and the main protest site was closed.",
+        "A spokesman for the governing BJP said the protest had failed and the country was calm."
+      ],
+      "why": [
+        "The protesters say a review of voter lists removed many voters and helped the BJP win some state elections.",
+        "Amnesty International called for everyone detained for peaceful protest to be released."
+      ],
+      "keywords": [
+        "detain",
+        "protest",
+        "voter",
+        "founder",
+        "spokesman"
+      ],
+      "senses": {
+        "calm": "calm#adj",
+        "switched": "switch off"
+      }
+    },
+    {
+      "id": "2026-10-09-ethiopia-eritrea-war-accusations",
+      "edition": "2026-10-11",
+      "rank": 4,
+      "date": "2026-10-09",
+      "tag": "World",
+      "place": "Ethiopia",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/9/ethiopia-and-eritrea-accuse-one-another-of-launching-war",
+      "title": "Ethiopia and Eritrea blame each other for starting a war",
+      "summary": [
+        "Ethiopia has told the UN Security Council that Eritrea has carried out an all-out invasion of its northern Tigray region.",
+        "Ethiopia's foreign minister said Eritrean troops had moved up to 60 kilometres inside the country, and he asked for them to leave.",
+        "Eritrea rejected the claim and said Ethiopia had been fighting an unprovoked war against it for more than three years.",
+        "Eritrea also accused Ethiopia of wanting to take Assab, an Eritrean port on the Red Sea."
+      ],
+      "why": [
+        "Ethiopia lost its coast when Eritrea became independent in 1993, and it has often said it needs access to the sea.",
+        "The two neighbours fought a border war from 1998, and they cut diplomatic ties in late September."
+      ],
+      "keywords": [
+        "invasion",
+        "troops",
+        "accuse",
+        "independent",
+        "access"
+      ],
+      "senses": {
+        "carried": "carry out",
+        "fighting": "fight#war",
+        "fought": "fight#war",
+        "moved": "move#go",
+        "red": "red sea"
+      }
+    },
+    {
+      "id": "2026-10-10-taiwan-national-day-defence",
+      "edition": "2026-10-11",
+      "rank": 5,
+      "date": "2026-10-10",
+      "tag": "Politics",
+      "place": "Taiwan",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/10/taiwan-president-says-defence-spending-boost-aims-to-deter-war",
+      "title": "Taiwan's president says more defence spending is meant to deter war",
+      "summary": [
+        "Taiwan's President Lai Ching-te said in his National Day speech on Saturday that the island wants peace but will not give up its freedom.",
+        "He said higher defence spending is meant to deter a war, not to provoke one.",
+        "His government has planned a record 1.1 trillion Taiwan dollars, or about US$34.5 billion, for defence in 2027.",
+        "China's Taiwan Affairs Office criticised the speech and repeated that Taiwan is part of China."
+      ],
+      "why": [
+        "China claims Taiwan, an island of 23 million people, and has not ruled out using force to take control of it.",
+        "The holiday marks 115 years since the 1911 uprising that ended China's last imperial dynasty."
+      ],
+      "keywords": [
+        "defence",
+        "deter",
+        "provoke",
+        "speech",
+        "dynasty"
+      ],
+      "senses": {
+        "ruled": "rule out",
+        "claims": "claim#own"
+      }
+    },
+    {
+      "id": "2026-10-11-solomon-islands-mps-overseas-treatment",
+      "edition": "2026-10-11",
+      "rank": 6,
+      "date": "2026-10-11",
+      "tag": "Health",
+      "place": "Solomon Islands",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-11/solomons-mps-jet-overseas-for-treatment-while-citizens-wait/107242152",
+      "title": "Report asks why Solomon Islands MPs get medical care overseas while patients wait",
+      "summary": [
+        "An ABC investigation suggests some MPs in Solomon Islands received publicly funded medical treatment abroad when cheaper care was available at home.",
+        "In 2025 the prime minister's office spent about $1.5 million on overseas health care for MPs, while about $1.2 million was set aside for ordinary citizens.",
+        "Some doctors say they felt pressure from politicians to approve the trips, but the attorney-general said the system is legal.",
+        "Prime Minister Matthew Wale said that from next year all such funding will go through a commission with stricter rules."
+      ],
+      "why": [
+        "Many citizens must wait or raise money themselves for surgery overseas, such as a young mother with heart disease who needs nearly $35,000."
+      ],
+      "keywords": [
+        "investigation",
+        "treatment",
+        "overseas",
+        "surgery",
+        "pressure"
+      ],
+      "senses": {
+        "raise": "raise#money",
+        "set": "set aside",
+        "aside": "set aside"
+      }
+    },
+    {
+      "id": "2026-10-11-who-owns-the-moon",
+      "edition": "2026-10-11",
+      "rank": 7,
+      "date": "2026-10-11",
+      "tag": "Science",
+      "place": "The Moon",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-11/who-owns-the-moon-amid-new-space-race/107229428",
+      "title": "Billionaires and big countries race to the Moon, but who owns it?",
+      "summary": [
+        "Elon Musk's SpaceX and Jeff Bezos's Blue Origin both have plans to build settlements on the Moon.",
+        "The 1967 Outer Space Treaty says no country can claim the Moon, and it must be used only for peaceful purposes.",
+        "However, the treaty says nothing about mining, and a 2015 US law lets American companies own and sell resources they take from space.",
+        "So far 76 countries have signed the Artemis Accords, which are led by NASA, but Russia and China have rejected them."
+      ],
+      "why": [
+        "Experts say a new, more detailed agreement may be needed, as the UN expects the space industry could be worth a trillion dollars by 2030."
+      ],
+      "keywords": [
+        "treaty",
+        "settlement",
+        "resource",
+        "mining",
+        "peaceful"
+      ],
+      "senses": {
+        "own": "own#have",
+        "blue": "blue origin",
+        "origin": "blue origin",
+        "accords": "artemis accords",
+        "artemis": "artemis accords",
+        "far": "so far",
+        "led": "lead#guide",
+        "claim": "claim#own"
+      }
+    },
+    {
+      "id": "2026-10-10-lucknow-silver-nagra-shoes",
+      "edition": "2026-10-11",
+      "rank": 8,
+      "date": "2026-10-10",
+      "tag": "Culture",
+      "place": "India",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/features/longform/2026/10/10/high-silver-prices-threaten-lucknows-famed-bridal-nagra-craft",
+      "title": "High silver prices hurt the makers of traditional wedding shoes in India",
+      "summary": [
+        "In Lucknow, in northern India, craftsmen have made silver wedding shoes called nagras by hand for about 400 years.",
+        "The price of silver in India is now about 250,000 rupees per kilogram, more than three times the level of a few years ago.",
+        "One shopkeeper said a pair that once cost about $125 now costs over $600, and he has sold nothing for three months.",
+        "Many craftsmen have left the trade, and some families now plan to pass old pairs down to new brides."
+      ],
+      "why": [
+        "Silver prices rose sharply during the war with Iran, and India also raised its import taxes on silver in May."
+      ],
+      "keywords": [
+        "craftsman",
+        "silver",
+        "wedding",
+        "bride",
+        "import#goods"
+      ],
+      "senses": {
+        "import": "import#goods",
+        "pass": "pass down"
+      }
+    },
     {
       "id": "2026-10-09-navi-pillay-nobel-peace-prize",
       "edition": "2026-10-10",

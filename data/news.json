@@ -1,6 +1,241 @@
 {
-  "updated": "2026-10-11",
+  "updated": "2026-10-12",
   "stories": [
+    {
+      "id": "2026-10-11-hormuz-attacks-grow-as-iran-talks-stall",
+      "edition": "2026-10-12",
+      "rank": 1,
+      "date": "2026-10-11",
+      "tag": "World",
+      "place": "Strait of Hormuz",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/11/hormuz-attacks-intensify-as-efforts-to-end-war-on-iran-stall",
+      "title": "More ships are hit near the Strait of Hormuz as Iran talks stall",
+      "summary": [
+        "Iran's Revolutionary Guards say a large oil tanker hit a sea mine and caught fire after using a route they had not allowed.",
+        "The UAE coastguard rescued 22 sailors from another burning tanker, and US forces disabled a cargo ship near Oman.",
+        "Since July, the US has turned back 135 ships as part of its blockade of Iran's ports."
+      ],
+      "why": [
+        "About one fifth of the world's oil and gas usually passes through the strait.",
+        "Talks to end the war, which began in February, have made no progress, and few people expect a deal before the US elections on 3 November."
+      ],
+      "keywords": [
+        "tanker",
+        "mine",
+        "blockade",
+        "rescue",
+        "sailor"
+      ],
+      "senses": {
+        "caught": "catch#fire",
+        "deal": "deal#agreement",
+        "made": "make#achieve",
+        "revolutionary": "revolutionary guards",
+        "guards": "revolutionary guards"
+      }
+    },
+    {
+      "id": "2026-10-11-zelenskyy-says-russia-broke-energy-ceasefire",
+      "edition": "2026-10-12",
+      "rank": 2,
+      "date": "2026-10-11",
+      "tag": "World",
+      "place": "Ukraine",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/11/trump-says-ukraine-russia-agree-to-energy-ceasefire-2",
+      "title": "Zelenskyy says Russia broke an energy ceasefire announced by Trump",
+      "summary": [
+        "US President Donald Trump said Russia and Ukraine had both agreed to stop attacking each other's energy sites.",
+        "Ukrainian President Volodymyr Zelenskyy said he first heard about it from the news.",
+        "He said Russia attacked anyway, including a power plant in Kharkiv on Sunday evening.",
+        "Zelenskyy said Ukraine would stop hitting Russian oil refineries if Russia stopped its attacks too."
+      ],
+      "why": [
+        "Attacks on power plants and refineries have pushed up energy prices around the world.",
+        "The Kremlin did not comment on the ceasefire at first."
+      ],
+      "keywords": [
+        "ceasefire",
+        "announce",
+        "power plant",
+        "refinery",
+        "agree"
+      ],
+      "senses": {
+        "stop": "stop#cease",
+        "stopped": "stop#cease"
+      }
+    },
+    {
+      "id": "2026-10-11-imf-world-bank-meet-in-bangkok",
+      "edition": "2026-10-12",
+      "rank": 3,
+      "date": "2026-10-11",
+      "tag": "Business",
+      "place": "Thailand",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/11/war-and-high-debt-to-dominate-imf-world-bank-meetings-in-bangkok",
+      "title": "War and debt top the agenda as the IMF and World Bank meet in Bangkok",
+      "summary": [
+        "Finance officials from around the world are meeting in Bangkok this week for the yearly IMF and World Bank meetings.",
+        "About 18,000 people have registered, but US Treasury Secretary Scott Bessent is not going.",
+        "The IMF expects the world economy to grow by about 3% in 2026."
+      ],
+      "why": [
+        "The war on Iran has caused a huge shock to energy supplies and is pushing prices up.",
+        "Government debt is at its highest level since World War II, and poorer countries must pay about $400 billion to foreign lenders this year."
+      ],
+      "keywords": [
+        "debt",
+        "agenda",
+        "economy",
+        "lender",
+        "official"
+      ],
+      "senses": {
+        "meet": "meet#gather",
+        "secretary": "secretary#minister",
+        "meeting": "meet#gather",
+        "scott": "scott bessent"
+      }
+    },
+    {
+      "id": "2026-10-11-us-justice-department-probes-tv-networks",
+      "edition": "2026-10-12",
+      "rank": 4,
+      "date": "2026-10-11",
+      "tag": "Politics",
+      "place": "United States",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-11/justice-department-probes-tv-networks-over-trump-pool-coverage/107252930",
+      "title": "US government investigates five TV networks over a White House news boycott",
+      "summary": [
+        "The US Justice Department is investigating ABC, CBS, CNN, NBC and Fox News.",
+        "The networks stopped covering the White House together after reporters from three news groups lost their passes in September.",
+        "A judge ruled the ban was probably against the constitution, and the passes were returned on 24 September.",
+        "Officials say a boycott by competing companies can break competition law."
+      ],
+      "why": [
+        "It is the latest dispute between the Trump administration and major news organisations."
+      ],
+      "keywords": [
+        "investigate",
+        "boycott",
+        "network",
+        "reporter",
+        "constitution"
+      ],
+      "senses": {
+        "white": "white house",
+        "house": "white house",
+        "justice": "justice department",
+        "department": "justice department",
+        "fox": "fox news",
+        "passes": "pass#permit",
+        "stopped": "stop#cease",
+        "ruled": "rule#decide",
+        "over": "over#about",
+        "ban": "ban#noun"
+      }
+    },
+    {
+      "id": "2026-10-11-drone-attack-shuts-yandex-data-centre",
+      "edition": "2026-10-12",
+      "rank": 5,
+      "date": "2026-10-11",
+      "tag": "Technology",
+      "place": "Russia",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/11/russias-yandex-says-data-centre-in-vladimir-shut-down-after-drone-attack",
+      "title": "Drone attack shuts down a data centre of Russian tech company Yandex",
+      "summary": [
+        "Yandex says its data centre in Vladimir, east of Moscow, was completely shut down after a drone attack on Sunday.",
+        "No one was hurt, but several of its online services stopped working.",
+        "It was the third attack on a Yandex data centre in about a week."
+      ],
+      "why": [
+        "Yandex is a leader in artificial intelligence in Russia, and Russia and Ukraine are both attacking each other's technology systems."
+      ],
+      "keywords": [
+        "data centre",
+        "drone",
+        "service",
+        "artificial intelligence",
+        "shut down"
+      ],
+      "senses": {
+        "vladimir": "vladimir#city",
+        "hurt": "hurt#injure",
+        "working": "work#function"
+      }
+    },
+    {
+      "id": "2026-10-10-nikon-microscope-video-winner-was-ai",
+      "edition": "2026-10-12",
+      "rank": 6,
+      "date": "2026-10-10",
+      "tag": "Science",
+      "place": "Japan",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-10/winner-of-nikon-small-world-in-motion-competition-ai-generated/107251164",
+      "title": "The winning video in a microscope contest was made with AI",
+      "summary": [
+        "Nikon has removed the winner of its Small World In Motion contest for microscope videos.",
+        "The video showed tiny hairs inside the airways of a child with a rare disease, but parts of it were made with AI.",
+        "Experts had said online that the cells did not look real.",
+        "Vietnamese researcher Nguyen Nam Nhat, whose video of a tiny worm came second, is now the winner."
+      ],
+      "why": [
+        "Scientists worry that fake images could confuse the public about real diseases."
+      ],
+      "keywords": [
+        "microscope",
+        "contest",
+        "fake",
+        "airway",
+        "rare"
+      ],
+      "senses": {
+        "look": "look#seem",
+        "came": "come#finish",
+        "nguyen": "nguyen nam nhat",
+        "nam": "nguyen nam nhat",
+        "nhat": "nguyen nam nhat"
+      }
+    },
+    {
+      "id": "2026-10-11-brolgas-lose-genetic-variety-in-south",
+      "edition": "2026-10-12",
+      "rank": 7,
+      "date": "2026-10-11",
+      "tag": "Environment",
+      "place": "Australia",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-11/brolga-study-genetic-differences-victoria-climate-change/107207286",
+      "title": "Shrinking wetlands put Australia's southern brolgas at risk",
+      "summary": [
+        "A study from Macquarie University found that brolgas in southern Australia are now genetically different from those in the north.",
+        "Genetic variety among the birds in Victoria has also fallen, and only about 1,000 are left there.",
+        "Researchers say the loss of wetlands, where the tall birds breed and feed, is the main cause."
+      ],
+      "why": [
+        "Less genetic variety makes it harder for a group of animals to survive extreme events such as droughts.",
+        "Work to bring water back to some wetlands has already helped brolgas return."
+      ],
+      "keywords": [
+        "wetland",
+        "genetic",
+        "drought",
+        "breed",
+        "survive"
+      ],
+      "senses": {
+        "university": "macquarie university",
+        "put": "put#situation",
+        "work": "work#task"
+      }
+    },
     {
       "id": "2026-10-10-zaporizhzhia-attack-miami-talks",
       "edition": "2026-10-11",

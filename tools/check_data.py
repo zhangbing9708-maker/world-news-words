@@ -33,6 +33,7 @@ LATIN_SENT = re.compile(r"^[A-Za-zāīūēōĀĪŪ' \-.,?!:;0-9()$%]+$")
 HARAKAT = re.compile(r"[\u064B-\u0652\u0670]")
 AUDIO_DIR = os.path.join(ROOT, "data", "audio", "fa")
 ALPHABETS = os.path.join(ROOT, "data", "alphabets.json")
+DICT = os.path.join(ROOT, "data", "dict.json")
 
 
 def has_audio(i):
@@ -116,6 +117,29 @@ def main():
                         warns.append(f"alphabets.json: no audio for Farsi example {(c.get('ex') or {}).get('w')!r}")
         except ValueError as ex:
             errs.append(f"alphabets.json: not valid JSON ({ex})")
+    if os.path.exists(DICT):
+        try:
+            dct = json.load(open(DICT, encoding="utf-8"))
+            ents = dct.get("entries") or []
+            if len(ents) < 5000:
+                errs.append(f"dict.json: only {len(ents)} words (expected the 5,000 of the frequency dictionary); run tools/build_dict.py")
+            ranks = set()
+            for e in ents:
+                if not all(isinstance(e.get(k), str) and e.get(k) for k in ("w", "r", "g")) or not isinstance(e.get("n"), int):
+                    errs.append(f"dict.json: bad entry {str(e)[:60]}")
+                    break
+                if e["n"] in ranks:
+                    errs.append(f"dict.json: rank {e['n']} appears twice")
+                ranks.add(e["n"])
+            no_audio = sum(1 for e in ents if not has_audio(e.get("a")))
+            if no_audio:
+                warns.append(f"dict.json: {no_audio} words have no audio (run python3 tools/make_audio.py)")
+            if not dct.get("lists") or not dct.get("cats"):
+                errs.append("dict.json: lists or cats missing; run tools/build_dict.py")
+        except ValueError as ex:
+            errs.append(f"dict.json: not valid JSON ({ex})")
+    else:
+        errs.append("data/dict.json is missing; run python3 tools/build_dict.py")
     for f, k in forms.items():
         if f != f.lower() and not is_acronym(f):
             errs.append(f"glossary form '{f}': must be lowercase (only all-capital acronyms keep capitals)")

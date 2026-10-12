@@ -138,6 +138,7 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 @media (hover:hover){.w:hover{background-color:var(--hl-wash)}}
 .w.kw{text-decoration-line:underline;text-decoration-style:dotted;text-decoration-color:var(--hl);text-decoration-thickness:2px;text-underline-offset:4px}
 .w.saved{background-image:linear-gradient(transparent 60%,var(--hl-wash) 60%)}
+.w.hi{text-decoration-line:underline;text-decoration-style:solid;text-decoration-color:var(--hl);text-decoration-thickness:2px;text-underline-offset:4px;background-image:linear-gradient(transparent 62%,var(--hl-wash) 62%)}
 .w.sel{background:var(--hl);color:var(--on-hl);box-shadow:0 0 0 2px var(--hl)}
 
 /* loading + error states */
@@ -297,6 +298,87 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 .ad-form span{font:500 11px/1.2 var(--f-ui);color:var(--ink-3);direction:ltr}
 .ad-note{margin:0;font-size:14px;line-height:1.5;color:var(--ink-2)}
 
+/* ---------- levels, plan, challenge and dictionary ---------- */
+.lvl{display:inline-flex;align-items:center;font:700 10.5px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:6px;white-space:nowrap;color:var(--lc,var(--ink-3));background:color-mix(in srgb,var(--lc,var(--ink-3)) 12%,transparent)}
+.lvl.l1{--lc:var(--due)}
+.lvl.l2{--lc:var(--new)}
+.lvl.l3{--lc:var(--learn)}
+.lvl.l4{--lc:var(--ink-3)}
+.lvl.ok{--lc:var(--due)}
+.lvl.news,.lvl.fy{--lc:var(--hl-ink)}
+.cat-n{color:var(--hl-ink)}
+.hl-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.hl-row select{flex:0 1 auto;min-width:0;text-overflow:ellipsis}
+.sel-sm{border:1px solid var(--rule);border-radius:8px;padding:6px 10px;background:var(--surface);color:var(--ink);font:600 13px var(--f-ui);max-width:100%}
+.dline{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2)}
+.ipa-s{font:500 14px var(--f-ui);color:var(--ink-3)}
+.plan{margin-top:18px;padding:18px;border-radius:16px;background:var(--surface);border:1px solid var(--rule);display:grid;gap:14px}
+.plan-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.plan-title{margin:0;font-family:var(--f-display);font-weight:600;font-size:24px;line-height:1.15;letter-spacing:-.01em}
+.plan-sub{margin:4px 0 0;color:var(--ink-2);font-size:14px;line-height:1.5}
+.plan-ints{margin:0;font-size:13.5px;color:var(--ink-2)}
+.plan-form{margin-top:14px;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--rule);display:grid;gap:18px}
+.fld{display:grid;gap:8px}
+.fld.row{grid-template-columns:auto 5rem 1fr;align-items:center;gap:10px}
+.fld input[type=number],.fld input[type=text],.fld select{width:100%;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink);font:500 15px var(--f-ui)}
+.fld.row input{padding:8px 10px}
+.fld .help{margin:0}
+.fld label:not(.label){font:600 14px var(--f-ui)}
+.lv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lv{display:grid;gap:4px;padding:10px 10px 12px;border:1px solid var(--rule);border-radius:12px;background:var(--surface);color:var(--ink);text-align:left;cursor:pointer}
+.lv b{font:650 15px/1.2 var(--f-ui)}
+.lv span{font-size:12.5px;line-height:1.35;color:var(--ink-2)}
+.lv small{font:600 11.5px var(--f-ui);color:var(--hl-ink)}
+.lv.on{border-color:var(--hl);background:var(--hl-wash)}
+@media (max-width:420px){.lv-grid{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chipx{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:6px 12px;background:var(--hl-wash);color:var(--ink);font:500 13.5px var(--f-ui);cursor:pointer}
+.chipx span{color:var(--ink-3)}
+.tsec{margin-top:22px}
+.tsec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.tsec h3,.chal h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:20px;letter-spacing:-.01em}
+.drow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 10px;padding:9px 0;border-top:1px solid var(--rule)}
+.drow:last-child{border-bottom:1px solid var(--rule)}
+.drow.on{background:var(--hl-wash)}
+.dbtn{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;gap:2px 10px;border:0;background:none;padding:4px 0;text-align:left;cursor:pointer;min-width:0}
+.d-fa{font-weight:600;font-size:21px;line-height:1.3}
+.d-r{font-size:13.5px;color:var(--ink-2)}
+.d-g{grid-column:1 / -1;font-size:14px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d-tags{display:flex;flex-direction:column;align-items:end;gap:4px}
+.earlier{margin-top:12px}
+.earlier summary{cursor:pointer;font:600 14px var(--f-ui);color:var(--ink-2)}
+.chal{margin-top:22px;padding:18px;border-radius:16px;background:var(--tint);display:grid;gap:14px}
+.rcard{display:grid;gap:6px;width:100%;margin-top:10px;padding:14px 16px;border:1px solid var(--rule);border-radius:14px;background:var(--card);color:var(--ink);text-align:left;cursor:pointer}
+.rc-title{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.25;letter-spacing:-.01em}
+.rc-sub{font-size:13px;color:var(--ink-3)}
+.ch-stage{align-content:start;gap:18px;padding-top:24px}
+.chq{width:min(100%,26rem);display:grid;justify-items:center;gap:10px;text-align:center}
+.chq .sh-head{justify-content:center}
+.chq .tc-word{font-size:clamp(34px,10vw,48px)}
+.listen{min-width:12rem;justify-self:center}
+.opts{width:min(100%,26rem);display:grid;gap:8px}
+.opt{display:grid;gap:2px;width:100%;padding:12px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--card);color:var(--ink);font:500 16px/1.3 var(--f-ui);text-align:left;cursor:pointer}
+.opt-fa{font-weight:600;font-size:22px;width:100%;text-align:right}
+.opt small{font-size:13px;color:var(--ink-3)}
+.opt.right{border-color:var(--due);background:color-mix(in srgb,var(--due) 12%,var(--card))}
+.opt.wrong{border-color:var(--learn);background:color-mix(in srgb,var(--learn) 12%,var(--card))}
+.opt.dim{opacity:.55}
+.verdict{margin:0 0 10px;text-align:center;font:600 15px/1.4 var(--f-ui)}
+.verdict.ok{color:var(--due)}
+.verdict.no{color:var(--learn)}
+.missed{width:min(100%,26rem);text-align:left;margin-top:6px}
+.dict-head{padding-top:18px}
+.dict-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.dsearch{margin-top:0}
+.dfilters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.dfilters select{min-width:0;border:1px solid var(--rule);border-radius:10px;padding:8px 10px;background:var(--surface);color:var(--ink);font:600 13px var(--f-ui)}
+@media (max-width:480px){.dfilters{grid-template-columns:1fr 1fr}.dfilters select:first-child{grid-column:1 / -1}}
+#dictInfo{margin-top:10px}
+#dictMore{margin-top:12px}
+.dsrc{margin-top:16px}
+.dnav{display:flex;justify-content:space-between;gap:12px}
+#abcWrap .abc-title{margin:4px 0 0;font-size:22px}
+
 /* ---------- study ---------- */
 .study{position:fixed;inset:0;z-index:40;background:var(--paper);display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
 .st-top{display:flex;align-items:center;gap:10px;width:100%;max-width:40rem;margin:0 auto}
@@ -355,21 +437,31 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
       </div>
     </div>
     <div class="tabs" role="tablist" aria-label="Sections">
-      <button class="tab" role="tab" id="tabbtn-news" data-tab="news" aria-controls="tab-news" aria-selected="true" type="button">News</button>
+      <button class="tab" role="tab" id="tabbtn-today" data-tab="today" aria-controls="tab-today" aria-selected="true" type="button">Today</button>
+      <button class="tab" role="tab" id="tabbtn-news" data-tab="news" aria-controls="tab-news" aria-selected="false" tabindex="-1" type="button">News</button>
       <button class="tab" role="tab" id="tabbtn-words" data-tab="words" aria-controls="tab-words" aria-selected="false" tabindex="-1" type="button">Words <span class="badge" id="badge" aria-hidden="true" hidden>0</span></button>
-      <button class="tab" role="tab" id="tabbtn-abc" data-tab="abc" aria-controls="tab-abc" aria-selected="false" tabindex="-1" type="button">Alphabet</button>
+      <button class="tab" role="tab" id="tabbtn-dict" data-tab="dict" aria-controls="tab-dict" aria-selected="false" tabindex="-1" type="button">Dictionary</button>
     </div>
   </div>
 </header>
 
 <main class="main">
-  <section id="tab-news" role="tabpanel" aria-labelledby="tabbtn-news">
+  <section id="tab-today" role="tabpanel" aria-labelledby="tabbtn-today">
+    <div class="news-head">
+      <span class="label" id="todayDate"></span>
+      <span class="label" id="todayWeek"></span>
+    </div>
+    <div id="todayBody"></div>
+  </section>
+
+  <section id="tab-news" role="tabpanel" aria-labelledby="tabbtn-news" hidden>
     <div class="news-head">
       <span class="label" id="todayLine"></span>
       <span class="label" id="newsCount"></span>
     </div>
+    <div class="hl-row"><label class="label" for="hlSel">Underline</label><select id="hlSel" class="sel-sm"><option value="plan">Words at my level</option><option value="level">Words at my level</option><option value="key">Key words only</option></select></div>
     <div class="hint" id="hint" hidden>
-      <p><strong>Tap any word</strong> to see and hear it in Farsi, then add it to Words to study it as a flashcard. Words with a dotted underline are each story's key words.</p>
+      <p><strong>Tap any word</strong> to see and hear it in Farsi, then add it to Words to study it as a flashcard. Solid underlines mark the words you're learning this week (set them on the Today tab); dotted ones are each story's key words.</p>
       <div class="hint-row">
         <span class="demo" id="demo" aria-hidden="true"></span>
         <button class="ghost sm" id="hintOk" type="button">Got it</button>
@@ -377,7 +469,7 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
     </div>
     <div id="newsBody"></div>
     <div class="foot" id="newsFoot" hidden>
-      <p>Each story is a short summary written for language practice, with a link to the original report. New stories arrive every day.</p>
+      <p>Each story is a short summary written for language practice, with a link to the original report. New stories arrive every week, and each story's level comes from how common its words are in the frequency dictionary.</p>
       <p>Your saved words stay in this browser on this device, and nobody else can see them. To use them on other devices, sign in with Google on the Words tab to keep them in your own Google Drive, or use <b>Save backup</b>. <a href="privacy.html" style="color:inherit">Privacy</a></p>
       <p>Farsi audio is made with an open-source Persian computer voice, so the odd word may sound a little off.</p>
     </div>
@@ -442,11 +534,29 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
     <input type="file" id="restoreFile" accept=".json,application/json" hidden>
   </section>
 
-  <section id="tab-abc" role="tabpanel" aria-labelledby="tabbtn-abc" hidden>
-    <div class="abc-head">
-      <h2 class="abc-title">The Persian alphabet</h2>
+  <section id="tab-dict" role="tabpanel" aria-labelledby="tabbtn-dict" hidden>
+    <div class="dict-head">
+      <div class="dict-top">
+        <h2 class="abc-title" id="dictTitle">Dictionary</h2>
+        <button class="ghost sm" id="abcBtn" type="button" aria-pressed="false">Alphabet</button>
+      </div>
+      <div id="dictBody">
+        <label class="search dsearch"><span class="sr">Search the dictionary</span><input id="dq" type="search" placeholder="Persian, rough spelling, English or a rank" autocomplete="off"></label>
+        <div class="dfilters">
+          <select id="dcat" aria-label="Category"><option value="">All categories</option></select>
+          <select id="dband" aria-label="Level"><option value="0">All levels</option><option value="1">Beginner · 1–1,000</option><option value="2">Intermediate · 1,000–3,000</option><option value="3">Advanced · 3,000–5,000</option></select>
+          <select id="dpos" aria-label="Part of speech"><option value="">Any part of speech</option><option value="n">Nouns</option><option value="v">Verbs</option><option value="adj">Adjectives</option><option value="adv">Adverbs</option><option value="pn">Proper nouns</option><option value="pron">Pronouns</option><option value="prep">Prepositions</option><option value="conj">Conjunctions</option><option value="q">Quantifiers</option></select>
+        </div>
+        <p class="help" id="dictInfo"></p>
+        <ul class="wlist dlist" id="dictList"></ul>
+        <button class="ghost" id="dictMore" type="button" hidden>Show more</button>
+        <p class="help dsrc">The 5,000 most common Persian words, from <i>A Frequency Dictionary of Persian</i> (Corey Miller &amp; Karineh Aghajanian-Stewart, Routledge 2018), with the site's own recordings. Dictionary text © 2018 the authors / Routledge.</p>
+      </div>
+      <div id="abcWrap" hidden>
+        <h3 class="abc-title">The Persian alphabet</h3>
+        <div id="abcBody"></div>
+      </div>
     </div>
-    <div id="abcBody"></div>
   </section>
 </main>
 
@@ -469,6 +579,16 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
   </div>
   <div class="st-stage" id="stStage"></div>
   <div class="st-actions" id="stActions"></div>
+</div>
+
+<div class="study" id="challenge" role="dialog" aria-modal="true" aria-label="Daily challenge" hidden>
+  <div class="st-top">
+    <button class="icon-btn" id="chClose" type="button" aria-label="Close the challenge"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
+    <span class="label">Daily challenge</span>
+    <div class="st-counts" id="chBar" aria-live="polite"></div>
+  </div>
+  <div class="st-stage ch-stage" id="chStage"></div>
+  <div class="st-actions" id="chActions"></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -560,7 +680,7 @@ const S = {
   // The site teaches Farsi. Cards saved earlier in Japanese, Chinese or English stay in storage, backups and
   // Google Drive (hidden), so nothing anyone saved is lost.
   lang: "fa",
-  tab: "news", stories: [], updated: "", G: { entries: {}, forms: {} }, dataState: "loading",
+  tab: "today", stories: [], updated: "", G: { entries: {}, forms: {} }, dataState: "loading", fy: {}, todayEdit: false, dictCell: null, hl: STORE.get("hl", "plan"),
   decks: { ja: new Map(), zh: new Map(), en: new Map(), fa: new Map() },
   front: STORE.get("front", "word") === "meaning" ? "meaning" : "word",
   query: "", openRow: null, sel: null, look: null,
@@ -583,7 +703,7 @@ function normCard(id, d, lang) {
     kanji: Array.isArray(d.kanji) ? d.kanji.slice(0, 16).map(x => ({ c: str(x && x.c, 2), m: str(x && x.m, 40) })).filter(x => x.c) : [],
     ex: normEx(d.ex), phrase: str(d.phrase, 80), context: str(d.context, 400), storyId: str(d.storyId, 140), storyTitle: str(d.storyTitle, 220),
     added: num(d.added, 0), due: num(d.due, 0), ivl: num(d.ivl, 0), ease: num(d.ease, 2.5), reps: num(d.reps, 0),
-    lapses: num(d.lapses, 0), step: num(d.step, 0), last: num(d.last, 0), mod: num(d.mod, 0),
+    lapses: num(d.lapses, 0), step: num(d.step, 0), last: num(d.last, 0), mod: num(d.mod, 0), n: num(d.n, 0),
     state: ["new", "learning", "relearning", "review"].includes(d.state) ? d.state : "new",
   };
   return (c.t && c.w) ? c : null;
@@ -639,6 +759,156 @@ function lookupKey(word, story) {
     if (k && E[k]) return k;
   }
   return null;
+}
+
+/* ---------- the frequency dictionary: 5,000 core words with ranks, thematic lists, levels and audio ---------- */
+const DICT = { state: "idle", source: "", entries: [], byRank: new Map(), byWord: new Map(), lists: [], cats: [], members: new Map(), examples: null, exState: "idle" };
+const LEVELS = {
+  a: { name: "Beginner", band: 1, perDay: 5, about: "the 1,000 most common words" },
+  b: { name: "Intermediate", band: 2, perDay: 10, about: "words 1,000 to 3,000" },
+  c: { name: "Advanced", band: 3, perDay: 15, about: "words 3,000 to 5,000, then rarer ones" },
+};
+const BANDS = ["", "Beginner", "Intermediate", "Advanced", "5,000+"];   // band 4 = outside the core 5,000
+const bandOf = n => !n ? 4 : n <= 1000 ? 1 : n <= 3000 ? 2 : n <= 5000 ? 3 : 4;
+const fmtN = n => (n == null ? "" : Number(n).toLocaleString("en-GB"));
+const NAME_LISTS = new Set([9, 12, 14]);                              // female names, last names, male names
+const POS_NAMES = { n: "noun", v: "verb", adj: "adjective", adv: "adverb", pn: "proper noun", pron: "pronoun", prep: "preposition", conj: "conjunction", q: "quantifier" };
+const FA_MAP = { "ي": "ی", "ى": "ی", "ئ": "ی", "ك": "ک", "ۀ": "ه", "ة": "ه", "ؤ": "و", "إ": "ا", "أ": "ا", "آ": "ا", "ء": "" };
+function normFa(s) {
+  let out = "";
+  for (const ch of String(s || "")) {
+    if (ch in FA_MAP) { out += FA_MAP[ch]; continue; }
+    const c = ch.charCodeAt(0);
+    if ((c >= 0x064b && c <= 0x065f) || c === 0x0670 || c === 0x0640 || c === 0x200c || c === 0x200d) continue;
+    out += ch;
+  }
+  return out.replace(/\s+/g, " ").trim();
+}
+const hasFa = s => /[؀-ۿ]/.test(String(s || ""));
+const foldLatin = s => String(s || "").toLowerCase().replace(/ā/g, "a").replace(/[īi]/g, "i").replace(/ū/g, "u").replace(/['’‘ʼ\-]/g, "").replace(/[^a-z0-9 ]/g, "").trim();
+const LIGHT = new Set(["کردن", "شدن", "دادن", "زدن", "گرفتن", "داشتن", "بودن", "رفتن", "آمدن", "خوردن", "کشیدن", "یافتن", "آوردن", "گذاشتن", "انداختن", "ساختن", "بردن", "دیدن", "گفتن", "رساندن", "نهادن", "به", "از", "در", "را", "و", "با", "بر"]);
+/* The dictionary entry for a Farsi word: the exact headword, or else the main word of a phrase. */
+function dictFind(w) {
+  const n = normFa(w);
+  if (!n || DICT.state !== "ready") return null;
+  const hit = DICT.byWord.get(n);
+  if (hit) return hit;
+  for (const p of n.split(" ")) { if (LIGHT.has(p)) continue; const e = DICT.byWord.get(p); if (e) return e; }
+  return null;
+}
+const isNameEntry = e => e.tags.length === 1 && e.tags[0] === "pn" || e.l.some(x => NAME_LISTS.has(x));
+const posText = e => e.tags.map(t => POS_NAMES[t] || t).join(", ");
+function dictAudio(e) { return e.a || ""; }
+function cardAudio(c) { if (c.a) return c.a; const d = c.n && DICT.byRank.get(c.n); return d && d.wn === normFa(c.w) ? d.a || "" : ""; }
+function catTitle(id) {
+  if (!id) return "All words";
+  const m = /^l(\d+)$/.exec(id);
+  if (m) { const L = DICT.lists.find(x => x.n === +m[1]); return L ? L.t : "Words"; }
+  const c = DICT.cats.find(x => x.id === id);
+  return c ? c.t : "Words";
+}
+const catValid = id => !id || /^l\d{1,2}$/.test(id) && DICT.lists.some(x => "l" + x.n === id) || DICT.cats.some(x => x.id === id);
+/* The ranks in a category: a book list ("l12") or a site-made category ("x-num"). */
+function catRanks(id) {
+  if (!id || DICT.state !== "ready") return null;
+  if (DICT.members.has(id)) return DICT.members.get(id);
+  let set = null;
+  const m = /^l(\d+)$/.exec(id);
+  if (m) { const n = +m[1]; set = new Set(DICT.entries.filter(e => e.l.includes(n)).map(e => e.n)); }
+  else { const c = DICT.cats.find(x => x.id === id); if (c) set = new Set(c.ranks); }
+  if (set) DICT.members.set(id, set);
+  return set;
+}
+function catOptions() {
+  const out = [{ id: "", t: "All words, by frequency" }];
+  for (const c of DICT.cats) out.push({ id: c.id, t: c.t, site: true });
+  for (const L of DICT.lists) out.push({ id: "l" + L.n, t: L.t });
+  return out;
+}
+function loadDict() {
+  if (DICT.state === "ready") return Promise.resolve();
+  if (DICT.state === "loading" && DICT.promise) return DICT.promise;
+  DICT.state = "loading";
+  DICT.promise = loadDictNow();
+  return DICT.promise;
+}
+async function loadDictNow() {
+  try {
+    const r = await fetch("data/dict.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error("http");
+    const d = await r.json();
+    DICT.entries = (Array.isArray(d.entries) ? d.entries : []).filter(e => e && typeof e.n === "number" && typeof e.w === "string" && e.w);
+    for (const e of DICT.entries) {
+      e.w = e.w.trim(); e.r = str(e.r, 80); e.i = str(e.i, 80); e.g = str(e.g, 160); e.p = str(e.p, 40); e.a = str(e.a, 24);
+      e.l = Array.isArray(e.l) ? e.l.filter(x => typeof x === "number") : [];
+      e.tags = e.p.split(",").filter(Boolean);
+      e.gl = e.g.toLowerCase(); e.rf = foldLatin(e.r); e.wn = normFa(e.w);
+      DICT.byRank.set(e.n, e);
+      if (!DICT.byWord.has(e.wn)) DICT.byWord.set(e.wn, e);
+    }
+    DICT.lists = (Array.isArray(d.lists) ? d.lists : []).filter(x => x && typeof x.n === "number" && x.t);
+    DICT.cats = (Array.isArray(d.cats) ? d.cats : []).filter(x => x && typeof x.id === "string" && Array.isArray(x.ranks));
+    DICT.source = str(d.source, 200);
+    DICT.state = "ready";
+  } catch (e) { DICT.state = "error"; }
+}
+async function loadExamples() {
+  if (DICT.exState === "ready" || DICT.exState === "loading") return DICT.examples;
+  DICT.exState = "loading";
+  try {
+    const r = await fetch("data/dict-examples.json", { cache: "force-cache" });
+    if (!r.ok) throw new Error("http");
+    DICT.examples = await r.json();
+    DICT.exState = "ready";
+  } catch (e) { DICT.exState = "error"; DICT.examples = null; }
+  return DICT.examples;
+}
+function exampleOf(e) {
+  const x = DICT.examples && DICT.examples[String(e.n)];
+  return Array.isArray(x) && x[0] ? { fa: str(x[0], 400), en: str(x[1], 400) } : null;
+}
+/* Give every news word its dictionary rank, and every story a level. */
+function linkDict() {
+  if (DICT.state !== "ready") return;
+  for (const e of Object.values(S.G.entries)) {
+    const d = dictFind(e.fa && e.fa.w);
+    e._n = d ? d.n : 0;
+  }
+  for (const st of S.stories) storyLevel(st);
+}
+function storyLevel(st) {
+  let n = 0, b2 = 0, b3 = 0;
+  const ranks = new Set();
+  for (const text of [st.title].concat(st.summary, st.why)) {
+    const re = new RegExp(WORD_RE.source, "gu");
+    let m;
+    while ((m = re.exec(text))) {
+      if (!LETTER.test(m[0])) continue;
+      const key = lookupKey(m[0], st), e = key && S.G.entries[key];
+      if (!e || e.pos === "proper noun") continue;
+      if (e._n) ranks.add(e._n);
+      n++;
+      const b = bandOf(e._n);
+      if (b >= 2) b2++;
+      if (b >= 3) b3++;
+    }
+  }
+  st._ranks = ranks;
+  st._lvl = !n ? 0 : b3 / n > 0.2 ? 3 : b2 / n > 0.37 ? 2 : 1;
+}
+const levelPill = lvl => lvl ? h("span", { class: "lvl l" + lvl, title: ["", "Mostly the 1,000 most common words", "Many words from the 1,000–3,000 range", "Many less common words"][lvl], text: "Level " + lvl }) : null;
+function dictLine(e) {
+  if (DICT.state !== "ready" || e._n == null) return null;
+  const d = DICT.byRank.get(e._n);
+  if (!d) return h("div", { class: "dline" }, h("span", { class: "lvl l4", text: "5,000+" }), h("span", { text: "Not among the 5,000 most common words" }));
+  const lists = d.l.map(n => { const L = DICT.lists.find(x => x.n === n); return L ? L.t : ""; }).filter(Boolean);
+  const partial = normFa(e.fa && e.fa.w) !== d.wn;
+  const line = h("div", { class: "dline" }, h("span", { class: "lvl l" + bandOf(d.n), text: BANDS[bandOf(d.n)] }),
+    h("span", { text: (partial ? d.w + " · " : "") + "rank " + fmtN(d.n) + (lists.length ? " · " + lists.join(", ") : "") }));
+  const go = h("button", { class: "link-btn", type: "button", text: "Dictionary" });
+  go.addEventListener("click", () => { closeSheet(); showDictWord(d.n); });
+  line.append(go);
+  return line;
 }
 
 /* ---------- sound: recorded Persian audio, with the device's Persian voice as a fallback ---------- */
@@ -847,6 +1117,8 @@ function sentenceEl(text, st) {
   ws.forEach((x, i) => {
     if (x.node.nodeType !== 1) return;
     x.node._s = sp; x.node._i = i;
+    const e = S.G.entries[x.ph ? x.ph.key : x.key];
+    x.node._n = e ? (e.pos === "proper noun" ? -1 : (e._n || 0)) : -1;
     if (keys.has(x.ph ? x.ph.key : x.key)) x.node.classList.add("kw");
   });
   sp._ws = ws; sp._text = text; sp._story = st;
@@ -859,6 +1131,7 @@ function storyEl(st) {
   if (st.tag) { const t = h("span", { class: "tag", text: st.tag }); const v = TAGS[st.tag.toLowerCase()]; if (v) t.style.setProperty("--tag", "var(" + v + ")"); meta.append(t); }
   if (st.place) meta.append(h("span", { text: st.place }));
   if (st.date) meta.append(h("time", { datetime: st.date, text: fmtDay(st.date) }));
+  addKid(meta, [levelPill(st._lvl), S.fy && S.fy[st.id] ? h("span", { class: "lvl fy", text: "For you" }) : null, h("span", { class: "cat-n", "data-id": st.id, hidden: true })]);
   const hl = h("h3", { class: "headline" }, sentenceEl(st.title, st));
   const body = h("p", { class: "body" });
   st.summary.forEach((t, i) => { if (i) body.append(" "); body.append(sentenceEl(t, st)); });
@@ -902,6 +1175,7 @@ function renderNews() {
       h("p", { text: S.dataState === "empty" ? "Today's stories will appear here soon." : "Check your connection, then try again." }), S.dataState === "empty" ? null : retry));
     return;
   }
+  planStories(effPrefs());
   let edition = null;
   for (const st of S.stories) {
     if (st.edition !== edition) {
@@ -912,6 +1186,7 @@ function renderNews() {
     box.append(storyEl(st));
   }
   markSaved();
+  refreshMarks();
 }
 function markSaved() {
   const keys = new Set(Array.from(deck().values()).map(c => c.key));
@@ -940,7 +1215,7 @@ async function loadData() {
   S.dataState = "loading"; renderNews();
   try {
     const opt = { cache: "no-cache" };
-    const [n, g] = await Promise.all([fetch("data/news.json", opt), fetch("data/glossary.json", opt)]);
+    const [n, g] = await Promise.all([fetch("data/news.json", opt), fetch("data/glossary.json", opt), loadDict()]);
     if (!n.ok || !g.ok) throw new Error("http");
     const news = await n.json(), gl = await g.json();
     S.G = { entries: gl.entries || {}, forms: gl.forms || {} };
@@ -949,11 +1224,14 @@ async function loadData() {
     S.stories = (Array.isArray(news.stories) ? news.stories : []).map(normStory).filter(Boolean)
       .sort((a, b) => b.edition.localeCompare(a.edition) || a.rank - b.rank || b.date.localeCompare(a.date));
     S.dataState = S.stories.length ? "ready" : "empty";
+    linkDict();
   } catch (e) {
     S.dataState = "error";
   }
+  renderToday();
   renderNews();
   renderDemo();
+  if (S.tab === "dict") { fillDictFilters(); renderDict(); }
 }
 
 /* ---------- bottom sheet ---------- */
@@ -961,7 +1239,7 @@ function setSheetH() {
   const sh = $("#sheet");
   document.documentElement.style.setProperty("--sheet-h", (sh.hidden ? 0 : $(".sheet-in").offsetHeight) + "px");
 }
-function clearSel() { $$(".w.sel, .tile.on").forEach(w => w.classList.remove("sel", "on")); }
+function clearSel() { $$(".w.sel, .tile.on, .drow.on").forEach(w => w.classList.remove("sel", "on")); }
 function openSheet(title, context) {
   $("#shPhrase").textContent = title;
   const ctx = $("#shCtx");
@@ -975,10 +1253,10 @@ function closeSheet() {
   stopSound();
   $("#sheet").hidden = true;
   document.body.classList.remove("sheet-open");
-  clearSel(); S.sel = null; S.look = null; S.abcCell = null;
+  clearSel(); S.sel = null; S.look = null; S.abcCell = null; S.dictCell = null;
   setSheetH();
 }
-function refreshSheet() { if (S.look) showSheetBody(); else if (S.abcCell) showLetter(); }
+function refreshSheet() { if (S.look) showSheetBody(); else if (S.abcCell) showLetter(); else if (S.dictCell) showDictBody(); }
 function ensureVisible(a, b) {
   if (!a || !a.isConnected || a.nodeType !== 1) return;
   const sheetH = $("#sheet").hidden ? 0 : $(".sheet-in").offsetHeight;
@@ -1000,7 +1278,7 @@ function openWord(sp, i, alone) {
   clearSel();
   for (let k = start; k <= end; k++) { const n = sp._ws[k].node; if (n.nodeType === 1) n.classList.add("sel"); }
   const phrase = sp._ws.slice(start, end + 1).map(y => y.tok).join(" ");
-  S.sel = { sp, start, end }; S.abcCell = null;
+  S.sel = { sp, start, end }; S.abcCell = null; S.dictCell = null;
   S.look = { key, phrase, context: sp._text, story: sp._story, alt: usePh && x.key && x.key !== key ? { sp, i, tok: x.tok } : null };
   openSheet(phrase, markIn(sp._text, phrase));
   showSheetBody();
@@ -1012,13 +1290,13 @@ function openChip(key, st) {
     const i = sp._ws.findIndex(x => (x.ph ? x.ph.key : x.key) === key);
     if (i >= 0) { openWord(sp, i); return; }
   }
-  clearSel(); S.sel = null; S.abcCell = null;
+  clearSel(); S.sel = null; S.abcCell = null; S.dictCell = null;
   S.look = { key, phrase: S.G.entries[key].t, context: "", story: st, alt: null };
   openSheet(S.look.phrase, null);
   showSheetBody();
 }
 function setAddBtn(btn) {
-  const has = deck().has(btn.dataset.id);
+  const has = deck().has(btn.dataset.id) || (+btn.dataset.n > 0 && deckRanks().has(+btn.dataset.n));
   btn.classList.toggle("done", has);
   btn.setAttribute("aria-disabled", String(has));
   btn.replaceChildren(...(has ? [icon("check"), "In your Words"] : ["Add to Words"]));
@@ -1035,10 +1313,11 @@ function showSheetBody() {
   const read = readingEl(shown(e).r);
   if (read) body.append(read);
   body.append(meaningEl(e));
+  addKid(body, dictLine(e));
   const btn = h("button", { class: "primary add", type: "button" });
-  btn.dataset.id = cardId(L.key);
+  btn.dataset.id = cardId(L.key); btn.dataset.n = e._n || "";
   setAddBtn(btn);
-  btn.addEventListener("click", () => { if (!deck().has(btn.dataset.id)) addCard(L.key); });
+  btn.addEventListener("click", () => { if (btn.getAttribute("aria-disabled") !== "true") addCard(L.key); });
   const isKey = L.story && L.story._keys && L.story._keys.has(L.key);
   body.append(h("div", { class: "sh-actions" }, btn, isKey ? h("span", { class: "sh-src", text: "Key word" }) : null));
   const ex = exampleEl(e.ex);
@@ -1064,7 +1343,7 @@ function addCard(key) {
   if (deck().has(id)) return;
   const now = Date.now();
   const c = normCard(id, {
-    key, t: e.t, pos: e.pos, def: e.def, ipa: e.ipa, w: v.w, k: "", r: v.r, a: v.a,
+    key, n: e._n || 0, t: e.t, pos: e.pos, def: e.def, ipa: e.ipa, w: v.w, k: "", r: v.r, a: v.a,
     kanji: [], ex: e.ex || null,
     phrase: L.phrase || e.t, context: L.context || "", storyId: L.story ? L.story.id : "", storyTitle: L.story ? L.story.title : "",
     added: now, due: now, state: "new",
@@ -1092,6 +1371,7 @@ function cardsChanged(added) {
   refreshAddBtn();
   if (ST.open) { renderStudyCounts(); if (ST.id && !deck().has(ST.id)) nextStudy(); }
   else renderWordsBody();
+  if (S.tab === "today" && !CH.open) renderToday();
 }
 
 /* ---------- words tab ---------- */
@@ -1148,7 +1428,7 @@ function wordDetail(c) {
     box.append(b);
   }
   const actions = h("div", { class: "btn-row" });
-  if (canSay(c.a)) { const sp = h("button", { class: "ghost sm", type: "button" }, icon("speak"), "Listen"); sp.addEventListener("click", () => say(c.w, c.a, sp)); actions.append(sp); }
+  if (canSay(cardAudio(c))) { const sp = h("button", { class: "ghost sm", type: "button" }, icon("speak"), "Listen"); sp.addEventListener("click", () => say(c.w, cardAudio(c), sp)); actions.append(sp); }
   const del = h("button", { class: "ghost sm danger", type: "button" }, icon("trash"), "Delete");
   del.addEventListener("click", () => deleteCard(c));
   actions.append(del);
@@ -1331,7 +1611,7 @@ const okAudioId = a => typeof a === "string" && /^[0-9a-f]{6,40}$/.test(a) ? a :
 function ankiSounds(c) {
   const e = S.G.entries[c.key] || {};
   const ex = c.ex || e.ex || null;
-  return { word: okAudioId(c.a) || okAudioId(e.fa && e.fa.a), ex: okAudioId(ex && ex.faA) };
+  return { word: okAudioId(cardAudio(c)) || okAudioId(e.fa && e.fa.a), ex: okAudioId(ex && ex.faA) };
 }
 const ankiSoundName = id => "wnw-fa-" + id + ".mp3";
 function ankiFields(c, have) {
@@ -1538,7 +1818,7 @@ function mergeCard(l, id, c, T) {
 /* Change whose words the page shows: a person who just signed in, or nobody (null). When someone signs in on a
    device where words were saved while signed out, those words move into their account. */
 function switchAccount(user, moveGuest) {
-  const guest = ACCT ? null : S.decks;
+  const guest = ACCT ? null : S.decks, guestStudy = ACCT ? null : STUDY;
   GD.gen++;
   clearTimeout(GD.timer);
   hideToast();
@@ -1549,10 +1829,15 @@ function switchAccount(user, moveGuest) {
   S.decks = {};
   for (const l of langs) loadDeck(l);
   TOMBS = loadTombs();
+  if (CH.open) { CH.open = false; $("#challenge").hidden = true; document.body.classList.remove("studying"); }
+  STUDY = loadStudy();
+  S.todayEdit = false;
   loadSyncState();
   Object.assign(GD, { state: "idle", msg: "", confirm: false, busy: false, again: false });
   let moved = 0;
   if (user && guest && moveGuest) {
+    if (guestStudy && mergeStudy(guestStudy)) { STORE.set(acctKey(STUDY_KEY), JSON.stringify(STUDY)); markDirty(); }
+    STORE.del(STUDY_KEY);
     for (const l of langs) {
       const T = TOMBS[l] || {};
       for (const [id, c] of guest[l]) if (mergeCard(l, id, Object.assign({}, c), T)) moved++;
@@ -1606,7 +1891,7 @@ async function onToken(resp) {
   }
   const signin = acctOf(u.email) !== ACCT;
   let moved = 0;
-  if (signin) { moved = switchAccount(u, !GD.user); cardsChanged(); }
+  if (signin) { moved = switchAccount(u, !GD.user); cardsChanged(); if (S.tab === "today") renderToday(); refreshMarks(); }
   else { GD.user = u; STORE.set("g:user", JSON.stringify(u)); }
   GD.token = tok; GD.exp = exp;
   syncNow({ announce: true, signin, moved });
@@ -1667,7 +1952,7 @@ async function findFiles() {
 function snapshot() {
   const decks = {};
   for (const l of Object.keys(S.decks)) { decks[l] = {}; for (const [id, c] of S.decks[l]) { const o = Object.assign({}, c); delete o.id; delete o.lang; decks[l][id] = o; } }
-  return { app: "world-news-words", version: 1, saved: new Date().toISOString(), decks, deleted: TOMBS };
+  return { app: "world-news-words", version: 1, saved: new Date().toISOString(), decks, deleted: TOMBS, study: STUDY };
 }
 const readableCopy = d => !!d && typeof d === "object" && d.app === "world-news-words";
 /* Merge a saved copy into the words on this device (see mergeCard). Deletions newer than a card remove it. */
@@ -1725,10 +2010,12 @@ async function syncNow(opt) {
     if (copies.some(x => +x.data.version > 1)) { const e = new Error("newer"); e.code = "newer"; throw e; }
     // Merge, save and take the snapshot in one go, so a change from another tab can't slip in between.
     const got = { added: 0, updated: 0, removed: 0 };
-    for (const x of copies) { const r = mergeIn(x.data); got.added += r.added; got.updated += r.updated; got.removed += r.removed; }
+    let studyChanged = false;
+    for (const x of copies) { const r = mergeIn(x.data); got.added += r.added; got.updated += r.updated; got.removed += r.removed; if (mergeStudy(x.data.study)) studyChanged = true; }
     GD.applying = true;
     for (const l of Object.keys(S.decks)) saveDeck(l);
     saveTombs();
+    STORE.set(acctKey(STUDY_KEY), JSON.stringify(STUDY));
     GD.applying = false;
     const mark = STORE.get(acctKey("g:dirty"), "");
     const body = JSON.stringify(snapshot());
@@ -1755,6 +2042,7 @@ async function syncNow(opt) {
     GD.dirty = !!STORE.get(acctKey("g:dirty"), "");
     GD.state = "ok"; ok = true;
     if (got.added || got.updated || got.removed) cardsChanged();
+    if (studyChanged) { if (S.tab === "today" && !CH.open) renderToday(); refreshMarks(); }
     if (o.announce) toast(syncMessage(got, o));
   } catch (e) {
     GD.applying = false;
@@ -1797,12 +2085,14 @@ async function askSignOut() {
 function signOut(removeLocal) {
   if (removeLocal) {
     for (const l of Object.keys(S.decks)) STORE.del(deckKey(l));
-    for (const k of ["v1:deleted", "g:file", "g:last", "g:dirty"]) STORE.del(acctKey(k));
+    for (const k of ["v1:deleted", "g:file", "g:last", "g:dirty", STUDY_KEY]) STORE.del(acctKey(k));
   }
   GD.token = ""; GD.exp = 0;
   switchAccount(null, false);
   cardsChanged();
   renderDrive();
+  if (S.tab === "today") renderToday();
+  refreshMarks();
   toast(removeLocal ? "Signed out. Your words are safe in your Google Drive." : "Signed out. Your newest changes wait on this device until you sign in here again.");
 }
 function agoText(ts) {
@@ -1855,7 +2145,7 @@ function renderDrive() {
     const no = h("button", { class: "link-btn", type: "button", text: "Cancel" });
     no.addEventListener("click", () => { GD.confirm = false; renderDrive(); });
     box.append(h("div", { class: "drive-who" }, pic, h("div", { class: "drive-txt" }, who,
-      h("span", { class: "drive-status error", role: "status", text: "Some of your words aren't in your Google Drive yet. Tap Sync now to save them first. If you sign out anyway, they wait on this device until you sign in here again." }))),
+      h("span", { class: "drive-status error", role: "status", text: "Some of your changes aren't in your Google Drive yet. Tap Sync now to save them first. If you sign out anyway, they wait on this device until you sign in here again." }))),
       h("div", { class: "btn-row" }, sync, go, no));
     return;
   }
@@ -1863,6 +2153,606 @@ function renderDrive() {
   out.addEventListener("click", askSignOut);
   box.append(h("div", { class: "drive-who" }, pic, h("div", { class: "drive-txt" }, who, h("span", { class: "drive-status " + driveStatusClass(), id: "driveStatus", role: "status", text: driveStatusText() }))),
     h("div", { class: "btn-row" }, sync, out));
+}
+
+/* ---------- your plan: level, this week's words, interests and progress (kept per account, synced with the cards) ---------- */
+const STUDY_KEY = "v1:study";
+const HL_MODES = [["plan", "This week's words"], ["level", "Words at my level"], ["key", "Key words only"]];
+const DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+function emptyStudy() { return { prefs: { level: "", perDay: 0, cat: "", interests: [], hl: "plan", mod: 0 }, plan: null, progress: { learned: {}, days: {}, mod: 0 } }; }
+function normStudy(x) {
+  const s = emptyStudy();
+  if (!x || typeof x !== "object") return s;
+  const p = x.prefs && typeof x.prefs === "object" ? x.prefs : {};
+  s.prefs.level = LEVELS[p.level] ? p.level : "";
+  s.prefs.perDay = typeof p.perDay === "number" && p.perDay >= 3 && p.perDay <= 30 ? Math.round(p.perDay) : 0;
+  s.prefs.cat = typeof p.cat === "string" && /^(l\d{1,2}|x-[a-z]{1,8})?$/.test(p.cat) ? p.cat : "";
+  s.prefs.interests = Array.isArray(p.interests) ? p.interests.filter(w => typeof w === "string").map(w => w.trim().slice(0, 30)).filter(Boolean).slice(0, 8) : [];
+  s.prefs.hl = HL_MODES.some(m => m[0] === p.hl) ? p.hl : "plan";
+  s.prefs.mod = typeof p.mod === "number" ? p.mod : 0;
+  const pl = x.plan;
+  if (pl && typeof pl === "object" && /^\d{4}-\d{2}-\d{2}$/.test(String(pl.week)) && Array.isArray(pl.words) && Array.isArray(pl.starts) && pl.starts.length === 8) {
+    s.plan = {
+      week: pl.week, cat: typeof pl.cat === "string" ? pl.cat : "", level: LEVELS[pl.level] ? pl.level : "a",
+      perDay: typeof pl.perDay === "number" ? pl.perDay : 5, words: pl.words.filter(n => typeof n === "number").slice(0, 300),
+      starts: pl.starts.map(n => typeof n === "number" ? n : 0),
+      days: Array.isArray(pl.days) ? pl.days.slice(0, 7).map(d => Array.isArray(d) ? d.filter(id => typeof id === "string").slice(0, 4) : []) : [],
+      mod: typeof pl.mod === "number" ? pl.mod : 0,
+    };
+    while (s.plan.days.length < 7) s.plan.days.push([]);
+  }
+  const pr = x.progress && typeof x.progress === "object" ? x.progress : {};
+  if (pr.learned && typeof pr.learned === "object") for (const [k, v] of Object.entries(pr.learned)) if (/^\d{1,5}$/.test(k) && typeof v === "number") s.progress.learned[k] = v;
+  if (pr.days && typeof pr.days === "object") for (const [k, v] of Object.entries(pr.days)) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(k) && v && typeof v === "object" && typeof v.score === "number" && typeof v.total === "number") s.progress.days[k] = { score: v.score, total: v.total, cat: typeof v.cat === "string" ? v.cat : "" };
+  }
+  s.progress.mod = typeof pr.mod === "number" ? pr.mod : 0;
+  return s;
+}
+function loadStudy() { try { return normStudy(JSON.parse(STORE.get(acctKey(STUDY_KEY), "null"))); } catch (e) { return emptyStudy(); } }
+let STUDY = loadStudy();
+function saveStudy(quiet) {
+  STORE.set(acctKey(STUDY_KEY), JSON.stringify(STUDY));
+  if (!quiet && !GD.applying) driveChanged();
+}
+/* Merge a copy of the plan from another device: newest settings win, learned words and challenge days are pooled. */
+function mergeStudy(x) {
+  if (!x || typeof x !== "object") return false;
+  const r = normStudy(x);
+  let changed = false;
+  if ((r.prefs.mod || 0) > (STUDY.prefs.mod || 0)) { STUDY.prefs = r.prefs; changed = true; }
+  const p = effPrefs(), wk = weekKey(Date.now());
+  const fits = pl => !!(pl && pl.week === wk && pl.cat === p.cat && pl.level === p.level && pl.perDay === p.perDay);
+  if (r.plan && (!STUDY.plan || (r.plan.mod || 0) > (STUDY.plan.mod || 0) || (fits(r.plan) && !fits(STUDY.plan)))) { STUDY.plan = r.plan; changed = true; }
+  for (const [k, ts] of Object.entries(r.progress.learned)) if (Math.abs(ts) > Math.abs(STUDY.progress.learned[k] || 0)) { STUDY.progress.learned[k] = ts; changed = true; }
+  for (const [day, v] of Object.entries(r.progress.days)) { const cur = STUDY.progress.days[day]; if (!cur || v.score > cur.score) { STUDY.progress.days[day] = v; changed = true; } }
+  if (changed) STUDY.progress.mod = Date.now();
+  return changed;
+}
+const isoDate = t => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+function weekStart(t) { const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); }
+const weekKey = t => isoDate(weekStart(t));
+const dayIndex = t => Math.min(6, Math.max(0, Math.round((startOfDay(t) - weekStart(t)) / DAY)));
+function effPrefs() {
+  const p = STUDY.prefs, lv = LEVELS[p.level] ? p.level : "a";
+  return { level: lv, perDay: p.perDay || LEVELS[lv].perDay, cat: catValid(p.cat) ? p.cat : "", interests: p.interests, set: !!p.level };
+}
+function newsRanks() { const s = new Set(); for (const st of S.stories) if (st._ranks) for (const n of st._ranks) s.add(n); return s; }
+function deckRanks() { const s = new Set(); for (const c of deck().values()) if (c.n) s.add(c.n); return s; }
+function planCurrent() {
+  const p = effPrefs(), pl = STUDY.plan;
+  return !!(pl && pl.week === weekKey(Date.now()) && pl.cat === p.cat && pl.level === p.level && pl.perDay === p.perDay);
+}
+const dayWords = (plan, i) => plan ? plan.words.slice(plan.starts[i], plan.starts[i + 1]).map(n => DICT.byRank.get(n)).filter(Boolean) : [];
+/* Build (or refresh) this week's plan: words a day from the chosen category at the chosen level, words that
+   appear in the current news first, and two stories a day picked by the person's interests. */
+function buildPlan(force) {
+  if (DICT.state !== "ready" || S.dataState === "loading") return STUDY.plan;
+  if (!force && planCurrent()) return STUDY.plan;
+  const p = effPrefs(), now = Date.now(), wk = weekKey(now), d = dayIndex(now);
+  const old = STUDY.plan && STUDY.plan.week === wk ? STUDY.plan : null;
+  const keep = old ? old.words.slice(0, Math.min(old.starts[d], old.words.length)) : [];
+  const taken = new Set(keep), inDeck = deckRanks(), learned = STUDY.progress.learned, inNews = newsRanks();
+  const members = p.cat ? catRanks(p.cat) : null, band = LEVELS[p.level].band;
+  const m = /^l(\d+)$/.exec(p.cat), nameCat = !!(m && NAME_LISTS.has(+m[1]));
+  // names: a chosen list keeps its own members (Countries has proper nouns); otherwise people's names stay out
+  const skipName = e => nameCat ? false : members ? e.l.some(x => NAME_LISTS.has(x)) : isNameEntry(e);
+  const pool = DICT.entries.filter(e => (!members || members.has(e.n)) && !taken.has(e.n) && !inDeck.has(e.n) && !(learned[e.n] > 0) && !skipName(e));
+  const order = b => { const x = b - band; return x >= 0 ? x : 10 - x; };          // own level first, then harder words, then easier ones
+  pool.sort((x, y) => order(bandOf(x.n)) - order(bandOf(y.n)) || (inNews.has(y.n) ? 1 : 0) - (inNews.has(x.n) ? 1 : 0) || x.n - y.n);
+  const fresh = pool.slice(0, p.perDay * (7 - d)).map(e => e.n);
+  const words = keep.concat(fresh);
+  const per = Math.min(p.perDay, Math.max(1, Math.ceil(fresh.length / (7 - d))));   // few words left: spread them out
+  const starts = [];
+  for (let i = 0; i <= 7; i++) starts.push(Math.min(words.length, i <= d ? (old ? Math.min(old.starts[i], keep.length) : 0) : keep.length + (i - d) * per));
+  STUDY.plan = { week: wk, cat: p.cat, level: p.level, perDay: p.perDay, words, starts, days: [], mod: p.set ? now : 0 };
+  saveStudy(!p.set);          // a default plan for someone who hasn't set one up isn't worth a sync
+  return STUDY.plan;
+}
+const stem = w => { w = String(w).toLowerCase().replace(/[^a-z0-9'’-]+/g, ""); return w.length > 4 ? w.replace(/(ies|es|s|ing|ed)$/, "") : w; };
+function storyScore(st, p) {
+  const ints = p.interests.map(stem).filter(w => w.length >= 3);
+  const members = p.cat ? catRanks(p.cat) : null;
+  const toks = [st.title].concat(st.summary, st.why, st.keywords, [st.tag, st.place]).join(" ").toLowerCase().split(/[^a-z0-9'’-]+/);
+  let score = 0;
+  for (const w of ints) {
+    let c = 0;
+    for (const t of toks) if (t === w || (w.length >= 4 && t.startsWith(w))) c++;
+    score += Math.min(c, 5) * 2;
+    if (st.tag && st.tag.toLowerCase().startsWith(w)) score += 4;
+  }
+  if (members && st._ranks) { let c = 0; for (const n of st._ranks) if (members.has(n)) c++; score += Math.min(c, 4); }
+  return score;
+}
+/* Two stories a day for the week, best interest matches first. Also marks the stories that match ("For you"). */
+function planStories(p) {
+  S.fy = {};
+  const scored = S.stories.map(st => ({ st, score: storyScore(st, p) }));
+  for (const x of scored) if (p.interests.length && x.score > 0) S.fy[x.st.id] = x.score;
+  scored.sort((a, b) => b.score - a.score || b.st.edition.localeCompare(a.st.edition) || a.st.rank - b.st.rank);
+  const picked = scored.slice(0, 14).map(x => x.st.id);
+  const days = [];
+  for (let i = 0; i < 7; i++) days.push(picked.slice(i * 2, i * 2 + 2));
+  return days;
+}
+function streakDays() {
+  let t = startOfDay(Date.now()), n = 0;
+  if (!STUDY.progress.days[isoDate(t)]) t -= DAY;
+  while (STUDY.progress.days[isoDate(t)]) { n++; t -= DAY; }
+  return n;
+}
+const isLearned = n => (STUDY.progress.learned[n] || 0) > 0;
+const setLearned = (n, yes) => { STUDY.progress.learned[n] = yes ? Date.now() : -Date.now(); STUDY.progress.mod = Date.now(); };
+function weekLearned(plan) { return plan ? plan.words.filter(n => isLearned(n)).length : 0; }
+function catCount(st, cat) { const m = cat ? catRanks(cat) : null; if (!m || !st._ranks) return 0; let c = 0; for (const n of st._ranks) if (m.has(n)) c++; return c; }
+
+/* ---------- Today tab ---------- */
+function renderToday() {
+  const box = $("#todayBody");
+  if (!box) return;
+  box.replaceChildren();
+  if (S.dataState === "loading" || DICT.state === "loading" || DICT.state === "idle") {
+    box.append(h("div", { class: "sk-story", "aria-hidden": "true" }, h("div", { class: "sk t2" }), h("div", { class: "sk" }), h("div", { class: "sk p2" })));
+    return;
+  }
+  if (DICT.state !== "ready" || (S.dataState !== "ready" && S.dataState !== "empty")) {
+    const retry = h("button", { class: "ghost", type: "button", text: "Try again" });
+    retry.addEventListener("click", () => { if (DICT.state === "error") DICT.state = "idle"; loadData(); });
+    box.append(h("div", { class: "state" }, h("h2", { text: "Your plan couldn't load" }), h("p", { text: "Check your connection, then try again." }), retry));
+    return;
+  }
+  const p = effPrefs(), plan = buildPlan(), d = dayIndex(Date.now()), todays = dayWords(plan, d);
+  box.append(planCard(p, plan, d));
+  if (!p.set || S.todayEdit) box.append(planForm(p));
+  if (p.set) {
+    box.append(todayWords(todays, plan, d));
+    box.append(challengeCard(plan, d));
+    box.append(readingSection(plan, d));
+  }
+}
+function planCard(p, plan, d) {
+  const card = h("section", { class: "plan" });
+  const lvl = LEVELS[p.level];
+  if (!p.set) {
+    card.append(h("h2", { class: "plan-title", text: "Make the news yours" }),
+      h("p", { class: "plan-sub", text: "Choose your level, the words you want this week and the topics you care about. Every week the site picks stories for your interests and " + lvl.perDay + " words a day for you, and the news underlines the words you are learning." }));
+    return card;
+  }
+  const learned = weekLearned(plan), total = plan ? plan.words.length : 0, streak = streakDays();
+  card.append(h("div", { class: "plan-head" },
+    h("div", null, h("h2", { class: "plan-title", text: "This week: " + catTitle(p.cat) }),
+      h("p", { class: "plan-sub", text: lvl.name + " · " + p.perDay + " words a day · " + DAY_NAMES[d] + (d < 6 ? " · " + (6 - d) + (6 - d === 1 ? " day" : " days") + " left" : ", last day") })),
+    (() => { const b = h("button", { class: "ghost sm", type: "button", text: S.todayEdit ? "Close" : "Change plan" }); b.addEventListener("click", () => { S.todayEdit = !S.todayEdit; renderToday(); }); return b; })()));
+  const stats = h("div", { class: "counts" },
+    h("div", { class: "count due" }, h("b", { text: String(learned) }), h("span", { class: "label", text: "of " + total + " learned" })),
+    h("div", { class: "count new" }, h("b", { text: String(streak) }), h("span", { class: "label", text: streak === 1 ? "day streak" : "day streak" })),
+    h("div", { class: "count learn" }, h("b", { text: String(deck().size) }), h("span", { class: "label", text: "flashcards" })));
+  card.append(stats);
+  if (p.interests.length) card.append(h("p", { class: "plan-ints" }, h("span", { class: "label", text: "Interests" }), " " + p.interests.join(" · ")));
+  return card;
+}
+function planForm(p) {
+  const f = h("form", { class: "plan-form", novalidate: true });
+  const draft = { level: p.level, perDay: STUDY.prefs.perDay || 0, cat: p.cat, interests: p.interests.slice() };
+  const lvGrid = h("div", { class: "lv-grid", role: "radiogroup", "aria-label": "Your level" });
+  const perDayIn = h("input", { type: "number", min: 3, max: 30, inputmode: "numeric", id: "perDayIn" });
+  const drawLv = () => {
+    lvGrid.replaceChildren();
+    for (const [id, L] of Object.entries(LEVELS)) {
+      const b = h("button", { type: "button", role: "radio", "aria-checked": String(draft.level === id), class: "lv" + (draft.level === id ? " on" : "") },
+        h("b", { text: L.name }), h("span", { text: L.about }), h("small", { text: L.perDay + " words a day" }));
+      b.addEventListener("click", () => { draft.level = id; if (!draft.touched) perDayIn.value = draft.perDay || L.perDay; drawLv(); });
+      lvGrid.append(b);
+    }
+    perDayIn.placeholder = String(LEVELS[draft.level].perDay);
+  };
+  drawLv();
+  perDayIn.value = draft.perDay ? String(draft.perDay) : "";
+  perDayIn.addEventListener("input", () => { draft.touched = true; });
+  const catSel = h("select", { id: "catSel" });
+  const site = h("optgroup", { label: "Made from the dictionary" }), book = h("optgroup", { label: "The book's thematic lists" });
+  for (const o of catOptions()) {
+    const opt = h("option", { value: o.id, text: o.t });
+    if (o.id === draft.cat) opt.selected = true;
+    if (!o.id) catSel.append(opt); else if (o.site) site.append(opt); else book.append(opt);
+  }
+  catSel.append(site, book);
+  const intIn = h("input", { type: "text", id: "intIn", placeholder: "e.g. climate, football, Iran", autocomplete: "off", maxlength: 60 });
+  const chips = h("div", { class: "chips" });
+  const drawChips = () => {
+    chips.replaceChildren();
+    draft.interests.forEach((w, i) => {
+      const c = h("button", { class: "chipx", type: "button", "aria-label": "Remove " + w }, w, h("span", { "aria-hidden": "true", text: "×" }));
+      c.addEventListener("click", () => { draft.interests.splice(i, 1); drawChips(); });
+      chips.append(c);
+    });
+  };
+  drawChips();
+  const addInterest = () => {
+    const parts = intIn.value.split(/[,;]+/).map(s => s.trim().slice(0, 30)).filter(Boolean);
+    for (const w of parts) if (draft.interests.length < 8 && !draft.interests.some(x => x.toLowerCase() === w.toLowerCase())) draft.interests.push(w);
+    intIn.value = ""; drawChips();
+  };
+  intIn.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addInterest(); } });
+  intIn.addEventListener("blur", addInterest);
+  const save = h("button", { class: "primary", type: "submit", text: p.set ? "Save plan" : "Start my plan" });
+  const cancel = p.set ? h("button", { class: "ghost", type: "button", text: "Cancel" }) : null;
+  if (cancel) cancel.addEventListener("click", () => { S.todayEdit = false; renderToday(); });
+  f.addEventListener("submit", e => {
+    e.preventDefault();
+    addInterest();
+    const n = +perDayIn.value;
+    const prefs = STUDY.prefs;
+    prefs.level = draft.level; prefs.perDay = n >= 3 && n <= 30 && Math.round(n) !== LEVELS[draft.level].perDay ? Math.round(n) : 0; prefs.cat = catSel.value; prefs.interests = draft.interests.slice(0, 8); prefs.mod = Date.now();
+    S.todayEdit = false;
+    saveStudy();
+    buildPlan(true);
+    renderToday(); refreshMarks(); renderNews();
+    toast("Your plan is set. " + (GD.user ? "It's saved with your Google account." : "Sign in with Google to keep it on all your devices."));
+  });
+  const acct = h("p", { class: "help", text: GD.user ? "Your plan is saved with " + GD.user.email + "." : "Your plan is saved on this device. Sign in with Google to keep it, and your words, on all your devices. " });
+  if (!GD.user && GD.clientId) { const si = h("button", { class: "link-btn", type: "button", text: "Sign in with Google" }); si.addEventListener("click", connectDrive); acct.append(si); }
+  f.append(
+    h("div", { class: "fld" }, h("span", { class: "label", text: "Your level" }), lvGrid),
+    h("div", { class: "fld row" }, h("label", { for: "perDayIn", text: "Words a day" }), perDayIn, h("span", { class: "help", text: "Leave empty to use the level's number." })),
+    h("div", { class: "fld" }, h("label", { class: "label", for: "catSel", text: "This week's words" }), catSel, h("p", { class: "help", text: "A category from the frequency dictionary. The news underlines these words, your daily words come from them, and the challenge tests them." })),
+    h("div", { class: "fld" }, h("label", { class: "label", for: "intIn", text: "Your interests" }), intIn, chips, h("p", { class: "help", text: "A few words or topics. Stories that match come first in your week." })),
+    h("div", { class: "btn-row" }, save, cancel),
+    acct);
+  return f;
+}
+function dictRow(e, opts) {
+  const o = opts || {};
+  const li = h("li", { class: "drow" + (o.cls ? " " + o.cls : "") });
+  const play = speakBtn(e.w, dictAudio(e), "Play " + e.w);
+  const main = h(o.open === false ? "span" : "button", { class: "dbtn", type: o.open === false ? null : "button" },
+    h("span", { class: "d-fa", lang: "fa", dir: "rtl", text: e.w }),
+    h("span", { class: "d-r", text: e.r }),
+    h("span", { class: "d-g", text: e.g + (o.pos === false || !e.tags.length ? "" : " · " + posText(e)) }));
+  if (o.open !== false) main.addEventListener("click", () => openDictSheet(e, main));
+  const tags = h("span", { class: "d-tags" });
+  if (o.rank !== false) tags.append(h("span", { class: "lvl l" + bandOf(e.n), title: "Rank " + fmtN(e.n) + " · " + BANDS[bandOf(e.n)], text: "#" + fmtN(e.n) }));
+  if (isLearned(e.n)) tags.append(h("span", { class: "lvl ok", text: "Learned" }));
+  else if (deckRanks().has(e.n)) tags.append(h("span", { class: "lvl ok", text: "In Words" }));
+  if (o.inNews) tags.append(h("span", { class: "lvl news", text: "In the news" }));
+  addKid(li, [play, main, tags]);
+  return li;
+}
+function todayWords(todays, plan, d) {
+  const sec = h("section", { class: "tsec" });
+  const head = h("div", { class: "tsec-head" }, h("h3", { text: "Today's words" }), h("span", { class: "label", text: todays.length + (todays.length === 1 ? " word" : " words") }));
+  sec.append(head);
+  if (!todays.length) {
+    sec.append(h("p", { class: "help", text: plan && plan.words.length ? "You've reached the end of this week's words. Review the earlier days below, or change the category to keep going." : "No words were left in this category at your level. Pick another category or level." }));
+  } else {
+    const ul = h("ul", { class: "wlist" });
+    const inNews = newsRanks();
+    for (const e of todays) ul.append(dictRow(e, { inNews: inNews.has(e.n) }));
+    sec.append(ul);
+  }
+  if (plan && d > 0 && plan.starts[d] > 0) {
+    const earlier = plan.words.slice(0, plan.starts[d]).map(n => DICT.byRank.get(n)).filter(Boolean);
+    const det = h("details", { class: "earlier" }, h("summary", { text: "Earlier this week · " + earlier.length + (earlier.length === 1 ? " word" : " words") }));
+    const ul = h("ul", { class: "wlist" });
+    for (const e of earlier) ul.append(dictRow(e));
+    det.append(ul);
+    sec.append(det);
+  }
+  return sec;
+}
+function challengeCard(plan, d) {
+  const today = isoDate(Date.now()), done = STUDY.progress.days[today];
+  const words = challengeWords(plan, d);
+  const card = h("section", { class: "chal" });
+  const b = h("button", { class: "primary big", type: "button", text: done ? "Try the challenge again" : "Start today's challenge" });
+  b.disabled = words.length < 4;
+  b.addEventListener("click", () => startChallenge(words, plan));
+  card.append(h("div", null, h("h3", { text: "Daily challenge" }),
+    h("p", { class: "plan-sub", text: done ? "Done today: " + done.score + " of " + done.total + " right." + (done.score === done.total ? " Perfect." : "") : words.length < 4 ? "Add a few more words to your week to unlock the challenge." : words.length + " quick questions on " + catTitle(plan ? plan.cat : "").toLowerCase() + ": meaning, Farsi and listening." })), b);
+  return card;
+}
+function readingSection(plan, d) {
+  const sec = h("section", { class: "tsec" });
+  const ids = planStories(effPrefs())[d] || [];
+  const stories = ids.map(id => S.stories.find(s => s.id === id)).filter(Boolean);
+  sec.append(h("div", { class: "tsec-head" }, h("h3", { text: "Today's reading" }), h("span", { class: "label", text: stories.length ? stories.length + (stories.length === 1 ? " story" : " stories") : "" })));
+  if (!stories.length) sec.append(h("p", { class: "help", text: "No stories to show yet." }));
+  for (const st of stories) {
+    const card = h("button", { class: "rcard", type: "button" });
+    const meta = h("div", { class: "meta label" });
+    if (st.tag) { const t = h("span", { class: "tag", text: st.tag }); const v = TAGS[st.tag.toLowerCase()]; if (v) t.style.setProperty("--tag", "var(" + v + ")"); meta.append(t); }
+    addKid(meta, [levelPill(st._lvl), S.fy && S.fy[st.id] ? h("span", { class: "lvl fy", text: "For you" }) : null]);
+    const n = catCount(st, plan.cat);
+    card.append(meta, h("span", { class: "rc-title", text: st.title }), h("span", { class: "rc-sub", text: (n ? n + " " + catTitle(plan.cat).toLowerCase() + (n === 1 ? " word" : " words") + " · " : "") + (st.source || "") }));
+    card.addEventListener("click", () => goStory(st.id));
+    sec.append(card);
+  }
+  const all = h("button", { class: "link-btn", type: "button", text: "All this week's news" });
+  all.addEventListener("click", () => setTab("news"));
+  sec.append(all);
+  return sec;
+}
+
+/* ---------- daily challenge ---------- */
+const CH = { open: false, qs: [], i: 0, picked: -1, score: 0, missed: [], plan: null, lastFocus: null };
+function shuffled(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function challengeWords(plan, d) {
+  if (!plan) return [];
+  let pool = dayWords(plan, d);
+  if (pool.length < 8) {
+    const earlier = plan.words.slice(0, plan.starts[d]).map(n => DICT.byRank.get(n)).filter(Boolean).reverse();
+    for (const e of earlier) { if (pool.length >= 10) break; if (!pool.includes(e)) pool.push(e); }
+  }
+  return pool.slice(0, 10);
+}
+function distractors(e, k, cat) {
+  const members = cat ? catRanks(cat) : null;
+  const nm = isNameEntry(e);
+  const ok = x => x !== e && x.gl !== e.gl && x.wn !== e.wn && isNameEntry(x) === nm;
+  const same = shuffled(DICT.entries.filter(x => ok(x) && (!members || members.has(x.n)) && bandOf(x.n) === bandOf(e.n)));
+  const near = shuffled(DICT.entries.filter(x => ok(x) && Math.abs(bandOf(x.n) - bandOf(e.n)) <= 1));
+  const out = [], seen = new Set([e.gl]);
+  for (const src of [same, near]) for (const x of src) { if (out.length >= k) break; if (seen.has(x.gl)) continue; seen.add(x.gl); out.push(x); }
+  return out;
+}
+function startChallenge(words, plan) {
+  const types = ["meaning", "farsi", "listen"];
+  CH.qs = shuffled(words).map((e, i) => {
+    let type = types[i % 3];
+    if (type === "listen" && !dictAudio(e)) type = "meaning";
+    return { e, type, opts: shuffled([e].concat(distractors(e, 3, plan ? plan.cat : ""))) };
+  });
+  CH.i = 0; CH.picked = -1; CH.score = 0; CH.missed = []; CH.plan = plan; CH.open = true; CH.lastFocus = document.activeElement;
+  closeSheet();
+  $("#challenge").hidden = false;
+  document.body.classList.add("studying");
+  renderChallenge();
+}
+function closeChallenge() {
+  stopSound();
+  if (CH.i < CH.qs.length) saveStudy();
+  CH.open = false;
+  $("#challenge").hidden = true;
+  document.body.classList.remove("studying");
+  renderToday();
+  try { if (CH.lastFocus && CH.lastFocus.isConnected) CH.lastFocus.focus(); } catch (e) {}
+}
+function finishChallenge() {
+  const today = isoDate(Date.now()), prev = STUDY.progress.days[today];
+  const rec = { score: CH.score, total: CH.qs.length, cat: CH.plan ? CH.plan.cat : "" };
+  if (!prev || rec.score >= prev.score) STUDY.progress.days[today] = rec;
+  STUDY.progress.mod = Date.now();
+  saveStudy();
+}
+function renderChallenge() {
+  const stage = $("#chStage"), actions = $("#chActions"), bar = $("#chBar");
+  stage.replaceChildren(); actions.replaceChildren();
+  const n = CH.qs.length;
+  if (CH.i >= n) {
+    bar.textContent = CH.score + " / " + n;
+    const art = h("div"); art.innerHTML = FIN_ART;
+    const fin = h("div", { class: "fin" }, art.firstChild, h("h2", { text: CH.score === n ? "Perfect!" : CH.score >= n * 0.7 ? "Well done" : "Keep going" }),
+      h("p", { text: "You got " + CH.score + " of " + n + " right." + (streakDays() > 1 ? " " + streakDays() + "-day streak." : "") }));
+    if (CH.missed.length) {
+      const ul = h("ul", { class: "wlist missed" });
+      for (const e of CH.missed) ul.append(dictRow(e, { rank: false, open: false }));
+      fin.append(h("p", { class: "label", text: "Worth another look" }), ul);
+      const add = h("button", { class: "ghost", type: "button", text: "Add these to Words" });
+      add.addEventListener("click", () => { let k = 0; for (const e of CH.missed) if (addDictCard(e, true)) k++; toast(k ? "Added " + k + (k === 1 ? " word" : " words") + " to Words." : "They're already in your Words."); add.disabled = true; });
+      fin.append(add);
+    }
+    stage.append(fin);
+    const done = h("button", { class: "primary big", type: "button", text: "Done" });
+    done.addEventListener("click", closeChallenge);
+    actions.append(done);
+    return;
+  }
+  const q = CH.qs[CH.i], e = q.e, answered = CH.picked >= 0;
+  bar.textContent = (CH.i + 1) + " / " + n;
+  const card = h("div", { class: "chq" });
+  if (q.type === "meaning") {
+    card.append(h("span", { class: "label", text: "What does this mean?" }), h("div", { class: "sh-head" }, faWord("tc-word", e.w), speakBtn(e.w, dictAudio(e), "Play " + e.w)));
+    if (answered) card.append(h("div", { class: "sh-read" }, h("span", { class: "rom", text: e.r })));
+  } else if (q.type === "farsi") {
+    card.append(h("span", { class: "label", text: "Which word is this in Farsi?" }), h("div", { class: "tc-mean", text: e.g }), e.tags.length ? h("span", { class: "pos", text: posText(e) }) : null);
+  } else {
+    const big = h("button", { class: "primary big listen", type: "button" }, icon("speak"), "Listen");
+    big.addEventListener("click", () => say(e.w, dictAudio(e), big));
+    card.append(h("span", { class: "label", text: "Which word do you hear?" }), big);
+    if (answered) card.append(h("div", { class: "sh-head" }, faWord("sh-word", e.w)), h("div", { class: "sh-read" }, h("span", { class: "rom", text: e.r }), h("span", { class: "mean-term", text: e.g })));
+    else setTimeout(() => { if (CH.open && CH.qs[CH.i] === q && CH.picked < 0) say(e.w, dictAudio(e), big); }, 250);
+  }
+  stage.append(card);
+  const opts = h("div", { class: "opts", role: "group", "aria-label": "Answers" });
+  q.opts.forEach((o, i) => {
+    const right = o === e;
+    const b = h("button", { class: "opt" + (answered ? (right ? " right" : i === CH.picked ? " wrong" : " dim") : ""), type: "button" });
+    if (q.type === "meaning") b.append(h("span", { text: o.g }));
+    else b.append(h("span", { lang: "fa", dir: "rtl", class: "opt-fa", text: o.w }), h("small", { text: o.r }));
+    b.disabled = answered;
+    b.addEventListener("click", () => pickAnswer(i));
+    opts.append(b);
+  });
+  stage.append(opts);
+  if (answered) {
+    const right = q.opts[CH.picked] === e;
+    const next = h("button", { class: "primary big", type: "button", text: CH.i + 1 < n ? "Next" : "See your score" });
+    next.addEventListener("click", nextQuestion);
+    actions.append(h("p", { class: "verdict " + (right ? "ok" : "no"), text: right ? "Right!" : "Not quite — it's " + e.w + " (" + e.r + "), " + e.g + "." }), next);
+    setTimeout(() => { try { next.focus({ preventScroll: true }); } catch (x) {} }, 0);
+  } else actions.append(h("p", { class: "kbd", text: "Keys 1–4 to answer" }));
+}
+function pickAnswer(i) {
+  if (!CH.open || CH.picked >= 0) return;
+  const q = CH.qs[CH.i];
+  if (!q || !q.opts[i]) return;
+  CH.picked = i;
+  const right = q.opts[i] === q.e;
+  if (right) { CH.score++; setLearned(q.e.n, true); }
+  else { CH.missed.push(q.e); setLearned(q.e.n, false); }
+  saveStudy(true);
+  if (q.type !== "listen" || !right) say(q.e.w, dictAudio(q.e));
+  renderChallenge();
+}
+function nextQuestion() {
+  if (!CH.open || CH.picked < 0 || CH.i >= CH.qs.length) return;
+  CH.i++; CH.picked = -1;
+  if (CH.i >= CH.qs.length) finishChallenge();
+  renderChallenge();
+}
+function refreshMarks() {
+  if (DICT.state !== "ready") return;
+  const p = effPrefs(), mode = HL_MODES.some(m => m[0] === S.hl) ? S.hl : "plan", band = LEVELS[p.level].band;
+  const members = mode === "plan" && p.cat ? catRanks(p.cat) : null;
+  const inBand = n => n > 0 ? (band === 3 ? bandOf(n) >= 3 : bandOf(n) === band) : (band === 3 && n === 0);
+  const hit = n => mode === "key" || n < 0 ? false : members ? members.has(n) : inBand(n);
+  for (const sp of SENTS) for (const x of sp._ws) { if (x.node.nodeType !== 1) continue; x.node.classList.toggle("hi", x.node._n != null && hit(x.node._n)); }
+  const sel = $("#hlSel");
+  if (sel) { sel.value = mode; const o = sel.querySelector('option[value="plan"]'); if (o) o.textContent = p.cat ? "This week's words: " + catTitle(p.cat) : "Words at my level"; }
+  $$(".cat-n").forEach(el => { const st = S.stories.find(s => s.id === el.dataset.id); const n = st && p.cat ? catCount(st, p.cat) : 0; el.hidden = !n; el.textContent = n ? n + " " + catTitle(p.cat).toLowerCase() + (n === 1 ? " word" : " words") : ""; });
+}
+
+/* ---------- Dictionary tab: search the 5,000 words, filter by category, level and part of speech ---------- */
+const DV = { q: "", cat: "", band: 0, pos: "", shown: 60, view: STORE.get("dview", "") === "abc" ? "abc" : "search", results: [] };
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function dictScore(e, q, qn, qf, isNum) {
+  if (isNum) return e.n === +q ? 100 : 0;
+  if (qn) {
+    if (e.wn === qn) return 100;
+    if (e.wn.startsWith(qn)) return 80;
+    if (e.wn.includes(qn)) return 60;
+    return 0;
+  }
+  let best = 0;
+  if (qf) {
+    if (e.rf === qf) best = 95;
+    else if (e.rf.startsWith(qf)) best = 75;
+    else if (qf.length >= 3 && e.rf.includes(qf)) best = 50;
+  }
+  const ql = q.toLowerCase();
+  if (e.gl === ql) best = Math.max(best, 92);
+  else if (new RegExp("(^|[^a-z])" + escRe(ql) + "($|[^a-z])").test(e.gl)) best = Math.max(best, 85);
+  else if (ql.length >= 2 && new RegExp("(^|[^a-z])" + escRe(ql)).test(e.gl)) best = Math.max(best, 65);
+  else if (ql.length >= 3 && e.gl.includes(ql)) best = Math.max(best, 40);
+  return best;
+}
+function runDict() {
+  const q = DV.q.trim(), isNum = /^\d{1,4}$/.test(q), qn = hasFa(q) ? normFa(q) : "", qf = !qn && !isNum ? foldLatin(q) : "";
+  const members = DV.cat ? catRanks(DV.cat) : null;
+  const out = [];
+  for (const e of DICT.entries) {
+    if (members && !members.has(e.n)) continue;
+    if (DV.band && bandOf(e.n) !== DV.band) continue;
+    if (DV.pos && !e.tags.includes(DV.pos)) continue;
+    let score = 0;
+    if (q) { score = dictScore(e, q, qn, qf, isNum); if (!score) continue; }
+    out.push({ e, score });
+  }
+  out.sort((a, b) => b.score - a.score || a.e.n - b.e.n);
+  DV.results = out.map(x => x.e);
+}
+function renderDict() {
+  const body = $("#dictBody"), abc = $("#abcWrap");
+  if (!body) return;
+  const isAbc = DV.view === "abc";
+  body.hidden = isAbc; abc.hidden = !isAbc;
+  $("#abcBtn").textContent = isAbc ? "Dictionary" : "Alphabet";
+  $("#abcBtn").setAttribute("aria-pressed", String(isAbc));
+  if (isAbc) { renderAbc(); loadAbc(); return; }
+  const list = $("#dictList"), info = $("#dictInfo"), more = $("#dictMore");
+  list.replaceChildren();
+  if (DICT.state !== "ready") {
+    info.textContent = DICT.state === "error" ? "The dictionary didn't load. Check your connection and reload the page." : "Loading the dictionary…";
+    more.hidden = true;
+    return;
+  }
+  runDict();
+  const n = DV.results.length;
+  info.textContent = n === DICT.entries.length ? fmtN(n) + " words, most common first" : n ? fmtN(n) + (n === 1 ? " word" : " words") : "No words match";
+  const inNews = newsRanks();
+  for (const e of DV.results.slice(0, DV.shown)) list.append(dictRow(e, { inNews: inNews.has(e.n) }));
+  more.hidden = n <= DV.shown;
+  more.textContent = "Show more (" + fmtN(Math.min(60, n - DV.shown)) + " of " + fmtN(n - DV.shown) + " left)";
+}
+function fillDictFilters() {
+  const cat = $("#dcat");
+  if (!cat || cat.dataset.filled || DICT.state !== "ready") return;
+  cat.dataset.filled = "1";
+  const site = h("optgroup", { label: "Made from the dictionary" }), book = h("optgroup", { label: "The book's thematic lists" });
+  for (const o of catOptions()) { const opt = h("option", { value: o.id, text: o.id ? o.t : "All categories" }); if (!o.id) cat.append(opt); else if (o.site) site.append(opt); else book.append(opt); }
+  cat.append(site, book);
+}
+function showDictWord(n) {
+  const e = DICT.byRank.get(n);
+  if (!e) return;
+  DV.view = "search"; DV.q = String(n); DV.cat = ""; DV.band = 0; DV.pos = ""; DV.shown = 60;
+  $("#dq").value = DV.q; $("#dcat").value = ""; $("#dband").value = "0"; $("#dpos").value = "";
+  setTab("dict");
+  renderDict();
+  const btn = $("#dictList .dbtn");
+  if (btn) openDictSheet(e, btn);
+}
+/* The bottom sheet for a dictionary word: word, sound, meaning, level, lists, the book's example, Add to Words. */
+function openDictSheet(e, btn) {
+  clearSel();
+  if (btn && btn.closest) { const row = btn.closest(".drow"); if (row) row.classList.add("on"); }
+  S.look = null; S.sel = null; S.abcCell = null;
+  S.dictCell = e;
+  openSheet(e.g, null);
+  showDictBody();
+  if (DICT.exState === "idle") loadExamples().then(() => { if (S.dictCell === e) showDictBody(); });
+  if (btn) requestAnimationFrame(() => requestAnimationFrame(() => ensureVisible(btn)));
+}
+function showDictBody() {
+  const e = S.dictCell;
+  if (!e) return;
+  const body = $("#shBody");
+  body.replaceChildren();
+  body.append(h("div", { class: "sh-head" }, faWord("sh-word", e.w), speakBtn(e.w, dictAudio(e), "Play " + e.w)));
+  body.append(h("div", { class: "sh-read" }, h("span", { class: "rom", text: e.r }), e.i && e.i !== e.r ? h("span", { class: "ipa-s", text: "[" + e.i + "]" }) : null));
+  body.append(h("div", { class: "mean" }, h("div", { class: "mean-top" }, h("span", { class: "mean-term", text: e.g }), e.tags.length ? h("span", { class: "pos", text: posText(e) }) : null),
+    h("p", { class: "gloss", text: e.x ? "From the dictionary's thematic lists (beyond the 5,000 most common words)" : "From the frequency dictionary" + (e.d != null ? " · spread " + e.d + "/100 across the corpus" : "") })));
+  const lists = e.l.map(n => { const L = DICT.lists.find(x => x.n === n); return L ? L.t : ""; }).filter(Boolean);
+  body.append(h("div", { class: "dline" }, h("span", { class: "lvl l" + bandOf(e.n), text: BANDS[bandOf(e.n)] }), h("span", { text: (e.n <= 5000 ? "rank " + fmtN(e.n) + " of 5,000" : "rank " + fmtN(e.n)) + (lists.length ? " · " + lists.join(", ") : "") })));
+  const have = deckRanks().has(e.n);
+  const btn = h("button", { class: "primary add", type: "button" }, ...(have ? [icon("check"), "In your Words"] : ["Add to Words"]));
+  btn.setAttribute("aria-disabled", String(have));
+  btn.addEventListener("click", () => { if (addDictCard(e)) showDictBody(); });
+  const learnedBtn = h("button", { class: "link-btn", type: "button", text: isLearned(e.n) ? "Mark as not learned" : "Mark as learned" });
+  learnedBtn.addEventListener("click", () => { setLearned(e.n, !isLearned(e.n)); saveStudy(); showDictBody(); if (S.tab === "today") renderToday(); else if (S.tab === "dict") renderDict(); });
+  body.append(h("div", { class: "sh-actions" }, btn, learnedBtn));
+  const ex = exampleOf(e);
+  if (ex) {
+    const box = h("div", { class: "ex" }, h("div", { class: "ex-row" }, h("p", { class: "ex-t", lang: "fa", dir: "rtl", text: ex.fa }), speakBtn(ex.fa, "", "Play the example")));
+    if (ex.en) box.append(h("p", { class: "ex-en", text: ex.en }));
+    body.append(box);
+  } else if (DICT.exState === "loading") body.append(h("p", { class: "help", text: "Loading the example…" }));
+  const prev = DICT.byRank.get(e.n - 1), next = DICT.byRank.get(e.n + 1);
+  const nav = h("div", { class: "dnav" });
+  for (const [x, lab] of [[prev, "← " + (prev ? fmtN(prev.n) + " " + prev.w : "")], [next, (next ? fmtN(next.n) + " " + next.w : "") + " →"]]) {
+    if (!x) { nav.append(h("span")); continue; }
+    const b = h("button", { class: "link-btn", type: "button", text: lab });
+    b.addEventListener("click", () => { S.dictCell = x; $("#shPhrase").textContent = x.g; showDictBody(); });
+    nav.append(b);
+  }
+  body.append(nav, h("p", { class: "help", text: DICT.source }));
+  setSheetH();
+}
+/* A flashcard for a dictionary word (key "d<rank>"). Returns true when a card was added. */
+function addDictCard(e, quiet) {
+  const id = "d" + e.n;
+  if (deck().has(id) || deckRanks().has(e.n)) return false;
+  const ex = exampleOf(e);
+  const now = Date.now();
+  const c = normCard(id, { key: id, n: e.n, t: e.g, pos: POS_NAMES[e.tags[0]] || e.tags[0] || "", def: "", ipa: "", w: e.w, k: "", r: e.r, a: dictAudio(e),
+    kanji: [], ex: ex ? { fa: ex.fa, en: ex.en } : null, phrase: e.g, context: "", storyId: "", storyTitle: "", added: now, due: now, state: "new" }, S.lang);
+  if (!c) return false;
+  deck().set(id, c);
+  untomb(S.lang, id);
+  saveDeck(S.lang);
+  cardsChanged(true);
+  if (!quiet) toast("Added " + e.w + " to Words");
+  return true;
 }
 
 /* ---------- Alphabet tab (the Persian alphabet) ---------- */
@@ -1924,7 +2814,7 @@ function playCell(c) { if (c.ex && c.ex.a) say(c.ex.w, c.ex.a); }
 function openLetter(btn) {
   const c = btn._cell;
   clearSel(); btn.classList.add("on");
-  S.look = null; S.sel = null;
+  S.look = null; S.sel = null; S.dictCell = null;
   S.abcCell = { c, btn };
   openSheet(c.g + (c.name ? " · " + c.name : ""), null);
   showLetter();
@@ -1990,7 +2880,7 @@ function studyFront(c) {
   const f = h("div", { class: "tc-front" });
   if (S.front === "word") {
     f.append(h("div", { class: "tc-word", lang: "fa", dir: "rtl", text: c.w }));
-    const sb = speakBtn(c.w, c.a, "Play " + c.w);
+    const sb = speakBtn(c.w, cardAudio(c), "Play " + c.w);
     if (sb) f.append(sb);
   } else {
     f.append(h("div", { class: "tc-mean", text: c.t }));
@@ -2001,7 +2891,7 @@ function studyFront(c) {
 }
 function studyBack(c) {
   const b = h("div", { class: "tc-back" });
-  if (S.front === "meaning") b.append(h("div", { class: "sh-head" }, faWord("sh-word", c.w), speakBtn(c.w, c.a, "Play " + c.w)));
+  if (S.front === "meaning") b.append(h("div", { class: "sh-head" }, faWord("sh-word", c.w), speakBtn(c.w, cardAudio(c), "Play " + c.w)));
   const read = readingEl(c.r);
   if (read) b.append(read);
   if (S.front === "word") b.append(meaningEl(c));
@@ -2081,24 +2971,33 @@ function renderDemo() {
   box.append(h("span", { class: "demo-w", text: e.t }), h("span", { class: "demo-arrow", text: "→" }));
   addKid(box, [h("span", { class: "demo-t", lang: "fa", dir: "rtl", text: v.w }), v.r ? h("span", { class: "demo-r", text: v.r }) : null]);
 }
-const scrollMem = { news: 0, words: 0, abc: 0 };
+const TABS = ["today", "news", "words", "dict"];
+const scrollMem = { today: 0, news: 0, words: 0, dict: 0 };
 function setTab(t, save) {
-  if (!["news", "words", "abc"].includes(t)) t = "news";
+  if (t === "abc") { t = "dict"; DV.view = "abc"; }
+  if (!TABS.includes(t)) t = "today";
   const changed = S.tab !== t;
   if (changed) scrollMem[S.tab] = window.scrollY;
   S.tab = t;
   $$(".tab").forEach(b => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; });
-  $("#tab-news").hidden = t !== "news";
-  $("#tab-words").hidden = t !== "words";
-  $("#tab-abc").hidden = t !== "abc";
+  for (const x of TABS) $("#tab-" + x).hidden = t !== x;
   if (save !== false) STORE.set("tab", t);
   if (changed && !$("#sheet").hidden) closeSheet();
+  if (t === "today") renderToday();
   if (t === "words") renderWords();
-  if (t === "abc") { renderAbc(); loadAbc(); }
+  if (t === "dict") { fillDictFilters(); renderDict(); }
   if (changed) window.scrollTo(0, scrollMem[t] || 0);
 }
 function onKey(e) {
   const inField = e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+  if (CH.open) {
+    if (e.key === "Escape") { closeChallenge(); return; }
+    if (inField || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (CH.picked < 0 && /^[1-4]$/.test(e.key)) { e.preventDefault(); pickAnswer(+e.key - 1); return; }
+    const onButton = e.target && e.target.closest && e.target.closest("button");
+    if (CH.picked >= 0 && (e.key === "Enter" || e.key === " ") && !onButton) { e.preventDefault(); nextQuestion(); }
+    return;
+  }
   if (ST.open) {
     if (e.key === "Escape") { closeStudy(); return; }
     if (inField || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -2114,8 +3013,7 @@ function bind() {
   $(".tabs").addEventListener("keydown", e => {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
-    const order = ["news", "words", "abc"];
-    const t = order[(order.indexOf(S.tab) + (e.key === "ArrowRight" ? 1 : 2)) % 3];
+    const t = TABS[(TABS.indexOf(S.tab) + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length];
     setTab(t);
     $("#tabbtn-" + t).focus();
   });
@@ -2126,6 +3024,15 @@ function bind() {
     if (chip && chip._key) openChip(chip._key, chip._story);
   });
   $("#abcBody").addEventListener("click", e => { const t = e.target.closest(".tile"); if (t && t._cell) openLetter(t); });
+  $("#abcBtn").addEventListener("click", () => { DV.view = DV.view === "abc" ? "search" : "abc"; STORE.set("dview", DV.view); if (!$("#sheet").hidden) closeSheet(); renderDict(); });
+  let dqTimer = 0;
+  $("#dq").addEventListener("input", e => { DV.q = e.target.value; DV.shown = 60; clearTimeout(dqTimer); dqTimer = setTimeout(renderDict, 120); });
+  $("#dcat").addEventListener("change", e => { DV.cat = e.target.value; DV.shown = 60; renderDict(); });
+  $("#dband").addEventListener("change", e => { DV.band = +e.target.value || 0; DV.shown = 60; renderDict(); });
+  $("#dpos").addEventListener("change", e => { DV.pos = e.target.value; DV.shown = 60; renderDict(); });
+  $("#dictMore").addEventListener("click", () => { DV.shown += 60; renderDict(); });
+  $("#hlSel").addEventListener("change", e => { S.hl = e.target.value; STORE.set("hl", S.hl); refreshMarks(); });
+  $("#chClose").addEventListener("click", closeChallenge);
   $("#shClose").addEventListener("click", closeSheet);
   $("#hintOk").addEventListener("click", () => { $("#hint").hidden = true; STORE.set("hint", "1"); });
   $("#studyBtn").addEventListener("click", openStudy);
@@ -2144,7 +3051,7 @@ function bind() {
     if (!e.key) return;
     if (e.key === "wnw:g:user") {
       const u = readUser();
-      if (acctOf(u && u.email) !== ACCT) { GD.token = ""; GD.exp = 0; switchAccount(u, false); cardsChanged(); }
+      if (acctOf(u && u.email) !== ACCT) { GD.token = ""; GD.exp = 0; switchAccount(u, false); cardsChanged(); if (S.tab === "today") renderToday(); refreshMarks(); }
       else if (u) GD.user = u;
       renderDrive();
       return;
@@ -2152,6 +3059,7 @@ function bind() {
     // Another tab changed this person's words: if this tab can reach Drive, it saves them there.
     const syncSoon = () => { if (GD.user && tokenValid()) { clearTimeout(GD.timer); GD.timer = setTimeout(() => syncNow(), 4000); } };
     if (e.key === "wnw:" + tombKey()) { TOMBS = loadTombs(); syncSoon(); return; }
+    if (e.key === "wnw:" + acctKey(STUDY_KEY)) { STUDY = loadStudy(); if (S.tab === "today" && !CH.open) renderToday(); refreshMarks(); syncSoon(); return; }
     if (e.key === "wnw:" + acctKey("g:dirty")) { GD.dirty = !!GD.user && !!e.newValue; renderDriveStatus(); if (GD.dirty) syncSoon(); return; }
     if (["g:file", "g:last"].some(k => e.key === "wnw:" + acctKey(k))) { if (!GD.busy) { loadSyncState(); renderDrive(); } return; }
     const pre = "wnw:" + deckKey("");
@@ -2159,7 +3067,7 @@ function bind() {
     const l = e.key.slice(pre.length);
     if (S.decks[l]) { loadDeck(l); cardsChanged(); syncSoon(); }
   });
-  window.addEventListener("hashchange", () => { const t = location.hash.slice(1); if (["news", "words", "abc"].includes(t)) setTab(t); });
+  window.addEventListener("hashchange", () => { const t = location.hash.slice(1); if (TABS.includes(t) || t === "abc") setTab(t); });
   const top = $("#top");
   const setTopH = () => document.documentElement.style.setProperty("--top-h", top.offsetHeight + "px");
   setTopH();
@@ -2176,11 +3084,13 @@ function boot() {
   for (const l of Object.keys(S.decks)) loadDeck(l);
   bind();
   $("#todayLine").textContent = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  $("#todayDate").textContent = $("#todayLine").textContent;
+  $("#todayWeek").textContent = "Week of " + new Date(weekStart(Date.now())).toLocaleDateString("en-GB", { day: "numeric", month: "long" });
   $("#hint").hidden = STORE.get("hint", "") === "1";
   renderWords();
   renderDrive();
-  const hash = location.hash.slice(1);
-  setTab(["news", "words", "abc"].includes(hash) ? hash : (["words", "abc"].includes(STORE.get("tab", "news")) ? STORE.get("tab") : "news"), false);
+  const hash = location.hash.slice(1), saved = STORE.get("tab", "today");
+  setTab(TABS.includes(hash) || hash === "abc" ? hash : (TABS.includes(saved) ? saved : "today"), false);
   loadData();
 }
 boot();

@@ -9,6 +9,7 @@ the device's text-to-speech. This script creates data/audio/fa/<id>.mp3 for:
   - every glossary entry (fa.v, the spelling with vowel marks, or else fa.w)   -> stored as fa.a
   - every key-word example sentence (ex.faV, or else ex.fa)                  -> stored as ex.faA
   - every example word in data/alphabets.json for Farsi (ex.v, or else ex.w)  -> stored as ex.a
+  - every word of the frequency dictionary in data/dict.json (v, or else w)  -> stored as a
 The voice is the open-source Piper "gyro" Persian voice, run with sherpa-onnx. Both are downloaded from
 GitHub into ~/.cache/wnw-tts the first time. ffmpeg turns the speech into small MP3 files.
 An id is a hash of the spoken text, so files are reused and only new words are synthesised.
@@ -27,6 +28,7 @@ from concurrent.futures import ThreadPoolExecutor
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GLOSSARY = os.path.join(ROOT, "data", "glossary.json")
 ALPHABETS = os.path.join(ROOT, "data", "alphabets.json")
+DICT = os.path.join(ROOT, "data", "dict.json")
 AUDIO_DIR = os.path.join(ROOT, "data", "audio", "fa")
 CACHE = os.path.expanduser("~/.cache/wnw-tts")
 RELEASES = "https://github.com/k2-fsa/sherpa-onnx/releases/download"
@@ -67,6 +69,7 @@ def main():
         sys.exit("ffmpeg is needed to make MP3 files.")
     glossary = json.load(open(GLOSSARY, encoding="utf-8"))
     alphabets = json.load(open(ALPHABETS, encoding="utf-8")) if os.path.exists(ALPHABETS) else None
+    dictionary = json.load(open(DICT, encoding="utf-8")) if os.path.exists(DICT) else None
 
     jobs = {}  # id -> text
     def want(text):
@@ -96,6 +99,12 @@ def main():
                     if i:
                         ex["a"] = i
 
+    if dictionary:
+        for e in dictionary.get("entries", []):
+            i = want(e.get("v") or e.get("w"))
+            if i:
+                e["a"] = i
+
     os.makedirs(AUDIO_DIR, exist_ok=True)
     todo = {i: t for i, t in jobs.items() if not os.path.exists(os.path.join(AUDIO_DIR, i + ".mp3"))}
     if todo:
@@ -123,12 +132,14 @@ def main():
         with ThreadPoolExecutor(max_workers=workers) as pool:
             for _ in pool.map(synth, sorted(todo.items())):
                 done += 1
-                if done % 50 == 0:
+                if done % 250 == 0:
                     print(f"  {done}/{len(todo)}", flush=True)
 
     json.dump(glossary, open(GLOSSARY, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     if alphabets is not None:
         json.dump(alphabets, open(ALPHABETS, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    if dictionary is not None:
+        json.dump(dictionary, open(DICT, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
     removed = 0
     if prune:

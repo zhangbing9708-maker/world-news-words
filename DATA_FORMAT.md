@@ -1,15 +1,16 @@
 # Data format
 
 The site teaches Farsi from English news. It reads `data/news.json` (the stories), `data/glossary.json`
-(every tappable word, in English and Farsi), `data/alphabets.json` (the Persian alphabet on the Alphabet tab)
+(every tappable word, in English and Farsi), `data/dict.json` and `data/dict-examples.json` (the frequency
+dictionary: ranks, categories, examples), `data/alphabets.json` (the Persian alphabet on the Dictionary tab)
 and `data/audio/fa/*.mp3` (recorded Farsi audio).
 
 After any change to the data:
 
 1. `python3 tools/check_data.py --missing` lists story words that still need a glossary entry.
-2. `python3 tools/make_audio.py` makes Farsi audio for every new entry and writes the audio ids back into
-   the JSON (it downloads an open-source Persian voice from GitHub the first time). Commit the new
-   `data/audio/fa/*.mp3` files together with the JSON.
+2. `python3 tools/make_audio.py` makes Farsi audio for every new entry (glossary, alphabet and dictionary)
+   and writes the audio ids back into the JSON (it downloads an open-source Persian voice from GitHub the
+   first time). Commit the new `data/audio/fa/*.mp3` files together with the JSON.
 3. `python3 tools/check_data.py` must print `OK` before anything is committed. Warnings (for example a
    missing audio file) do not block publishing, but should be fixed.
 
@@ -107,9 +108,32 @@ Everything above, plus:
 - `ex.en`: one short, natural sentence (at most 12 words) on the story's topic, not copied from the story.
 - `ex.fa` + `ex.faR` + `ex.faV`: Persian translation, its transliteration, and the vowel-marked version.
 
+## dict.json and dict-examples.json
+
+Built by `python3 tools/build_dict.py` from `dictionary/dictionary.json`; never edited by hand, and the
+weekly news update leaves them alone. `dict.json`:
+
+```json
+{ "source": "...", "lists": [ {"n": 1, "t": "Animals"} ],
+  "cats": [ {"id": "x-num", "t": "Numbers & amounts", "ranks": [12, 20]} ],
+  "entries": [ {"n": 1275, "w": "غذا", "r": "ghazā", "i": "ɣæzɑ", "g": "food", "p": "n", "l": [10],
+                "v": "غَذا", "a": "<audio id>", "d": 80, "c": 1234} ] }
+```
+
+- `n` rank (1–5,000 from the book's frequency index; list-only words keep the book's rank above 5,000 and
+  carry `"x": true`), `w` headword, `r` the site's transliteration and `v` the vowel-marked spelling (both
+  made from the IPA `i` by `tools/vowelize.py`), `g` the book's gloss, `p` parts of speech
+  (`adj adv conj n prep pron pn q v`, comma-separated), `l` thematic list numbers, `a` audio id (from
+  `make_audio.py`), `d` dispersion, `c` raw count.
+- Levels are rank bands: 1–1,000 Beginner, 1,001–3,000 Intermediate, 3,001–5,000 Advanced, else "5,000+".
+- `dict-examples.json` maps a rank to `[example_fa, example_en]` and is loaded only when a word is opened.
+- The site links each glossary entry to a dictionary word by the normalised Farsi headword (`fa.w`), or
+  the main word of a phrase; so keep `fa.w` in the dictionary's spelling (infinitives for verbs, ZWNJ
+  where Persian uses it) to get the right rank and level in the news.
+
 ## alphabets.json
 
-Reference data for the Alphabet tab: `fa` holds the 32 Persian letters (with their four joined forms) and the
+Reference data for the alphabet view on the Dictionary tab: `fa` holds the 32 Persian letters (with their four joined forms) and the
 vowels, as `name`, `intro`, `sections` (`id`, `title`, `note`, `cols`, `cells`, with `null` for an empty slot)
 and `tips`. Example words carry `v` (vowel-marked, for the voice) and `a` (audio id from `make_audio.py`).
 This file rarely changes; the daily update leaves it alone.

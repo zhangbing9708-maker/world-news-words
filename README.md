@@ -2,23 +2,54 @@
 
 **Live site: https://zhangbing9708-maker.github.io/world-news-words/**
 
-Read today's world news in plain English and learn its words in **Farsi (Persian)**.
+Read the week's world news in plain English and learn its words in **Farsi (Persian)**, with a weekly plan built
+around the 5,000 most common Persian words.
 
-- **News** – short summaries of the day's top stories, with links to the original reports. Tap any word
-  to see it in Farsi with its transliteration, meaning, recorded pronunciation and, for key words, an
-  example sentence.
+- **Today** – your plan: pick a level (Beginner, Intermediate, Advanced: how many words a day and which
+  frequency band), a category of words for the week (the dictionary's 31 thematic lists, or site-made ones
+  such as Numbers & amounts), and a few interests. Every week the site picks two stories a day that match
+  your interests and a day's worth of words from your category, preferring words that appear in the
+  current news. A daily challenge (meaning, Farsi and listening questions) tracks what you've learned and
+  your streak. The plan and progress are saved with your Google sign-in.
+- **News** – short summaries of the week's top stories, with links to the original reports. Every story
+  shows a level from how common its words are, and the words you're learning this week are underlined.
+  Tap any word to see it in Farsi with its transliteration, meaning, rank, recorded pronunciation and, for
+  key words, an example sentence.
 - **Words** – words you add become flashcards with Anki-style spaced repetition (Again / Hard / Good /
   Easy). Sign in with Google to keep them in your own Google Drive and load them on any device, export
   them to Anki, or save a backup file.
-- **Alphabet** – the Persian alphabet: all 32 letters with their joined forms, the vowels, and example
-  words to listen to.
+- **Dictionary** – search the 5,000 words of *A Frequency Dictionary of Persian* (Persian script, rough
+  spelling, English or rank), filter by category, level and part of speech, hear each word, read the book's
+  example sentence and add words to your flashcards. The Persian alphabet (32 letters with their joined
+  forms, the vowels, example words) lives here too.
 
-Sound: most devices have no Persian voice, so Farsi words, example sentences and alphabet examples play
-recorded MP3 files made with an open-source Persian voice (Piper "gyro", run with sherpa-onnx) by
-`tools/make_audio.py`.
+Sound: most devices have no Persian voice, so every dictionary word, news word, example sentence and
+alphabet example plays a recorded MP3 made with an open-source Persian voice (Piper "gyro", run with
+sherpa-onnx) by `tools/make_audio.py`. Dictionary words are vowel-marked from their IPA by
+`tools/vowelize.py` so the voice reads them correctly.
 
 Until October 2026 the site also taught Japanese, Chinese and English; that version is in the git history.
 Words saved in those languages stay in people's browsers, backups and Drive files, but are no longer shown.
+
+## The frequency dictionary
+
+`dictionary/dictionary.json` is the data of the
+[persian-frequency-dictionary](https://github.com/zhangbing9708-maker/persian-frequency-dictionary) project,
+now merged into this repo: the 5,000 entries of *A Frequency Dictionary of Persian: Core Vocabulary for
+Learners* (Corey Miller & Karineh Aghajanian-Stewart, Routledge, 2018) with rank, headword, IPA, gloss,
+part of speech, example sentence, dispersion and raw count, plus the book's 31 thematic lists (which also
+name 573 words beyond rank 5,000). `dictionary/tools/` holds the scripts that extracted it from the book's
+PDF, and `dictionary/README.md` the notes on that extraction.
+
+`tools/build_dict.py` turns it into what the site loads: `data/dict.json` (every word with the site's
+transliteration, vowel-marked spelling, audio id, lists, and four site-made categories: Numbers & amounts,
+Little words, Adverbs, Adjectives) and `data/dict-examples.json` (the example sentences, loaded on
+demand). Levels are rank bands: 1–1,000 Beginner, 1,001–3,000 Intermediate, 3,001–5,000 Advanced, and
+"5,000+" for everything rarer. News words are linked to the dictionary by their Farsi headword (or the main
+word of a phrase), which covers about 84% of them; the rest count as 5,000+.
+
+The dictionary content is © 2018 the authors / Routledge, extracted for personal study; the site code and
+tools may be reused freely.
 
 ## Many people, one site
 
@@ -27,8 +58,8 @@ change each other's words. The site has no server and no accounts of its own.
 
 **Google Drive sync (optional).** On the Words tab, **Sign in with Google** saves the words to one file in
 that person's own Google Drive, "World News Words – my words.json", and loads it on any device where they
-sign in. The site asks only for the `drive.file` permission, so it can open nothing in Drive except the
-file it made. Sign-in uses Google Identity Services in the browser (an access token that lasts about an
+sign in; the same file carries the person's plan (level, category, interests) and challenge progress. The
+site asks only for the `drive.file` permission, so it can open nothing in Drive except the file it made. Sign-in uses Google Identity Services in the browser (an access token that lasts about an
 hour and is kept only in memory); syncing merges by card, so the newest review of each word wins and
 deleted words stay deleted. A signed-in person's words are kept under their own storage key prefix, so two
 people sharing one browser never mix words, and signing out removes the copy from the device once it is
@@ -51,9 +82,11 @@ history. If the browser can't run WebAssembly, the button falls back to a tab-se
 
 ## How the news is updated
 
-A scheduled Claude task runs every morning (Perth time). It finds the latest world news, writes new
-learner summaries, adds English and Farsi entries for any new words to `data/glossary.json`, makes their
-Farsi audio with `tools/make_audio.py`, runs `tools/check_data.py`, and pushes the change here. GitHub Pages then republishes the site.
+A scheduled Claude task runs every Monday morning (Perth time). It finds the week's most important world
+news, writes 12–14 learner summaries spread across the site's topics (so every learner's interests find a
+match), adds English and Farsi entries for any new words to `data/glossary.json`, makes their Farsi audio
+with `tools/make_audio.py`, runs `tools/check_data.py`, and pushes the change here. GitHub Pages then
+republishes the site, and each person's device builds their plan for the week from it.
 
 ## Files
 
@@ -62,10 +95,14 @@ Farsi audio with `tools/make_audio.py`, runs `tools/check_data.py`, and pushes t
 | `index.html` | The whole app (no build step) |
 | `privacy.html` | Privacy policy (linked from the Google sign-in screen) |
 | `data/news.json` | Stories, newest edition first |
-| `data/glossary.json` | Every tappable word, in English and Farsi |
-| `data/alphabets.json` | The Persian alphabet for the Alphabet tab |
-| `data/audio/fa/` | Recorded Farsi audio (MP3) |
+| `data/glossary.json` | Every tappable news word, in English and Farsi |
+| `data/dict.json`, `data/dict-examples.json` | The frequency dictionary as the site loads it (built by `tools/build_dict.py`) |
+| `data/alphabets.json` | The Persian alphabet for the Dictionary tab |
+| `data/audio/fa/` | Recorded Farsi audio (MP3) for dictionary words, news words and examples |
+| `dictionary/` | The dictionary's source data, extraction scripts and notes |
 | `lib/` | sql.js 1.13.0 (MIT licence, see `lib/sql.js-LICENSE.txt`), used only for the Anki export |
+| `tools/build_dict.py` | Builds `data/dict.json` from `dictionary/dictionary.json` |
+| `tools/vowelize.py` | Vowel marks and transliteration for a Persian word from its IPA |
 | `tools/make_audio.py` | Makes Farsi audio for new words |
 | `tools/check_data.py` | Validates the data; `--missing` lists words without an entry |
 | `tools/wordlib.py` | Word rules shared with the app (tokenizer, lookup) |

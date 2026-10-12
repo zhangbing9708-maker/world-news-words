@@ -36,6 +36,19 @@ Cloud project; its authorised JavaScript origin is `https://zhangbing9708-maker.
 
 Without signing in, use **Save backup** / **Load backup** to move words between devices.
 
+## Export to Anki
+
+**Export to Anki** on the Words tab makes an Anki deck file (`.apkg`) for the language being learned, built
+in the browser: a small Anki collection made with [sql.js](https://github.com/sql-js/sql.js) (SQLite in
+WebAssembly, in `lib/`) and zipped with its sound files. Each word becomes a note in the deck
+"World News Words::<language>" with its reading, meaning, kanji or hanzi, example sentence and the news
+sentence it came from. Farsi cards carry the recorded MP3s from `data/audio/fa/`. Japanese, Chinese and
+English cards use Anki's built-in text-to-speech (`{{tts ja_JP:Word}}` and so on), which speaks with the
+voices on the person's device, the same way the site does. Cards follow the **Card front** choice
+(word first, or meaning first). Note ids are stable, so importing a newer export updates earlier cards
+instead of duplicating them, and Anki keeps its own review history. If the browser can't run WebAssembly,
+the button falls back to a tab-separated text file for Anki's **File → Import**.
+
 ## How the news is updated
 
 A scheduled Claude task runs every morning (Perth time). It finds the latest world news, writes new
@@ -53,6 +66,7 @@ pushes the change here. GitHub Pages then republishes the site.
 | `data/glossary.json` | Every tappable word in Japanese, Chinese, Farsi and English |
 | `data/alphabets.json` | The ABC tab's reference tables |
 | `data/audio/fa/` | Recorded Farsi audio (MP3) |
+| `lib/` | sql.js 1.13.0 (MIT licence, see `lib/sql.js-LICENSE.txt`), used only for the Anki export |
 | `tools/make_audio.py` | Makes Farsi audio for new words |
 | `tools/check_data.py` | Validates the data; `--missing` lists words without translations |
 | `tools/wordlib.py` | Word rules shared with the app (tokenizer, lookup) |

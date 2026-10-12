@@ -481,7 +481,7 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
           <button class="ghost" id="exportBtn" type="button">Export to Anki</button>
         </div>
       </div>
-      <p class="help">Export makes a file with readings, meanings and examples. In Anki, choose File → Import.</p>
+      <p class="help">Export makes an Anki deck (.apkg) with readings, examples and sound: recorded audio for Farsi, your device's voices for the other languages. Open the file with Anki.</p>
       <div class="btn-row" style="margin-top:14px">
         <button class="ghost sm" id="backupBtn" type="button">Save backup</button>
         <button class="ghost sm" id="restoreBtn" type="button">Load backup</button>
@@ -1308,9 +1308,9 @@ function renderWordsBody() {
 function renderWords() { renderCounts(); renderWordsBody(); }
 
 /* ---------- files: Anki export and backups ---------- */
-function download(name, text, type) {
+function download(name, data, type) {
   try {
-    const url = URL.createObjectURL(new Blob([text], { type: type || "text/plain;charset=utf-8" }));
+    const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type: type || "text/plain;charset=utf-8" }));
     const a = h("a", { href: url, download: name });
     document.body.append(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
@@ -1354,10 +1354,262 @@ function ankiText() {
   }
   return rows.join("\n") + "\n";
 }
-function onExport() {
+/* ---------- Anki deck file (.apkg) ----------
+   An .apkg is a zip holding a small Anki collection (an SQLite database, made here with sql.js) and its
+   sound files. Farsi cards carry the site's recorded audio. Japanese, Chinese and English cards use Anki's
+   own text-to-speech ({{tts}}), which speaks with the voices on the person's device, as the site does.
+   Fixed note-type, deck and note ids mean that importing a newer export updates the same cards. */
+const ANKI = {
+  model: { ja: 1760100000101, zh: 1760100000102, en: 1760100000103, fa: 1760100000104 },
+  deck: { ja: 1760100000201, zh: 1760100000202, en: 1760100000203, fa: 1760100000204 },
+  parent: 1760100000200,
+  tts: { ja: "ja_JP", zh: "zh_CN", en: "en_GB" },
+  fields: ["Word", "Reading", "Romaji", "English", "PartOfSpeech", "Definition", "Characters", "Example",
+    "ExampleReading", "ExampleEnglish", "Context", "Source", "Audio", "ExampleAudio", "MeaningFirst"],
+};
+const APKG_SCHEMA = [
+  "CREATE TABLE col (id integer primary key, crt integer not null, mod integer not null, scm integer not null, ver integer not null, dty integer not null, usn integer not null, ls integer not null, conf text not null, models text not null, decks text not null, dconf text not null, tags text not null);",
+  "CREATE TABLE notes (id integer primary key, guid text not null, mid integer not null, mod integer not null, usn integer not null, tags text not null, flds text not null, sfld integer not null, csum integer not null, flags integer not null, data text not null);",
+  "CREATE TABLE cards (id integer primary key, nid integer not null, did integer not null, ord integer not null, mod integer not null, usn integer not null, type integer not null, queue integer not null, due integer not null, ivl integer not null, factor integer not null, reps integer not null, lapses integer not null, left integer not null, odue integer not null, odid integer not null, flags integer not null, data text not null);",
+  "CREATE TABLE revlog (id integer primary key, cid integer not null, usn integer not null, ease integer not null, ivl integer not null, lastIvl integer not null, factor integer not null, time integer not null, type integer not null);",
+  "CREATE TABLE graves (usn integer not null, oid integer not null, type integer not null);",
+  "CREATE INDEX ix_notes_usn on notes (usn);", "CREATE INDEX ix_cards_usn on cards (usn);", "CREATE INDEX ix_revlog_usn on revlog (usn);",
+  "CREATE INDEX ix_cards_nid on cards (nid);", "CREATE INDEX ix_cards_sched on cards (did, queue, due);",
+  "CREATE INDEX ix_revlog_cid on revlog (cid);", "CREATE INDEX ix_notes_csum on notes (csum);",
+].join("\n");
+const ANKI_DCONF = { "1": { autoplay: true, id: 1, lapse: { delays: [10], leechAction: 0, leechFails: 8, minInt: 1, mult: 0 }, maxTaken: 60, mod: 0, name: "Default",
+  new: { bury: true, delays: [1, 10], initialFactor: 2500, ints: [1, 4, 7], order: 1, perDay: 20, separate: true }, replayq: true,
+  rev: { bury: true, ease4: 1.3, fuzz: 0.05, ivlFct: 1, maxIvl: 36500, minSpace: 1, perDay: 100 }, timer: 0, usn: 0 } };
+const ANKI_LATEX_PRE = "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n";
+
+let sqlJsReady = null;
+function loadSqlJs() {
+  if (!sqlJsReady) {
+    sqlJsReady = new Promise((resolve, reject) => {
+      if (typeof WebAssembly !== "object") { reject(new Error("WebAssembly is off")); return; }
+      const s = document.createElement("script");
+      s.src = "lib/sql-wasm.js";
+      s.onload = () => { try { window.initSqlJs({ locateFile: f => "lib/" + f }).then(resolve, reject); } catch (e) { reject(e); } };
+      s.onerror = () => reject(new Error("sql.js didn't load"));
+      document.head.append(s);
+    }).catch(e => { sqlJsReady = null; throw e; });
+  }
+  return sqlJsReady;
+}
+
+/* A zip with every file stored as-is (sound files and the database barely shrink anyway). */
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = CRC_TABLE[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zipStored(files) {
+  const enc = new TextEncoder(), parts = [], dir = [];
+  const d = new Date();
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  let offset = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name), data = f.data, crc = crc32(data);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+    lh.setUint16(10, time, true); lh.setUint16(12, date, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(new Uint8Array(lh.buffer), name, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint16(12, time, true); ch.setUint16(14, date, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true);
+    ch.setUint32(42, offset, true);
+    dir.push(new Uint8Array(ch.buffer), name);
+    offset += 30 + name.length + data.length;
+  }
+  const dirSize = dir.reduce((a, p) => a + p.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, dirSize, true); end.setUint32(16, offset, true);
+  return new Blob([...parts, ...dir, new Uint8Array(end.buffer)], { type: "application/octet-stream" });
+}
+
+function ankiCss() {
+  return [
+    ".card{--ink:#1D1B14;--ink2:#55503E;--ink3:#736D5A;--paper:#F3F4EC;--rule:#D8D7C8;--hl:#E4A300;--hlink:#805300;--hlwash:#FAECB8;",
+    "font-family:\"Newsreader\",\"Iowan Old Style\",Georgia,serif;font-size:20px;line-height:1.5;text-align:center;color:var(--ink);background:var(--paper);padding:20px 16px 28px}",
+    ".card.nightMode,.card.night_mode,.nightMode .card,.night_mode .card{--ink:#ECE8D9;--ink2:#BCB5A0;--ink3:#8D8672;--paper:#14130E;--rule:#36332A;--hl:#EFB11E;--hlink:#F2C04C;--hlwash:#3A2F12}",
+    "[lang=ja]{font-family:\"Klee One\",\"Hiragino Mincho ProN\",\"Yu Mincho\",\"Noto Serif JP\",serif}",
+    "[lang=zh]{font-family:\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",\"Noto Sans SC\",sans-serif}",
+    "[lang=fa]{font-family:\"Vazirmatn\",\"Noto Naskh Arabic\",\"Geeza Pro\",\"Segoe UI\",Tahoma,sans-serif}",
+    ".wnw-tag{font:600 11.5px/1.3 system-ui,-apple-system,\"Segoe UI\",Roboto,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}",
+    ".wnw-word{font-size:2.4em;line-height:1.25;margin:.1em 0}",
+    "hr#answer{border:0;border-top:1px solid var(--rule);margin:18px auto;max-width:32em}",
+    ".wnw-read{font-size:1.15em;color:var(--ink2)}",
+    ".wnw-rom{font:15px/1.4 system-ui,-apple-system,\"Segoe UI\",sans-serif;color:var(--ink3);margin:0 .5em}",
+    ".wnw-mean{margin:12px auto 0;max-width:32em}",
+    ".wnw-mean b{font-size:1.15em;font-weight:600}",
+    ".wnw-pos{display:inline-block;font:600 11px/1.7 system-ui,-apple-system,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--hlink);background:var(--hlwash);border-radius:99px;padding:0 8px;margin:0 .45em;vertical-align:middle}",
+    ".wnw-def{color:var(--ink2);margin-top:2px}",
+    ".wnw-chars{margin:14px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:32em}",
+    ".wnw-kj{border:1px solid var(--rule);border-radius:10px;padding:3px 10px;font-size:15px;color:var(--ink2)}",
+    ".wnw-kj b{font-size:22px;font-weight:600;color:var(--ink);margin-right:6px}",
+    ".wnw-ex{margin:18px auto 0;max-width:32em;text-align:left;border-left:3px solid var(--hl);padding:2px 0 2px 14px}",
+    ".wnw-ex[dir=rtl]{text-align:right;border-left:0;border-right:3px solid var(--hl);padding:2px 14px 2px 0}",
+    ".wnw-ex-r{font:14.5px/1.45 system-ui,-apple-system,sans-serif;color:var(--ink2);margin-top:3px}",
+    ".wnw-ex-en{font-size:.85em;font-style:italic;color:var(--ink2);margin-top:2px}",
+    ".wnw-ex[dir=rtl] .wnw-ex-r,.wnw-ex[dir=rtl] .wnw-ex-en{text-align:right}",
+    ".wnw-ctx{margin:18px auto 0;max-width:32em;text-align:left;font-size:.8em;color:var(--ink2)}",
+    ".wnw-ctx b{font-weight:600;color:var(--ink);background:var(--hlwash);border-radius:3px;padding:0 2px}",
+    ".wnw-src{font:600 11px/1.45 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-top:6px}",
+    ".wnw-src a{color:inherit}",
+    "ruby rt{font-size:.55em;color:var(--hlink)}",
+    ".replay-button{vertical-align:middle}",
+  ].join("\n");
+}
+/* Two card types; the MeaningFirst field picks one, so each word makes one card in the direction chosen
+   under "Card front" on the Words tab. */
+function ankiTemplates(l) {
+  const tts = ANKI.tts[l], rtl = l === "fa" ? ' dir="rtl"' : "";
+  const la = ' lang="' + l + '"' + rtl;
+  const sayWord = tts ? "{{tts " + tts + ":Word}}" : "{{Audio}}";
+  const sayEx = tts ? "{{tts " + tts + ":" + (l === "ja" ? "kanji:" : "") + "Example}}" : "{{ExampleAudio}}";
+  const tag = '<div class="wnw-tag">' + LANGS[l].name + "</div>";
+  const word = '<div class="wnw-word"' + la + ">{{Word}}</div>";
+  const read = '<div class="wnw-read">{{#Reading}}<span' + (l === "ja" ? ' lang="ja"' : "") + ">{{Reading}}</span>{{/Reading}}"
+    + '{{#Romaji}}<span class="wnw-rom">{{Romaji}}</span>{{/Romaji}} ' + sayWord + "</div>";
+  const mean = '<div class="wnw-mean">{{#English}}<b>{{English}}</b>{{/English}}{{#PartOfSpeech}}<span class="wnw-pos">{{PartOfSpeech}}</span>{{/PartOfSpeech}}'
+    + '{{#Definition}}<div class="wnw-def">{{Definition}}</div>{{/Definition}}</div>';
+  const chars = '{{#Characters}}<div class="wnw-chars"' + la + ">{{Characters}}</div>{{/Characters}}";
+  const ex = '{{#Example}}<div class="wnw-ex"' + rtl + '><div class="wnw-ex-t"' + la + ">" + (l === "ja" ? "{{furigana:Example}}" : "{{Example}}") + " " + sayEx + "</div>"
+    + '{{#ExampleReading}}<div class="wnw-ex-r" dir="ltr">{{ExampleReading}}</div>{{/ExampleReading}}'
+    + '{{#ExampleEnglish}}<div class="wnw-ex-en" dir="ltr">{{ExampleEnglish}}</div>{{/ExampleEnglish}}</div>{{/Example}}';
+  const ctx = '{{#Context}}<div class="wnw-ctx">“{{Context}}”{{#Source}}<div class="wnw-src">{{Source}}</div>{{/Source}}</div>{{/Context}}';
+  return [
+    { name: "Word first", qfmt: "{{^MeaningFirst}}" + tag + word + "{{/MeaningFirst}}", afmt: "{{FrontSide}}\n<hr id=answer>\n" + read + mean + chars + ex + ctx },
+    { name: "Meaning first", qfmt: "{{#MeaningFirst}}" + tag + mean + "{{/MeaningFirst}}", afmt: "{{FrontSide}}\n<hr id=answer>\n" + word + read + chars + ex + ctx },
+  ];
+}
+const ankiEsc = t => String(t == null ? "" : t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+/* 原油[げんゆ]の値段[ねだん] → 原油[げんゆ]の 値段[ねだん]: Anki's furigana needs a space before each reading's kanji. */
+const ankiFurigana = t => String(t || "").replace(new RegExp(RUBY.source, "g"), (m, base, read, at) => (at ? " " : "") + base + "[" + read + "]");
+const okAudioId = a => typeof a === "string" && /^[0-9a-f]{6,40}$/.test(a) ? a : "";
+function ankiSounds(c, l) {
+  if (l !== "fa") return { word: "", ex: "" };
+  const e = S.G.entries[c.key] || {};
+  const ex = c.ex || e.ex || null;
+  return { word: okAudioId(c.a) || okAudioId(e.fa && e.fa.a), ex: okAudioId(ex && ex.faA) };
+}
+const ankiSoundName = id => "wnw-fa-" + id + ".mp3";
+function ankiFields(c, l, have) {
+  const e = S.G.entries[c.key] || {};
+  const ex = c.ex || (e.ex ? normEx(e.ex) : null);
+  const snd = ankiSounds(c, l);
+  const f = Object.fromEntries(ANKI.fields.map(n => [n, ""]));
+  f.Word = ankiEsc(c.w);
+  f.Reading = ankiEsc(l === "ja" ? (c.k && c.k !== c.w ? c.k : "") : l === "en" ? (c.ipa || c.r) : c.r);
+  f.Romaji = l === "ja" ? ankiEsc(c.r) : "";
+  f.English = l === "en" ? "" : ankiEsc(c.t);
+  f.PartOfSpeech = ankiEsc(c.pos);
+  f.Definition = ankiEsc(c.def);
+  f.Characters = (c.kanji || []).map(k => '<span class="wnw-kj"><b>' + ankiEsc(k.c) + "</b>" + ankiEsc(k.m) + "</span>").join(" ");
+  if (ex) {
+    if (l === "ja" && ex.ja) f.Example = ankiEsc(ankiFurigana(ex.ja));
+    else if (l === "zh" && ex.zh) { f.Example = ankiEsc(ex.zh); f.ExampleReading = ankiEsc(ex.zhP); }
+    else if (l === "fa" && ex.fa) { f.Example = ankiEsc(ex.fa); f.ExampleReading = ankiEsc(ex.faR); }
+    else if (l === "en" && ex.en) f.Example = ankiEsc(ex.en);
+    if (l !== "en" && f.Example) f.ExampleEnglish = ankiEsc(ex.en);
+  }
+  if (c.context) {
+    const t = c.context, i = c.phrase ? t.toLowerCase().indexOf(c.phrase.toLowerCase()) : -1;
+    f.Context = i < 0 ? ankiEsc(t) : ankiEsc(t.slice(0, i)) + "<b>" + ankiEsc(t.slice(i, i + c.phrase.length)) + "</b>" + ankiEsc(t.slice(i + c.phrase.length));
+    const st = S.stories.find(s => s.id === c.storyId);
+    const title = c.storyTitle || (st && st.title) || "";
+    if (title) f.Source = (st && st.url ? '<a href="' + ankiEsc(st.url) + '">' + ankiEsc(title) + "</a>" : ankiEsc(title)) + (st && st.source ? " · " + ankiEsc(st.source) : "");
+  }
+  if (snd.word && have.has(snd.word)) f.Audio = "[sound:" + ankiSoundName(snd.word) + "]";
+  if (snd.ex && f.Example && have.has(snd.ex)) f.ExampleAudio = "[sound:" + ankiSoundName(snd.ex) + "]";
+  f.MeaningFirst = S.front === "meaning" ? "y" : "";
+  return ANKI.fields.map(n => f[n]);
+}
+async function fetchSounds(ids) {
+  const out = new Map(), list = Array.from(ids);
+  let next = 0;
+  const worker = async () => {
+    while (next < list.length) {
+      const id = list[next++];
+      try { const r = await fetch(AUDIO_BASE + id + ".mp3"); if (r.ok) out.set(id, new Uint8Array(await r.arrayBuffer())); } catch (e) {}
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(6, list.length) }, worker));
+  return out;
+}
+async function sortChecksum(text) {
+  try {
+    const d = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(text));
+    return parseInt(Array.from(new Uint8Array(d).slice(0, 4), b => b.toString(16).padStart(2, "0")).join(""), 16);
+  } catch (e) { return 0; }
+}
+async function buildApkg(l) {
+  const list = Array.from(S.decks[l].values()).sort((a, b) => a.added - b.added);
+  const SQL = await loadSqlJs();
+  const wanted = new Set();
+  for (const c of list) { const s = ankiSounds(c, l); if (s.word) wanted.add(s.word); if (s.ex) wanted.add(s.ex); }
+  const sounds = wanted.size ? await fetchSounds(wanted) : new Map();
+  const nowMs = Date.now(), now = Math.floor(nowMs / 1000);
+  const mid = ANKI.model[l], did = ANKI.deck[l], name = LANGS[l].name;
+  const deckJson = (id, deckName, desc) => ({ collapsed: false, conf: 1, desc, dyn: 0, extendNew: 10, extendRev: 50, id, lrnToday: [0, 0], mod: now,
+    name: deckName, newToday: [0, 0], revToday: [0, 0], timeToday: [0, 0], usn: id === 1 ? 0 : -1 });
+  const decks = {
+    "1": deckJson(1, "Default", ""),
+    [ANKI.parent]: deckJson(ANKI.parent, "World News Words", ""),
+    [did]: deckJson(did, "World News Words::" + name, "Words saved from the news on World News Words: https://zhangbing9708-maker.github.io/world-news-words/"),
+  };
+  const model = {
+    id: mid, name: "World News Words (" + name + ")", type: 0, mod: now, usn: -1, sortf: 0, did,
+    tmpls: ankiTemplates(l).map((t, i) => ({ name: t.name, ord: i, qfmt: t.qfmt, afmt: t.afmt, did: null, bqfmt: "", bafmt: "", bfont: "", bsize: 0 })),
+    flds: ANKI.fields.map((n, i) => ({ name: n, ord: i, sticky: false, rtl: l === "fa" && (n === "Word" || n === "Example"), font: "Arial", size: 20, media: [] })),
+    css: ankiCss(), latexPre: ANKI_LATEX_PRE, latexPost: "\\end{document}", latexsvg: false,
+    req: [[0, "all", [0]], [1, "all", [ANKI.fields.indexOf("MeaningFirst")]]], tags: [], vers: [],
+  };
+  const conf = { activeDecks: [1], addToCur: true, collapseTime: 1200, curDeck: 1, curModel: String(mid), dueCounts: true, estTimes: true,
+    newBury: true, newSpread: 0, nextPos: list.length + 1, sortBackwards: false, sortType: "noteFld", timeLim: 0 };
+  const db = new SQL.Database();
+  try {
+    db.run(APKG_SCHEMA);
+    db.run("INSERT INTO col VALUES (1,?,?,?,11,0,0,0,?,?,?,?,'{}')", [Math.floor(dayStart(nowMs) / 1000), nowMs, nowMs, JSON.stringify(conf),
+      JSON.stringify({ [mid]: model }), JSON.stringify(decks), JSON.stringify(ANKI_DCONF)]);
+    const notes = db.prepare("INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+    const cards = db.prepare("INSERT INTO cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    const tags = " world-news-words " + name.toLowerCase() + " ";
+    let id = nowMs;
+    for (let i = 0; i < list.length; i++) {
+      const c = list[i], flds = ankiFields(c, l, sounds);
+      const nid = id++, cid = id++;
+      notes.run([nid, "wnw-" + l + "-" + c.id, mid, now, -1, tags, flds.join("\x1f"), c.w, await sortChecksum(c.w), 0, ""]);
+      cards.run([cid, nid, did, flds[ANKI.fields.length - 1] ? 1 : 0, now, -1, 0, 0, i + 1, 0, 0, 0, 0, 0, 0, 0, 0, ""]);
+    }
+    notes.free(); cards.free();
+    const files = [{ name: "collection.anki2", data: db.export() }];
+    const media = {};
+    let n = 0;
+    for (const [sid, data] of sounds) { media[String(n)] = ankiSoundName(sid); files.push({ name: String(n), data }); n++; }
+    files.splice(1, 0, { name: "media", data: new TextEncoder().encode(JSON.stringify(media)) });
+    return { blob: zipStored(files), cards: list.length, sounds: sounds.size };
+  } finally { db.close(); }
+}
+let exporting = false;
+async function onExport() {
   if (!deck().size) { toast("Add some words first."); return; }
-  if (download("world-news-words-" + LANGS[S.lang].name.toLowerCase() + "-anki.txt", ankiText())) toast("Saved " + deck().size + " cards. In Anki, choose File → Import.");
-  else toast("This browser blocked the download.");
+  if (exporting) return;
+  exporting = true;
+  const btn = $("#exportBtn"), label = btn.textContent, l = S.lang, file = "world-news-words-" + LANGS[l].name.toLowerCase();
+  btn.disabled = true; btn.textContent = "Making your deck…";
+  try {
+    const r = await buildApkg(l);
+    if (download(file + ".apkg", r.blob)) toast("Saved " + r.cards + (r.cards === 1 ? " card" : " cards") + (r.sounds ? " with " + r.sounds + " sound files" : "") + ". Open the file with Anki.");
+    else toast("This browser blocked the download.");
+  } catch (e) {
+    // Without WebAssembly (or if the database library can't load) fall back to Anki's plain-text import.
+    if (download(file + "-anki.txt", ankiText())) toast("This browser couldn't make an Anki deck file, so here's a text file instead. In Anki, choose File → Import.");
+    else toast("This browser blocked the download.");
+  } finally {
+    exporting = false; btn.disabled = false; btn.textContent = label;
+  }
 }
 function onBackup() {
   const decks = {};

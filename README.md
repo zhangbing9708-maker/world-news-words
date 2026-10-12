@@ -7,12 +7,21 @@ around the 5,000 most common Persian words.
 
 - **Today** – your plan: pick a level (Beginner, Intermediate, Advanced: how many words a day and which
   frequency band), a category of words for the week (the dictionary's 31 thematic lists, or site-made ones
-  such as Numbers & amounts), and a few interests. Every week the site picks two stories a day that match
-  your interests and a day's worth of words from your category, preferring words that appear in the
-  current news. A daily challenge (meaning, Farsi and listening questions) tracks what you've learned and
-  your streak. The plan and progress are saved with your Google sign-in.
+  such as Numbers & amounts), and a few interests. Each week gets a day's worth of words from your
+  category for every day, preferring words that appear in the current news. The day then reads top to
+  bottom like a worksheet:
+  1. **Today's reading** – the two stories that use the most of today's words (then the rest of the week's),
+     with only this week's words underlined and numbered to match the vocabulary list, plus each of today's
+     words in a real Persian sentence from the dictionary.
+  2. **Vocabulary** – today's words, numbered, then any other words of the week the stories use.
+  3. **Practice** – the daily challenge (meaning, Farsi and listening questions, which tracks what you've
+     learned and your streak) and three exercises with answers to reveal: match the words, write them in
+     Farsi, and complete the dictionary's sentences (from the middle of the week these review earlier days).
+
+  At the bottom, **Print or save as PDF** makes a practice sheet in the same order, with the answers on the
+  last page. The plan and progress are saved with your Google sign-in.
 - **News** – short summaries of the week's top stories, with links to the original reports. Every story
-  shows a level from how common its words are, and the words you're learning this week are underlined.
+  shows a level from how common its words are, and the words of this week's plan are underlined.
   Tap any word to see it in Farsi with its transliteration, meaning, rank, recorded pronunciation and, for
   key words, an example sentence.
 - **Words** – words you add become flashcards with Anki-style spaced repetition (Again / Hard / Good /

@@ -96,7 +96,7 @@ button,select,input,textarea{font:inherit;color:inherit}
 }
 
 .main{max-width:40rem;margin:0 auto;padding-block:0 calc(56px + env(safe-area-inset-bottom,0px))}
-body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
+body.sheet-open #tab-today,body.sheet-open #tab-news,body.sheet-open #tab-dict{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 
 /* ---------- news ---------- */
 .news-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;padding-block:18px 2px}
@@ -335,7 +335,6 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 .chipx{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:6px 12px;background:var(--hl-wash);color:var(--ink);font:500 13.5px var(--f-ui);cursor:pointer}
 .chipx span{color:var(--ink-3)}
 .tsec{margin-top:22px}
-.tsec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
 .tsec h3,.chal h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:20px;letter-spacing:-.01em}
 .drow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 10px;padding:9px 0;border-top:1px solid var(--rule)}
 .drow:last-child{border-bottom:1px solid var(--rule)}
@@ -347,10 +346,7 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 .d-tags{display:flex;flex-direction:column;align-items:end;gap:4px}
 .earlier{margin-top:12px}
 .earlier summary{cursor:pointer;font:600 14px var(--f-ui);color:var(--ink-2)}
-.chal{margin-top:22px;padding:18px;border-radius:16px;background:var(--tint);display:grid;gap:14px}
-.rcard{display:grid;gap:6px;width:100%;margin-top:10px;padding:14px 16px;border:1px solid var(--rule);border-radius:14px;background:var(--card);color:var(--ink);text-align:left;cursor:pointer}
-.rc-title{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.25;letter-spacing:-.01em}
-.rc-sub{font-size:13px;color:var(--ink-3)}
+.chal{margin-top:14px;padding:18px;border-radius:16px;background:var(--tint);display:grid;gap:14px}
 .ch-stage{align-content:start;gap:18px;padding-top:24px}
 .chq{width:min(100%,26rem);display:grid;justify-items:center;gap:10px;text-align:center}
 .chq .sh-head{justify-content:center}
@@ -378,6 +374,159 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 .dsrc{margin-top:16px}
 .dnav{display:flex;justify-content:space-between;gap:12px}
 #abcWrap .abc-title{margin:4px 0 0;font-size:22px}
+
+/* ---------- Today: 1 reading, 2 vocabulary, 3 practice (the printed sheet follows the same order) ---------- */
+.sec-h{display:flex;align-items:center;gap:10px;margin:34px 0 2px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.sec-h h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:23px;line-height:1.15;letter-spacing:-.01em;white-space:nowrap}
+.sec-n{display:inline-grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:var(--ink);color:var(--paper);font:700 14px/1 var(--f-ui)}
+.sec-h .label{margin-left:auto;min-width:0;text-align:right}
+.sub-h{margin:20px 0 2px;font:650 12px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--hl-ink)}
+.sub-h + .help{margin-top:2px}
+.tstory{padding-block:16px 20px;border-top:1px solid var(--rule)}
+.help + .tstory{border-top:0;padding-top:10px}
+.tstory .headline{margin:8px 0 8px;font-size:clamp(21px,5.4vw,24px)}
+.tstory .body{font-size:17.5px}
+.tstory .why{font-size:15.5px}
+.tstory .src{margin-top:12px}
+#todayBody .w.wk{text-decoration-line:underline;text-decoration-style:solid;text-decoration-color:var(--hl);text-decoration-thickness:2px;text-underline-offset:4px}
+#todayBody .w.td{background-color:var(--hl-wash)}
+#todayBody .w.sel{background-color:var(--hl)}
+sup.vn{margin-left:1px;font:700 .6em/0 var(--f-ui);color:var(--hl-ink);vertical-align:super}
+.vn-b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--hl-wash);color:var(--hl-ink);font:700 12px/1 var(--f-ui);font-variant-numeric:tabular-nums}
+.fs{list-style:none;margin:4px 0 0;padding:0}
+.fs li{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:4px 12px;padding:12px 0;border-top:1px solid var(--rule)}
+.fs li:first-child{border-top:0}
+.fs .vn-b{margin-top:8px}
+.fs-main{display:grid;gap:2px;min-width:0}
+.fs-top{display:flex;align-items:center;gap:6px}
+.fs-t{flex:1;min-width:0;margin:0;font-size:19px;line-height:1.7}
+.fs-t mark{background:var(--hl-wash);color:inherit;border-radius:3px;padding:0 2px;box-shadow:inset 0 -2px 0 var(--hl)}
+.fs-t mark.go{cursor:pointer}
+.fs-en{margin:0;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.drow.num{grid-template-columns:1.4em auto minmax(0,1fr) auto}
+.d-num{font:700 13px/1 var(--f-ui);color:var(--hl-ink);text-align:right;font-variant-numeric:tabular-nums}
+.all-news{margin-top:14px}
+.px{margin-top:14px;padding:16px 16px 14px;border:1px solid var(--rule);border-radius:14px;background:var(--surface);display:grid;gap:12px}
+.px-head{display:flex;align-items:baseline;gap:10px}
+.px-l{display:inline-grid;place-items:center;width:24px;height:24px;flex:none;border-radius:7px;background:var(--hl);color:var(--on-hl);font:700 13px/1 var(--f-ui);align-self:center}
+.px h4{margin:0;font:650 16.5px/1.3 var(--f-ui)}
+.px-help{margin:-4px 0 0;font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+.qn{flex:none;min-width:1.5em;font:700 13px/1.6 var(--f-ui);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.mx{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px 18px}
+.mx ol,.wr,.gp{list-style:none;margin:0;padding:0;display:grid;gap:8px;align-content:start}
+.mx li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;min-width:0}
+.mx-fa{font-weight:600;font-size:20px;line-height:1.35}
+.mx-r{font-size:12.5px;color:var(--ink-3)}
+.mx-m{min-width:0;font-size:14.5px;line-height:1.4}
+.wr li{display:flex;align-items:baseline;gap:8px;min-width:0}
+.wr-q{min-width:0;font-size:15px}
+.wr-q small{color:var(--ink-3);font-size:12.5px}
+.line{flex:1 1 5rem;min-width:4rem;border-bottom:1px solid var(--ink-3);align-self:end;margin-bottom:5px}
+.ans{display:none;color:var(--due);font:650 14px/1.4 var(--f-ui)}
+.ans [lang="fa"]{font-size:19px;font-weight:600}
+.px.show .ans{display:inline}
+.wr .ans{flex:1 1 5rem;text-align:right}
+.px.show .wr .line{display:none}
+.wbox{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 14px;border:1px dashed var(--ring);border-radius:10px;font-size:19px;font-weight:600}
+.gp li{display:flex;align-items:start;gap:8px;min-width:0}
+.gp-main{display:grid;gap:1px;min-width:0;flex:1}
+.gp-fa{margin:0;font-size:18.5px;line-height:1.75}
+.gap{display:inline-block;min-width:5.5em;margin:0 3px;border-bottom:1.5px solid var(--ink-2);line-height:1.2;text-align:center}
+.gap-a{visibility:hidden;color:var(--due);font-weight:650}
+.px.show .gap-a{visibility:visible}
+.gp-en{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink-3)}
+.px-btn{justify-self:start}
+.sheet-card{margin-top:34px;padding:18px;border-radius:16px;border:1px solid var(--rule);background:var(--surface);display:grid;gap:12px}
+.sheet-card h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:21px;letter-spacing:-.01em}
+.sheet-card .primary .ic svg{width:19px;height:19px}
+
+/* ---------- the printed practice sheet: built when someone prints, shown only on paper ---------- */
+#printSheet{display:none}
+@page{margin:13mm 13mm 14mm}
+@media print{
+  :root{color-scheme:light!important}
+  body.print-on{padding:0;background:#fff!important;color:#111}
+  body.print-on > :not(#printSheet){display:none!important}
+  body.print-on #printSheet{display:block}
+}
+.ps{color:#111;background:#fff;font:10.5pt/1.5 var(--f-body);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ps [lang="fa"]{font-family:var(--f-fa)}
+.ps-head{display:grid;gap:3pt;padding-bottom:8pt;border-bottom:2pt solid #111}
+.ps-top{display:flex;justify-content:space-between;align-items:center;gap:12pt;font:600 8.5pt var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:#555}
+.ps-brand{display:inline-flex;align-items:center;gap:6pt}
+.ps-mark{display:inline-grid;place-items:center;width:15pt;height:15pt;border-radius:4.5pt;background:#E4A300;color:#1D1B14;font:600 10pt/1 var(--f-fa)}
+.ps h1{margin:2pt 0 0;font:650 21pt/1.1 var(--f-display);letter-spacing:-.012em}
+.ps-meta{margin:0;font:500 9.5pt/1.4 var(--f-ui);color:#333}
+.ps-line{display:inline-block;width:55mm;height:10pt;border-bottom:.8pt solid #333}
+.ps-sec{margin-top:13pt}
+.ps-h{display:flex;align-items:center;gap:7pt;margin:0 0 5pt;padding-bottom:3pt;border-bottom:1pt solid #111;break-after:avoid}
+.ps-h b{display:inline-grid;place-items:center;width:15pt;height:15pt;border-radius:50%;background:#111;color:#fff;font:700 8.5pt/1 var(--f-ui)}
+.ps-h span{font:650 14pt/1.2 var(--f-display)}
+.ps-sub{margin:9pt 0 1pt;font:700 8pt/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:#555;break-after:avoid}
+.ps-note{margin:0 0 3pt;font:italic 9pt/1.4 var(--f-body);color:#444}
+.ps .tstory{padding:6pt 0 8pt;border-top:.6pt solid #bbb;break-inside:avoid}
+.ps .ps-note + .tstory{border-top:0;padding-top:2pt}
+.ps .meta{gap:2pt 9pt;font:600 7.5pt/1.3 var(--f-ui);letter-spacing:.06em;color:#555}
+.ps .tag{color:#555}
+.ps .tag::before{width:5pt;height:5pt}
+.ps .lvl{padding:0;background:none;color:#555;font-size:7.5pt}
+.ps .cat-n{color:#555}
+.ps .headline{margin:3pt 0 3pt;font:650 13pt/1.25 var(--f-display);letter-spacing:-.005em}
+.ps .body{margin:0;font-size:10.5pt;line-height:1.55}
+.ps .why{margin:4pt 0 0;font-size:9.5pt;line-height:1.5;color:#333}
+.ps .why-l{display:inline;margin-right:5pt;font-size:7.5pt;color:#555}
+.ps .src{display:block;margin-top:3pt;font:500 8pt/1.3 var(--f-ui);color:#555;text-decoration:none}
+.ps .w{cursor:auto;border-radius:0}
+.ps .w.wk{font-weight:700;text-decoration:underline;text-decoration-thickness:1pt;text-underline-offset:2pt;text-decoration-color:#111}
+.ps .w.td{background:#FAECB8}
+.ps sup.vn{color:#111;font-size:6.5pt}
+.ps .fs li{gap:2pt 8pt;padding:4pt 0;border-top:.6pt solid #ddd;break-inside:avoid}
+.ps .fs li:first-child{border-top:0}
+.ps .vn-b{min-width:13pt;height:13pt;margin-top:4pt;padding:0 3pt;border-radius:7pt;background:#111;color:#fff;font:700 7.5pt/1 var(--f-ui)}
+.ps .fs-t{font-size:12.5pt;line-height:1.75}
+.ps .fs-t mark{background:#FAECB8;box-shadow:none;font-weight:700;color:#000}
+.ps .fs-en{font:italic 9pt/1.4 var(--f-body);color:#444}
+.ps-vocab{width:100%;border-collapse:collapse;font-size:10pt}
+.ps-vocab th{padding:2pt 5pt;border-bottom:1pt solid #111;font:700 7.5pt var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:#555;text-align:left}
+.ps-vocab th.fa{text-align:right}
+.ps-vocab td{padding:3pt 5pt;border-bottom:.6pt solid #ccc;vertical-align:middle}
+.ps-vocab tr{break-inside:avoid}
+.ps-vocab td.n{width:8mm;font:700 9pt var(--f-ui)}
+.ps-vocab td.fa{font-size:13.5pt;font-weight:600;text-align:right;white-space:nowrap}
+.ps-vocab td.r{font:500 9.5pt var(--f-ui);color:#333;white-space:nowrap}
+.ps-vocab small{color:#666;font-size:8.5pt}
+.ps-vocab .sep td{padding-top:7pt;border-bottom:1pt solid #111;font:700 7.5pt var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:#555}
+.ps-earlier{columns:3;column-gap:7mm;margin:2pt 0 0;padding:0;list-style:none;font-size:8.5pt;line-height:1.55}
+.ps-earlier li{break-inside:avoid}
+.ps-earlier [lang="fa"]{font-size:10.5pt;font-weight:600}
+.ps .px{display:block;margin-top:9pt;padding:0;border:0;border-radius:0;background:none}
+.ps .px > * + *{margin-top:5pt}
+.ps .px-match{break-inside:avoid}
+.ps .px-head,.ps .px-help{break-after:avoid}
+.ps .wr li,.ps .gp li,.ps .wbox{break-inside:avoid}
+.ps .px-l{width:14pt;height:14pt;border-radius:4pt;background:#111;color:#fff;font-size:8pt}
+.ps .px h4{font-size:11pt}
+.ps .px > .px-help{margin:1pt 0 0;font-size:9pt;color:#444}
+.ps .qn{font-size:9pt;color:#555}
+.ps .mx{gap:5pt 14mm}
+.ps .mx ol,.ps .wr,.ps .gp{gap:4pt}
+.ps .mx-fa{font-size:13pt}
+.ps .mx-r{font-size:8.5pt;color:#555}
+.ps .mx-m{font-size:10pt}
+.ps .mx-blank{display:inline-block;width:9mm;height:9pt;border-bottom:.8pt solid #333}
+.ps .wr-q{font-size:10pt}
+.ps .line{min-width:35mm;flex-basis:45mm;border-bottom:.8pt solid #333;margin-bottom:2pt}
+.ps .wbox{padding:4pt 8pt;border:.8pt dashed #777;border-radius:4pt;gap:3pt 14pt;font-size:13pt}
+.ps .gp-fa{font-size:12.5pt;line-height:1.8}
+.ps .gap{min-width:24mm;border-bottom:.8pt solid #333}
+.ps .gp-en{font:italic 9pt/1.4 var(--f-body);color:#555}
+.ps-ans{break-before:page}
+.ps-a{margin:5pt 0 0;font-size:10pt;line-height:1.8}
+.ps-a > b{display:inline-grid;place-items:center;width:13pt;height:13pt;margin-right:6pt;border-radius:4pt;background:#111;color:#fff;font:700 7.5pt/1 var(--f-ui)}
+.ps-ai{display:inline-block;margin-right:13pt;white-space:nowrap}
+.ps-ai [lang="fa"]{font-size:12pt;font-weight:600}
+.ps-ai i{color:#555;font:500 8.5pt var(--f-ui)}
+.ps-foot{margin-top:14pt;padding-top:5pt;border-top:.6pt solid #bbb;font:500 7.5pt/1.45 var(--f-ui);color:#666}
 
 /* ---------- study ---------- */
 .study{position:fixed;inset:0;z-index:40;background:var(--paper);display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
@@ -593,6 +742,8 @@ body.sheet-open #tab-news,body.sheet-open #tab-abc{padding-bottom:calc(var(--she
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
+<div id="printSheet" aria-hidden="true"></div>
+
 <script>
 (() => {
 "use strict";
@@ -632,6 +783,7 @@ const ICONS = {
   trash: SVG('<path d="M5 7h14M10 7V5h4v2M7 7l.9 12h8.2L17 7"/>'),
   arrow: SVG('<path d="M5 12h13M13 7l5 5-5 5"/>'),
   cloud: SVG('<path d="M7.5 18.5h9.2a4.3 4.3 0 0 0 .6-8.56A5.9 5.9 0 0 0 6 11.2a3.65 3.65 0 0 0 1.5 7.3z"/><path d="M12 10.5v5.2M9.8 13.4l2.2 2.3 2.2-2.3"/>'),
+  print: SVG('<path d="M7 9V4.5h10V9"/><rect x="3.8" y="9" width="16.4" height="7.6" rx="2"/><path d="M7 13.8h10v5.7H7z"/>'),
 };
 function icon(name) { const s = document.createElement("span"); s.className = "ic"; s.innerHTML = ICONS[name]; return s; }
 const RING_SVG = '<svg class="tc-ring" viewBox="0 0 44 58" aria-hidden="true"><defs><clipPath id="tcRingClip"><rect x="0" y="0" width="44" height="24"/><circle cx="22" cy="44" r="7"/></clipPath></defs><circle cx="22" cy="25" r="19" clip-path="url(#tcRingClip)"/></svg>';
@@ -786,15 +938,26 @@ function normFa(s) {
 }
 const hasFa = s => /[؀-ۿ]/.test(String(s || ""));
 const foldLatin = s => String(s || "").toLowerCase().replace(/ā/g, "a").replace(/[īi]/g, "i").replace(/ū/g, "u").replace(/['’‘ʼ\-]/g, "").replace(/[^a-z0-9 ]/g, "").trim();
-const LIGHT = new Set(["کردن", "شدن", "دادن", "زدن", "گرفتن", "داشتن", "بودن", "رفتن", "آمدن", "خوردن", "کشیدن", "یافتن", "آوردن", "گذاشتن", "انداختن", "ساختن", "بردن", "دیدن", "گفتن", "رساندن", "نهادن", "به", "از", "در", "را", "و", "با", "بر"]);
-/* The dictionary entry for a Farsi word: the exact headword, or else the main word of a phrase. */
+// light verbs and particles that never count as the main word of a phrase (folded, so آمدن is stored as امدن)
+const LIGHT = new Set(["کردن", "شدن", "دادن", "زدن", "گرفتن", "داشتن", "بودن", "رفتن", "آمدن", "خوردن", "کشیدن", "یافتن", "آوردن", "گذاشتن", "انداختن", "ساختن", "بردن", "دیدن", "گفتن", "رساندن", "رسیدن", "نهادن", "به", "از", "در", "را", "و", "با", "بر"].map(normFa));
+const FN_TAGS = new Set(["pron", "conj", "prep", "q"]);
+const isFnWord = e => e.tags.length > 0 && e.tags.every(t => FN_TAGS.has(t));    // this, that, of, each…
+/* The dictionary entry for a Farsi word: the exact headword, or else the main word of a phrase — its first
+   content word (با این حال → حال), or failing that its first dictionary word. */
 function dictFind(w) {
   const n = normFa(w);
   if (!n || DICT.state !== "ready") return null;
   const hit = DICT.byWord.get(n);
   if (hit) return hit;
-  for (const p of n.split(" ")) { if (LIGHT.has(p)) continue; const e = DICT.byWord.get(p); if (e) return e; }
-  return null;
+  let first = null;
+  for (const p of n.split(" ")) {
+    if (LIGHT.has(p)) continue;
+    const e = DICT.byWord.get(p);
+    if (!e) continue;
+    if (!isFnWord(e)) return e;
+    if (!first) first = e;
+  }
+  return first;
 }
 const isNameEntry = e => e.tags.length === 1 && e.tags[0] === "pn" || e.l.some(x => NAME_LISTS.has(x));
 const posText = e => e.tags.map(t => POS_NAMES[t] || t).join(", ");
@@ -852,16 +1015,20 @@ async function loadDictNow() {
     DICT.state = "ready";
   } catch (e) { DICT.state = "error"; }
 }
-async function loadExamples() {
-  if (DICT.exState === "ready" || DICT.exState === "loading") return DICT.examples;
+function loadExamples() {
+  if (DICT.exState === "ready") return Promise.resolve(DICT.examples);
+  if (DICT.exState === "loading" && DICT.exPromise) return DICT.exPromise;
   DICT.exState = "loading";
-  try {
-    const r = await fetch("data/dict-examples.json", { cache: "force-cache" });
-    if (!r.ok) throw new Error("http");
-    DICT.examples = await r.json();
-    DICT.exState = "ready";
-  } catch (e) { DICT.exState = "error"; DICT.examples = null; }
-  return DICT.examples;
+  DICT.exPromise = (async () => {
+    try {
+      const r = await fetch("data/dict-examples.json", { cache: "force-cache" });
+      if (!r.ok) throw new Error("http");
+      DICT.examples = await r.json();
+      DICT.exState = "ready";
+    } catch (e) { DICT.exState = "error"; DICT.examples = null; }
+    return DICT.examples;
+  })();
+  return DICT.exPromise;
 }
 function exampleOf(e) {
   const x = DICT.examples && DICT.examples[String(e.n)];
@@ -871,30 +1038,43 @@ function exampleOf(e) {
 function linkDict() {
   if (DICT.state !== "ready") return;
   for (const e of Object.values(S.G.entries)) {
-    const d = dictFind(e.fa && e.fa.w);
+    const w = e.fa && e.fa.w;
+    const d = dictFind(w);
     e._n = d ? d.n : 0;
+    // an English phrase also holds each content word of its Farsi: crude oil (نفت خام) is both نفت and خام,
+    // so a week's word is found inside it. A single English word keeps just its main word (however ≠ این).
+    const ns = d && (d.wn === normFa(w) || !isFnWord(d)) ? [d.n] : [];      // while (در حالی که) is not که
+    if (/\s/.test(e.t || "")) for (const part of normFa(w).split(" ")) {
+      if (!part || LIGHT.has(part)) continue;
+      const x = DICT.byWord.get(part);
+      if (x && !isFnWord(x) && !ns.includes(x.n)) ns.push(x.n);
+    }
+    e._ns = ns;
   }
   for (const st of S.stories) storyLevel(st);
 }
+const storyTexts = st => [st.title].concat(st.summary, st.why);
 function storyLevel(st) {
   let n = 0, b2 = 0, b3 = 0;
-  const ranks = new Set();
-  for (const text of [st.title].concat(st.summary, st.why)) {
+  for (const text of storyTexts(st)) {
     const re = new RegExp(WORD_RE.source, "gu");
     let m;
     while ((m = re.exec(text))) {
       if (!LETTER.test(m[0])) continue;
       const key = lookupKey(m[0], st), e = key && S.G.entries[key];
       if (!e || e.pos === "proper noun") continue;
-      if (e._n) ranks.add(e._n);
       n++;
       const b = bandOf(e._n);
       if (b >= 2) b2++;
       if (b >= 3) b3++;
     }
   }
-  st._ranks = ranks;
   st._lvl = !n ? 0 : b3 / n > 0.2 ? 3 : b2 / n > 0.37 ? 2 : 1;
+  // the dictionary words in the story, taken from the same words and phrases the page underlines; names count
+  // here (a Countries week finds Iran) though not towards the level
+  const ranks = new Set(), scratch = [];
+  for (const text of storyTexts(st)) for (const x of sentenceEl(text, st, scratch)._ws) if (x.node.nodeType === 1 && x.node._ns) for (const r of x.node._ns) ranks.add(r);
+  st._ranks = ranks;
 }
 const levelPill = lvl => lvl ? h("span", { class: "lvl l" + lvl, title: ["", "Mostly the 1,000 most common words", "Many words from the 1,000–3,000 range", "Many less common words"][lvl], text: "Level " + lvl }) : null;
 function dictLine(e) {
@@ -1076,7 +1256,7 @@ function fmtDay(iso, long) {
   const name = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   return diff === 0 ? "Today · " + name : diff === 1 ? "Yesterday · " + name : name;
 }
-function sentenceEl(text, st) {
+function sentenceEl(text, st, list) {
   const sp = h("span", { class: "s" });
   const ws = [], lw = [];
   const re = new RegExp(WORD_RE.source, "gu");
@@ -1118,11 +1298,13 @@ function sentenceEl(text, st) {
     if (x.node.nodeType !== 1) return;
     x.node._s = sp; x.node._i = i;
     const e = S.G.entries[x.ph ? x.ph.key : x.key];
-    x.node._n = e ? (e.pos === "proper noun" ? -1 : (e._n || 0)) : -1;
+    x.node._n = e ? (e._n || 0) : -1;           // the word's rank in the frequency dictionary (0: not in it)
+    x.node._ns = e ? (e._ns || (e._n ? [e._n] : [])) : null;   // every dictionary word in its Farsi
+    x.node._pn = !!(e && e.pos === "proper noun");
     if (keys.has(x.ph ? x.ph.key : x.key)) x.node.classList.add("kw");
   });
   sp._ws = ws; sp._text = text; sp._story = st;
-  SENTS.push(sp);
+  (list || SENTS).push(sp);
   return sp;
 }
 function storyEl(st) {
@@ -1175,7 +1357,7 @@ function renderNews() {
       h("p", { text: S.dataState === "empty" ? "Today's stories will appear here soon." : "Check your connection, then try again." }), S.dataState === "empty" ? null : retry));
     return;
   }
-  planStories(effPrefs());
+  forYou(effPrefs());
   let edition = null;
   for (const st of S.stories) {
     if (st.edition !== edition) {
@@ -1831,7 +2013,7 @@ function switchAccount(user, moveGuest) {
   TOMBS = loadTombs();
   if (CH.open) { CH.open = false; $("#challenge").hidden = true; document.body.classList.remove("studying"); }
   STUDY = loadStudy();
-  S.todayEdit = false;
+  S.todayEdit = false; S.formDraft = null;
   loadSyncState();
   Object.assign(GD, { state: "idle", msg: "", confirm: false, busy: false, again: false });
   let moved = 0;
@@ -2225,7 +2407,7 @@ function planCurrent() {
 }
 const dayWords = (plan, i) => plan ? plan.words.slice(plan.starts[i], plan.starts[i + 1]).map(n => DICT.byRank.get(n)).filter(Boolean) : [];
 /* Build (or refresh) this week's plan: words a day from the chosen category at the chosen level, words that
-   appear in the current news first, and two stories a day picked by the person's interests. */
+   appear in the current news first. Each day's reading is then picked for that day's words (readingStories). */
 function buildPlan(force) {
   if (DICT.state !== "ready" || S.dataState === "loading") return STUDY.plan;
   if (!force && planCurrent()) return STUDY.plan;
@@ -2250,9 +2432,10 @@ function buildPlan(force) {
   return STUDY.plan;
 }
 const stem = w => { w = String(w).toLowerCase().replace(/[^a-z0-9'’-]+/g, ""); return w.length > 4 ? w.replace(/(ies|es|s|ing|ed)$/, "") : w; };
-function storyScore(st, p) {
+/* How well a story matches the person's interests (0: not at all). */
+function interestScore(st, p) {
   const ints = p.interests.map(stem).filter(w => w.length >= 3);
-  const members = p.cat ? catRanks(p.cat) : null;
+  if (!ints.length) return 0;
   const toks = [st.title].concat(st.summary, st.why, st.keywords, [st.tag, st.place]).join(" ").toLowerCase().split(/[^a-z0-9'’-]+/);
   let score = 0;
   for (const w of ints) {
@@ -2261,19 +2444,43 @@ function storyScore(st, p) {
     score += Math.min(c, 5) * 2;
     if (st.tag && st.tag.toLowerCase().startsWith(w)) score += 4;
   }
-  if (members && st._ranks) { let c = 0; for (const n of st._ranks) if (members.has(n)) c++; score += Math.min(c, 4); }
   return score;
 }
-/* Two stories a day for the week, best interest matches first. Also marks the stories that match ("For you"). */
-function planStories(p) {
+/* Marks the stories that match the person's interests ("For you"). */
+function forYou(p) {
   S.fy = {};
-  const scored = S.stories.map(st => ({ st, score: storyScore(st, p) }));
-  for (const x of scored) if (p.interests.length && x.score > 0) S.fy[x.st.id] = x.score;
-  scored.sort((a, b) => b.score - a.score || b.st.edition.localeCompare(a.st.edition) || a.st.rank - b.st.rank);
-  const picked = scored.slice(0, 14).map(x => x.st.id);
-  const days = [];
-  for (let i = 0; i < 7; i++) days.push(picked.slice(i * 2, i * 2 + 2));
-  return days;
+  for (const st of S.stories) { const s = interestScore(st, p); if (s > 0) S.fy[st.id] = s; }
+}
+const cmpKey = (a, b) => { for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] > b[i] ? 1 : -1; return 0; };
+/* Two stories for a day: the one with the most of the day's words, then the one that adds the most of them
+   that the first didn't have. A story with any of the week's other words comes next, preferring one not read
+   earlier in the week, then more of the week's words, the person's interests, the newest. forYou() must have run. */
+function pickStories(dayRanks, week, used) {
+  const out = [], seen = new Set();
+  for (let k = 0; k < 2; k++) {
+    let best = null, bestKey = null;
+    for (const st of S.stories) {
+      if (out.includes(st)) continue;
+      let t = 0, w = 0;
+      for (const n of st._ranks || []) if (!seen.has(n)) { if (dayRanks.has(n)) t++; else if (week.has(n)) w++; }
+      const key = [t, w ? 1 : 0, used.has(st.id) ? 0 : 1, w, S.fy[st.id] || 0, st.edition, -st.rank];
+      if (!best || cmpKey(key, bestKey) > 0) { best = st; bestKey = key; }
+    }
+    if (!best) break;
+    out.push(best);
+    for (const n of best._ranks || []) seen.add(n);
+  }
+  return out;
+}
+/* Today's reading: worked out day by day from Monday, so the week's stories vary. */
+function readingStories(plan, d) {
+  const week = new Set(plan ? plan.words : []), used = new Set();
+  let picks = [];
+  for (let i = 0; i <= d; i++) {
+    picks = pickStories(new Set(dayWords(plan, i).map(e => e.n)), week, used);
+    for (const st of picks) used.add(st.id);
+  }
+  return picks;
 }
 function streakDays() {
   let t = startOfDay(Date.now()), n = 0;
@@ -2284,12 +2491,15 @@ function streakDays() {
 const isLearned = n => (STUDY.progress.learned[n] || 0) > 0;
 const setLearned = (n, yes) => { STUDY.progress.learned[n] = yes ? Date.now() : -Date.now(); STUDY.progress.mod = Date.now(); };
 function weekLearned(plan) { return plan ? plan.words.filter(n => isLearned(n)).length : 0; }
-function catCount(st, cat) { const m = cat ? catRanks(cat) : null; if (!m || !st._ranks) return 0; let c = 0; for (const n of st._ranks) if (m.has(n)) c++; return c; }
 
 /* ---------- Today tab ---------- */
 function renderToday() {
   const box = $("#todayBody");
   if (!box) return;
+  // a word picked in the reading or the vocabulary stays selected through a re-render (Add to Words re-renders)
+  const keep = S.sel && TODAY_SENTS.includes(S.sel.sp) ? { i: TODAY_SENTS.indexOf(S.sel.sp), text: S.sel.sp._text } : null;
+  const keepAlt = S.look && S.look.alt ? TODAY_SENTS.indexOf(S.look.alt.sp) : -1;
+  const keepRow = S.dictCell && box.querySelector(".drow.on") ? S.dictCell : null;
   box.replaceChildren();
   if (S.dataState === "loading" || DICT.state === "loading" || DICT.state === "idle") {
     box.append(h("div", { class: "sk-story", "aria-hidden": "true" }, h("div", { class: "sk t2" }), h("div", { class: "sk" }), h("div", { class: "sk p2" })));
@@ -2301,28 +2511,35 @@ function renderToday() {
     box.append(h("div", { class: "state" }, h("h2", { text: "Your plan couldn't load" }), h("p", { text: "Check your connection, then try again." }), retry));
     return;
   }
-  const p = effPrefs(), plan = buildPlan(), d = dayIndex(Date.now()), todays = dayWords(plan, d);
+  const p = effPrefs(), plan = buildPlan(), d = dayIndex(Date.now());
   box.append(planCard(p, plan, d));
   if (!p.set || S.todayEdit) box.append(planForm(p));
-  if (p.set) {
-    box.append(todayWords(todays, plan, d));
-    box.append(challengeCard(plan, d));
-    box.append(readingSection(plan, d));
+  if (!p.set) return;
+  // the book's sentences arrive a moment later; don't redraw under someone changing their plan
+  if (DICT.exState === "idle") loadExamples().then(() => { if (S.tab === "today" && !CH.open && !S.todayEdit) renderToday(); });
+  const m = todayModel(p, plan, d);
+  box.append(readingSec(m), vocabSec(m), practiceSec(m), sheetCard());
+  if (keep && TODAY_SENTS[keep.i] && TODAY_SENTS[keep.i]._text === keep.text) {
+    const sp = TODAY_SENTS[keep.i];
+    S.sel.sp = sp;
+    for (let k = S.sel.start; k <= S.sel.end; k++) { const n = sp._ws[k] && sp._ws[k].node; if (n && n.nodeType === 1) n.classList.add("sel"); }
+    if (keepAlt >= 0 && TODAY_SENTS[keepAlt]) S.look.alt.sp = TODAY_SENTS[keepAlt];
   }
+  if (keepRow) { const row = $$("#todayBody .drow").find(r => r._e === keepRow); if (row) row.classList.add("on"); }
 }
 function planCard(p, plan, d) {
   const card = h("section", { class: "plan" });
   const lvl = LEVELS[p.level];
   if (!p.set) {
     card.append(h("h2", { class: "plan-title", text: "Make the news yours" }),
-      h("p", { class: "plan-sub", text: "Choose your level, the words you want this week and the topics you care about. Every week the site picks stories for your interests and " + lvl.perDay + " words a day for you, and the news underlines the words you are learning." }));
+      h("p", { class: "plan-sub", text: "Choose your level, the words you want this week and the topics you care about. Every day you get " + lvl.perDay + " new words, the news stories that use them, the words in real Persian sentences and a practice sheet to print." }));
     return card;
   }
   const learned = weekLearned(plan), total = plan ? plan.words.length : 0, streak = streakDays();
   card.append(h("div", { class: "plan-head" },
     h("div", null, h("h2", { class: "plan-title", text: "This week: " + catTitle(p.cat) }),
       h("p", { class: "plan-sub", text: lvl.name + " · " + p.perDay + " words a day · " + DAY_NAMES[d] + (d < 6 ? " · " + (6 - d) + (6 - d === 1 ? " day" : " days") + " left" : ", last day") })),
-    (() => { const b = h("button", { class: "ghost sm", type: "button", text: S.todayEdit ? "Close" : "Change plan" }); b.addEventListener("click", () => { S.todayEdit = !S.todayEdit; renderToday(); }); return b; })()));
+    (() => { const b = h("button", { class: "ghost sm", type: "button", text: S.todayEdit ? "Close" : "Change plan" }); b.addEventListener("click", () => { S.todayEdit = !S.todayEdit; S.formDraft = null; renderToday(); }); return b; })()));
   const stats = h("div", { class: "counts" },
     h("div", { class: "count due" }, h("b", { text: String(learned) }), h("span", { class: "label", text: "of " + total + " learned" })),
     h("div", { class: "count new" }, h("b", { text: String(streak) }), h("span", { class: "label", text: streak === 1 ? "day streak" : "day streak" })),
@@ -2333,7 +2550,8 @@ function planCard(p, plan, d) {
 }
 function planForm(p) {
   const f = h("form", { class: "plan-form", novalidate: true });
-  const draft = { level: p.level, perDay: STUDY.prefs.perDay || 0, cat: p.cat, interests: p.interests.slice() };
+  // the choices so far live in S.formDraft, so a redraw of the tab (a sync, a saved word) doesn't undo them
+  const draft = S.formDraft || (S.formDraft = { level: p.level, perDay: STUDY.prefs.perDay || 0, cat: p.cat, interests: p.interests.slice(), perDayText: null, typed: "" });
   const lvGrid = h("div", { class: "lv-grid", role: "radiogroup", "aria-label": "Your level" });
   const perDayIn = h("input", { type: "number", min: 3, max: 30, inputmode: "numeric", id: "perDayIn" });
   const drawLv = () => {
@@ -2341,15 +2559,16 @@ function planForm(p) {
     for (const [id, L] of Object.entries(LEVELS)) {
       const b = h("button", { type: "button", role: "radio", "aria-checked": String(draft.level === id), class: "lv" + (draft.level === id ? " on" : "") },
         h("b", { text: L.name }), h("span", { text: L.about }), h("small", { text: L.perDay + " words a day" }));
-      b.addEventListener("click", () => { draft.level = id; if (!draft.touched) perDayIn.value = draft.perDay || L.perDay; drawLv(); });
+      b.addEventListener("click", () => { draft.level = id; if (!draft.touched) { perDayIn.value = draft.perDay || L.perDay; draft.perDayText = perDayIn.value; } drawLv(); });
       lvGrid.append(b);
     }
     perDayIn.placeholder = String(LEVELS[draft.level].perDay);
   };
   drawLv();
-  perDayIn.value = draft.perDay ? String(draft.perDay) : "";
-  perDayIn.addEventListener("input", () => { draft.touched = true; });
+  perDayIn.value = draft.perDayText != null ? draft.perDayText : draft.perDay ? String(draft.perDay) : "";
+  perDayIn.addEventListener("input", () => { draft.touched = true; draft.perDayText = perDayIn.value; });
   const catSel = h("select", { id: "catSel" });
+  catSel.addEventListener("change", () => { draft.cat = catSel.value; });
   const site = h("optgroup", { label: "Made from the dictionary" }), book = h("optgroup", { label: "The book's thematic lists" });
   for (const o of catOptions()) {
     const opt = h("option", { value: o.id, text: o.t });
@@ -2358,6 +2577,8 @@ function planForm(p) {
   }
   catSel.append(site, book);
   const intIn = h("input", { type: "text", id: "intIn", placeholder: "e.g. climate, football, Iran", autocomplete: "off", maxlength: 60 });
+  intIn.value = draft.typed || "";
+  intIn.addEventListener("input", () => { draft.typed = intIn.value; });
   const chips = h("div", { class: "chips" });
   const drawChips = () => {
     chips.replaceChildren();
@@ -2371,20 +2592,20 @@ function planForm(p) {
   const addInterest = () => {
     const parts = intIn.value.split(/[,;]+/).map(s => s.trim().slice(0, 30)).filter(Boolean);
     for (const w of parts) if (draft.interests.length < 8 && !draft.interests.some(x => x.toLowerCase() === w.toLowerCase())) draft.interests.push(w);
-    intIn.value = ""; drawChips();
+    intIn.value = ""; draft.typed = ""; drawChips();
   };
   intIn.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addInterest(); } });
   intIn.addEventListener("blur", addInterest);
   const save = h("button", { class: "primary", type: "submit", text: p.set ? "Save plan" : "Start my plan" });
   const cancel = p.set ? h("button", { class: "ghost", type: "button", text: "Cancel" }) : null;
-  if (cancel) cancel.addEventListener("click", () => { S.todayEdit = false; renderToday(); });
+  if (cancel) cancel.addEventListener("click", () => { S.todayEdit = false; S.formDraft = null; renderToday(); });
   f.addEventListener("submit", e => {
     e.preventDefault();
     addInterest();
     const n = +perDayIn.value;
     const prefs = STUDY.prefs;
     prefs.level = draft.level; prefs.perDay = n >= 3 && n <= 30 && Math.round(n) !== LEVELS[draft.level].perDay ? Math.round(n) : 0; prefs.cat = catSel.value; prefs.interests = draft.interests.slice(0, 8); prefs.mod = Date.now();
-    S.todayEdit = false;
+    S.todayEdit = false; S.formDraft = null;
     saveStudy();
     buildPlan(true);
     renderToday(); refreshMarks(); renderNews();
@@ -2396,15 +2617,16 @@ function planForm(p) {
     h("div", { class: "fld" }, h("span", { class: "label", text: "Your level" }), lvGrid),
     h("div", { class: "fld row" }, h("label", { for: "perDayIn", text: "Words a day" }), perDayIn, h("span", { class: "help", text: "Leave empty to use the level's number." })),
     h("div", { class: "fld" }, h("label", { class: "label", for: "catSel", text: "This week's words" }), catSel, h("p", { class: "help", text: "A category from the frequency dictionary. The news underlines these words, your daily words come from them, and the challenge tests them." })),
-    h("div", { class: "fld" }, h("label", { class: "label", for: "intIn", text: "Your interests" }), intIn, chips, h("p", { class: "help", text: "A few words or topics. Stories that match come first in your week." })),
+    h("div", { class: "fld" }, h("label", { class: "label", for: "intIn", text: "Your interests" }), intIn, chips, h("p", { class: "help", text: "A few words or topics. When several stories use your words, the ones that match come first." })),
     h("div", { class: "btn-row" }, save, cancel),
     acct);
   return f;
 }
 function dictRow(e, opts) {
   const o = opts || {};
-  const li = h("li", { class: "drow" + (o.cls ? " " + o.cls : "") });
-  const play = speakBtn(e.w, dictAudio(e), "Play " + e.w);
+  const li = h("li", { class: "drow" + (o.num ? " num" : "") + (o.cls ? " " + o.cls : "") });
+  li._e = e;
+  const play = speakBtn(e.w, dictAudio(e), "Play " + e.w) || h("span", { "aria-hidden": "true" });
   const main = h(o.open === false ? "span" : "button", { class: "dbtn", type: o.open === false ? null : "button" },
     h("span", { class: "d-fa", lang: "fa", dir: "rtl", text: e.w }),
     h("span", { class: "d-r", text: e.r }),
@@ -2415,30 +2637,429 @@ function dictRow(e, opts) {
   if (isLearned(e.n)) tags.append(h("span", { class: "lvl ok", text: "Learned" }));
   else if (deckRanks().has(e.n)) tags.append(h("span", { class: "lvl ok", text: "In Words" }));
   if (o.inNews) tags.append(h("span", { class: "lvl news", text: "In the news" }));
-  addKid(li, [play, main, tags]);
+  addKid(li, [o.num ? h("span", { class: "d-num", text: String(o.num) }) : null, play, main, tags]);
   return li;
 }
-function todayWords(todays, plan, d) {
-  const sec = h("section", { class: "tsec" });
-  const head = h("div", { class: "tsec-head" }, h("h3", { text: "Today's words" }), h("span", { class: "label", text: todays.length + (todays.length === 1 ? " word" : " words") }));
-  sec.append(head);
-  if (!todays.length) {
-    sec.append(h("p", { class: "help", text: plan && plan.words.length ? "You've reached the end of this week's words. Review the earlier days below, or change the category to keep going." : "No words were left in this category at your level. Pick another category or level." }));
-  } else {
-    const ul = h("ul", { class: "wlist" });
-    const inNews = newsRanks();
-    for (const e of todays) ul.append(dictRow(e, { inNews: inNews.has(e.n) }));
+
+/* ---------- Today: 1 reading, 2 vocabulary, 3 practice. The printed practice sheet is made from the same model. ---------- */
+let TODAY_SENTS = [];          // the reading's sentences, so a tapped word opens just as it does in the news
+const ANS = {};                // exercises showing their answers, by exercise id (ids change every day)
+const LETTERS = "abcdefghij";
+/* A small seeded random generator, so a day's exercises come out the same on every reload and on paper. */
+function rngFor(seed) {
+  let a = 2166136261;
+  for (const ch of String(seed)) { a ^= ch.codePointAt(0); a = Math.imul(a, 16777619) >>> 0; }
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = Math.imul(a ^ (a >>> 15), a | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function shuffledBy(a, rnd) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* Finding a dictionary word in one of the book's Farsi sentences, to underline it or leave a gap for it. */
+const FA_ENDINGS = ["هایی", "های", "ها", "ترین", "تر", "یمان", "یتان", "یشان", "مان", "تان", "شان", "یش", "یت", "ین", "ای", "یی", "ی", "ان", "ام", "ات", "اش", "ش", "م", "ت", "ست"];
+const isMark = c => (c >= 0x064b && c <= 0x065f) || c === 0x0670 || c === 0x0640 || c === 0x200d;
+const isLet = ch => !!ch && /\p{L}/u.test(ch);
+/* A string folded like normFa, with each zero-width non-joiner (the break in کتاب‌ها) kept as "|", and the
+   position each folded letter came from. */
+function foldFa(s) {
+  let out = "";
+  const at = [];
+  for (let i = 0; i < s.length; i++) {
+    const ch = s[i];
+    const r = ch === "‌" ? "|" : ch in FA_MAP ? FA_MAP[ch] : isMark(ch.charCodeAt(0)) ? "" : /\s/.test(ch) ? " " : ch;
+    for (const x of r) { out += x; at.push(i); }
+  }
+  return { out, at };
+}
+/* Present stems of the verbs that make compound verbs (folded: آوردن → اوردن), to find تولید می‌کنند for تولید کردن. */
+const PRESENT_STEM = { "کردن": "کن", "شدن": "شو", "دادن": "ده", "زدن": "زن", "گرفتن": "گیر", "داشتن": "دار", "رفتن": "رو", "خوردن": "خور", "کشیدن": "کش",
+  "اوردن": "اور", "امدن": "ای", "گذاشتن": "گذار", "انداختن": "انداز", "ساختن": "ساز", "دیدن": "بین", "گفتن": "گو", "یافتن": "یاب", "رساندن": "رسان", "بودن": "باش", "بردن": "بر" };
+const VERB_PREFIX = ["", "می|", "می", "نمی|", "نمی", "ب", "ن"];
+/* Where a word sits in a sentence: on its own or with an ending (کتاب‌ها, کتابم) — exact — or, for a verb, the
+   whole verb in whatever tense it is in (خریدن in می‌خریدیم, تولید کردن in تولید می‌کنند). */
+function findWord(s, e) {
+  const w = foldFa(e.w).out.replace(/\s+/g, " ").trim();
+  if (!w || !s) return null;
+  const { out, at } = foldFa(s);
+  const cut = (i, j, exact) => {
+    const a = at[i];
+    let b = at[j - 1] + 1;
+    while (b < s.length && (isMark(s.charCodeAt(b)) || s[b] === "ء")) b++;
+    return { pre: s.slice(0, a), word: s.slice(a, b), post: s.slice(b), exact };
+  };
+  // the word ends here, or carries up to two endings (نیروهایش: نیرو + ها + یش)
+  const ends = (j, n) => j >= out.length || !isLet(out[j]) || (n < 2 && FA_ENDINGS.some(x => out.startsWith(x, j) && ends(j + x.length, n + 1)));
+  const wordEnd = (i, len) => (i > 0 && isLet(out[i - 1])) || !ends(i + len, 0) ? -1 : i + len;   // end of a whole-word match at i, or -1
+  for (let i = out.indexOf(w); i >= 0; i = out.indexOf(w, i + 1)) {
+    const j = wordEnd(i, w.length);
+    if (j >= 0) return cut(i, j, true);
+  }
+  if (!e.tags.includes("v") || !w.endsWith("ن")) return null;
+  const parts = w.split(" ");
+  if (parts.length >= 2) {
+    // a compound verb: its first part, then the light verb within the next two words
+    const last = parts.pop(), nom = parts.join(" ");
+    const stems = [last.slice(0, -1)].concat(PRESENT_STEM[last] ? [PRESENT_STEM[last]] : []);
+    let alone = null;
+    for (let i = out.indexOf(nom); i >= 0; i = out.indexOf(nom, i + 1)) {
+      const j = wordEnd(i, nom.length);
+      if (j < 0) continue;
+      if (!alone) alone = [i, j];
+      let k = j;
+      for (let t = 0; t < 2; t++) {
+        while (k < out.length && out[k] === " ") k++;
+        let b = k;
+        while (b < out.length && (isLet(out[b]) || out[b] === "|")) b++;
+        if (b === k) break;
+        const tok = out.slice(k, b);
+        if (stems.some(st => VERB_PREFIX.some(p => tok.startsWith(p + st)))) return cut(i, b, false);
+        k = b;
+      }
+    }
+    return alone ? cut(alone[0], alone[1], false) : null;
+  }
+  if (w.length >= 4) {
+    const st = w.slice(0, -1);
+    for (let i = out.indexOf(st); i >= 0; i = out.indexOf(st, i + 1)) {
+      let a = i, b = i + st.length;
+      while (a > 0 && (isLet(out[a - 1]) || out[a - 1] === "|")) a--;
+      while (b < out.length && (isLet(out[b]) || out[b] === "|")) b++;
+      if (/^(|ن?می\|?|ب|ن)$/.test(out.slice(a, i))) return cut(a, b, false);
+    }
+  }
+  return null;
+}
+
+/* Everything the Today tab and the printed sheet show for a day: the stories with the most of this week's
+   words, today's words numbered 1…n, then the other words of the week that the stories use, each word's
+   sentence from the book, and the exercises. */
+function todayModel(p, plan, d) {
+  const todays = dayWords(plan, d);
+  const today = new Set(todays.map(e => e.n)), week = new Set(plan ? plan.words : []);
+  forYou(p);
+  const stories = S.dataState === "ready" && plan ? readingStories(plan, d) : [];
+  // the week's words in the order the reading shows them, from the same words the page makes tappable
+  const order = [], scratch = [];
+  for (const st of stories) for (const t of storyTexts(st)) for (const x of sentenceEl(t, st, scratch)._ws) {
+    if (x.node.nodeType !== 1 || !x.node._ns) continue;
+    for (const n of x.node._ns) if (week.has(n) && !order.includes(n)) order.push(n);
+  }
+  const nums = new Map();
+  todays.forEach((e, i) => nums.set(e.n, i + 1));
+  const extra = order.filter(n => !today.has(n)).map(n => DICT.byRank.get(n)).filter(Boolean).slice(0, 15);
+  extra.forEach((e, i) => nums.set(e.n, todays.length + i + 1));
+  const sentences = [];
+  if (DICT.exState === "ready") for (const e of todays) {
+    if (sentences.length >= 10) break;
+    const ex = exampleOf(e);
+    if (ex) sentences.push({ e, ex, f: findWord(ex.fa, e) });
+  }
+  const earlier = plan ? plan.words.slice(0, plan.starts[d]).map(n => DICT.byRank.get(n)).filter(Boolean) : [];
+  const m = { p, plan, d, todays, today, week, stories, order, inReading: new Set(order), nums, extra, earlier, sentences };
+  m.exercises = exercisesFor(m);
+  return m;
+}
+/* A: match the Farsi to its meaning, B: write the Farsi for a meaning, C: fill the gaps in the book's sentences
+   (words from earlier in the week when there are enough, so the week gets reviewed). */
+function exercisesFor(m) {
+  const { plan, d, todays } = m;
+  if (!plan) return [];
+  const seed = [plan.week, d, plan.cat, plan.level, todays.map(e => e.n).join(".")].join("|");
+  const rnd = rngFor(seed);
+  // no words left today: practise the most recent of the week's words instead
+  const pool = todays.length >= 3 ? todays : todays.concat(m.earlier.slice().reverse()).slice(0, 8);
+  const out = [];
+  const left = [], seen = new Set();
+  for (const e of shuffledBy(pool, rnd)) {
+    if (left.length >= 8) break;
+    const g = e.g.toLowerCase();
+    if (seen.has(g) || seen.has(e.wn)) continue;          // two words with one meaning (or one spelling) can't be matched
+    seen.add(g); seen.add(e.wn); left.push(e);
+  }
+  if (left.length >= 2) {
+    const ord = shuffledBy(left.map((_, i) => i), rnd);
+    if (ord.every((x, i) => x === i)) ord.push(ord.shift());
+    const right = ord.map(i => left[i]);
+    out.push({ kind: "match", left, right, key: left.map(e => right.indexOf(e)) });
+  }
+  const write = shuffledBy(pool.filter(e => !left.includes(e)), rnd).concat(shuffledBy(left, rnd)).slice(0, 8);
+  if (write.length >= 2) out.push({ kind: "write", items: write });
+  if (DICT.exState === "ready") {
+    // the gap takes the word as the sentence has it (a verb in its tense), and the box lists those forms
+    const fits = f => f && f.word.trim().split(/\s+/).length <= 3 && (f.pre + f.post).trim().length >= 4;
+    const gaps = list => shuffledBy(list, rnd).map(e => { const ex = exampleOf(e), f = ex && findWord(ex.fa, e); return fits(f) ? { e, ex, f } : null; }).filter(Boolean).slice(0, 6);
+    let review = d > 0 && m.earlier.length > 0;
+    let items = review ? gaps(m.earlier) : [];
+    if (items.length < 3) { review = false; items = gaps(pool); }
+    if (items.length >= 2) out.push({ kind: "gaps", review, items, box: shuffledBy(items.map(x => x.f.word), rnd) });
+  }
+  out.forEach((x, i) => { x.letter = "ABCD"[i]; x.id = seed + "/" + x.kind; });     // a new plan means new exercises, answers hidden
+  return out;
+}
+/* Underline this week's words in the reading (today's are shaded too), numbered as in the vocabulary list. */
+function markReading(list, m) {
+  const numbered = new Set();
+  for (const sp of list) sp._ws.forEach((x, i) => {
+    const nd = x.node;
+    if (nd.nodeType !== 1) return;
+    nd.classList.remove("kw");
+    const hits = (nd._ns || []).filter(r => m.week.has(r));
+    if (!hits.length) return;
+    nd.classList.add("wk");
+    if (hits.some(r => m.today.has(r))) nd.classList.add("td");
+    if (x.ph && i !== x.ph.end) return;                  // a phrase gets its number after its last word
+    const fresh = hits.filter(r => m.nums.has(r) && !numbered.has(r));
+    if (!fresh.length) return;
+    for (const r of fresh) numbered.add(r);
+    nd.after(h("sup", { class: "vn", text: fresh.map(r => m.nums.get(r)).sort((a, b) => a - b).join(",") }));
+  });
+}
+function tStoryEl(st, m, list, print) {
+  const art = h("article", { class: "tstory" });
+  const meta = h("div", { class: "meta label" });
+  if (st.tag) { const t = h("span", { class: "tag", text: st.tag }); const v = TAGS[st.tag.toLowerCase()]; if (v) t.style.setProperty("--tag", "var(" + v + ")"); meta.append(t); }
+  let k = 0;
+  for (const n of st._ranks || []) if (m.week.has(n)) k++;
+  addKid(meta, [st.place ? h("span", { text: st.place }) : null, levelPill(st._lvl), S.fy[st.id] ? h("span", { class: "lvl fy", text: "For you" }) : null,
+    k ? h("span", { class: "cat-n", text: k + " of this week's words" }) : null]);
+  art.append(meta, h("h4", { class: "headline" }, sentenceEl(st.title, st, list)));
+  const body = h("p", { class: "body" });
+  st.summary.forEach((t, i) => { if (i) body.append(" "); body.append(sentenceEl(t, st, list)); });
+  art.append(body);
+  if (st.why.length) {
+    const why = h("p", { class: "why" }, h("span", { class: "why-l", text: "Why it matters" }));
+    st.why.forEach((t, i) => { if (i) why.append(" "); why.append(sentenceEl(t, st, list)); });
+    art.append(why);
+  }
+  if (print) {
+    let host = "";
+    try { host = st.url ? new URL(st.url).hostname.replace(/^www\./, "") : ""; } catch (e) {}
+    const day = st.date ? new Date(st.date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
+    art.append(h("p", { class: "src", text: "Source: " + [st.source || host, host && st.source ? host : "", day].filter(Boolean).join(" · ") }));
+  } else if (st.url) art.append(h("a", { class: "src", href: st.url, target: "_blank", rel: "noopener noreferrer" }, "Read the original at " + (st.source || "the source"), icon("ext")));
+  return art;
+}
+function secHead(n, title, note) {
+  return h("div", { class: "sec-h" }, h("span", { class: "sec-n", "aria-hidden": "true", text: String(n) }), h("h3", { text: title }), note ? h("span", { class: "label", text: note }) : null);
+}
+function fsItem(x, m, print) {
+  const t = h("p", { class: "fs-t", lang: "fa", dir: "rtl" });
+  if (x.f) {
+    const mk = h("mark", { class: print ? null : "go", title: print ? null : x.e.g, text: x.f.word });
+    if (!print) mk.addEventListener("click", () => openDictSheet(x.e, null));
+    t.append(x.f.pre, mk, x.f.post);
+  } else t.append(x.ex.fa);
+  const num = m.nums.get(x.e.n);
+  return h("li", null, h("span", { class: "vn-b", title: print ? null : "Word " + num + " in the vocabulary list", text: String(num) }),
+    h("div", { class: "fs-main" }, h("div", { class: "fs-top" }, t, print ? null : speakBtn(x.ex.fa, "", "Play the sentence")), x.ex.en ? h("p", { class: "fs-en", text: x.ex.en }) : null));
+}
+function readingSec(m) {
+  const sec = h("section", { class: "tsec reading" });
+  const k = m.order.length, n = m.stories.length, ns = m.sentences.length;
+  sec.append(secHead(1, "Today's reading", [n ? n + (n === 1 ? " story" : " stories") : "", ns ? ns + (ns === 1 ? " sentence" : " sentences") : ""].filter(Boolean).join(" · ")));
+  TODAY_SENTS = [];
+  if (n) {
+    sec.append(h("h4", { class: "sub-h", text: "In the news" }),
+      h("p", { class: "help", text: (k ? (k === 1 ? "1 of this week's words is" : k + " of this week's words are") + " underlined in these stories, numbered as in the vocabulary list."
+        : "None of this week's words are in the current news, so these are the latest stories" + (m.p.interests.length ? " for your interests" : "") + ".") + " Tap any word to see it in Farsi." }));
+    for (const st of m.stories) sec.append(tStoryEl(st, m, TODAY_SENTS));
+    markReading(TODAY_SENTS, m);
+  } else sec.append(h("p", { class: "help", text: S.dataState === "ready" || S.dataState === "empty" ? "No stories to read yet." : "The news didn't load." }));
+  if (ns) {
+    sec.append(h("h4", { class: "sub-h", text: "In Farsi" }), h("p", { class: "help", text: "Today's words in real Persian sentences from the frequency dictionary." }));
+    const ol = h("ol", { class: "fs" });
+    for (const x of m.sentences) ol.append(fsItem(x, m));
+    sec.append(ol);
+  } else if (m.todays.length && (DICT.exState === "loading" || DICT.exState === "idle")) {
+    sec.append(h("h4", { class: "sub-h", text: "In Farsi" }), h("div", { class: "sk-story", "aria-hidden": "true" }, h("div", { class: "sk" }), h("div", { class: "sk p2" })));
+  }
+  if (n) {
+    const all = h("button", { class: "link-btn all-news", type: "button", text: "All this week's news" });
+    all.addEventListener("click", () => setTab("news"));
+    sec.append(all);
+  }
+  return sec;
+}
+function vocabSec(m) {
+  const sec = h("section", { class: "tsec vocab" });
+  const n = m.todays.length;
+  sec.append(secHead(2, "Vocabulary", n ? n + (n === 1 ? " word today" : " words today") : ""));
+  if (!n) sec.append(h("p", { class: "help", text: m.plan && m.plan.words.length ? "You've reached the end of this week's words. Review the earlier days below, or change the category to keep going." : "No words were left in this category at your level. Pick another category or level." }));
+  else {
+    const ul = h("ul", { class: "wlist today-list" });
+    for (const e of m.todays) ul.append(dictRow(e, { num: m.nums.get(e.n), inNews: m.inReading.has(e.n) }));
     sec.append(ul);
   }
-  if (plan && d > 0 && plan.starts[d] > 0) {
-    const earlier = plan.words.slice(0, plan.starts[d]).map(n => DICT.byRank.get(n)).filter(Boolean);
-    const det = h("details", { class: "earlier" }, h("summary", { text: "Earlier this week · " + earlier.length + (earlier.length === 1 ? " word" : " words") }));
+  if (m.extra.length) {
+    const ul = h("ul", { class: "wlist extra-list" });
+    for (const e of m.extra) ul.append(dictRow(e, { num: m.nums.get(e.n), inNews: true }));
+    sec.append(h("h4", { class: "sub-h", text: "More of this week's words in the reading" }), ul);
+  }
+  if (m.earlier.length) {
+    const det = h("details", { class: "earlier" }, h("summary", { text: "Earlier this week · " + m.earlier.length + (m.earlier.length === 1 ? " word" : " words") }));
+    det.open = !!S.earlierOpen;
+    det.addEventListener("toggle", () => { S.earlierOpen = det.open; });
     const ul = h("ul", { class: "wlist" });
-    for (const e of earlier) ul.append(dictRow(e));
+    for (const e of m.earlier) ul.append(dictRow(e));
     det.append(ul);
     sec.append(det);
   }
   return sec;
+}
+function practiceSec(m) {
+  const sec = h("section", { class: "tsec practice" });
+  sec.append(secHead(3, "Practice", ""), challengeCard(m.plan, m.d));
+  for (const x of m.exercises) sec.append(exerciseEl(x));
+  return sec;
+}
+function exText(x) {
+  if (x.kind === "match") return ["Match the words", "Write the letter of the right meaning next to each Farsi word."];
+  if (x.kind === "write") return ["Write it in Farsi", "Cover the vocabulary list, then write the Farsi word for each meaning."];
+  return ["Complete the sentences", x.review ? "These words are from earlier this week. Fill each gap with a word from the box." : "Cover the Farsi sentences in the reading, then fill each gap with a word from the box."];
+}
+function exerciseEl(x, print) {
+  const shown = !print && !!ANS[x.id];
+  const [title, help] = exText(x);
+  const box = h("section", { class: "px px-" + x.kind + (shown ? " show" : "") },
+    h("div", { class: "px-head" }, h("span", { class: "px-l", text: x.letter }), h("h4", { text: title })), h("p", { class: "px-help", text: help }));
+  if (x.kind === "match") {
+    const L = h("ol"), R = h("ol");
+    x.left.forEach((e, i) => L.append(h("li", null, h("span", { class: "qn", text: (i + 1) + "." }), h("span", { class: "mx-fa", lang: "fa", dir: "rtl", text: e.w }), h("span", { class: "mx-r", text: e.r }),
+      print ? h("span", { class: "mx-blank" }) : h("span", { class: "ans", text: "→ " + LETTERS[x.key[i]] }))));
+    x.right.forEach((e, i) => R.append(h("li", null, h("span", { class: "qn", text: LETTERS[i] + "." }), h("span", { class: "mx-m", text: e.g }))));
+    box.append(h("div", { class: "mx" }, L, R));
+  } else if (x.kind === "write") {
+    const ol = h("ol", { class: "wr" });
+    x.items.forEach((e, i) => ol.append(h("li", null, h("span", { class: "qn", text: (i + 1) + "." }),
+      h("span", { class: "wr-q" }, e.g, e.tags.length === 1 ? h("small", { text: " · " + posText(e) }) : null),
+      h("span", { class: "line", "aria-hidden": "true" }),
+      print ? null : h("span", { class: "ans" }, h("span", { lang: "fa", dir: "rtl", text: e.w }), " " + e.r))));
+    box.append(ol);
+  } else {
+    const wb = h("div", { class: "wbox", lang: "fa", dir: "rtl" });
+    for (const w of x.box) wb.append(h("span", { text: w }));
+    const ol = h("ol", { class: "gp" });
+    x.items.forEach((g, i) => ol.append(h("li", null, h("span", { class: "qn", text: (i + 1) + "." }), h("div", { class: "gp-main" },
+      h("p", { class: "gp-fa", lang: "fa", dir: "rtl" }, g.f.pre, h("span", { class: "gap" }, print ? " " : h("span", { class: "gap-a", text: g.f.word })), g.f.post),
+      g.ex.en ? h("p", { class: "gp-en", text: g.ex.en }) : null))));
+    box.append(wb, ol);
+  }
+  if (!print) {
+    const b = h("button", { class: "ghost sm px-btn", type: "button", "aria-pressed": String(shown), text: shown ? "Hide answers" : "Show answers" });
+    b.addEventListener("click", () => {
+      ANS[x.id] = !ANS[x.id];
+      box.classList.toggle("show", ANS[x.id]);
+      b.textContent = ANS[x.id] ? "Hide answers" : "Show answers";
+      b.setAttribute("aria-pressed", String(ANS[x.id]));
+    });
+    box.append(b);
+  }
+  return box;
+}
+function sheetCard() {
+  const b = h("button", { class: "primary big", type: "button" }, icon("print"), "Print or save as PDF");
+  b.addEventListener("click", () => printSheet(b));
+  return h("section", { class: "sheet-card" }, h("div", null, h("h3", { text: "Export today's practice sheet" }),
+    h("p", { class: "plan-sub", text: "Today's reading, vocabulary list and practice on paper, in the same order, with the answers on the last page. To keep a PDF, choose Save as PDF in the print window." })), b);
+}
+
+/* ---------- the practice sheet on paper (or as a PDF) ---------- */
+function vocabTable(m) {
+  const row = e => h("tr", null, h("td", { class: "n", text: String(m.nums.get(e.n)) }), h("td", { class: "fa", lang: "fa", dir: "rtl", text: e.w }), h("td", { class: "r", text: e.r }),
+    h("td", null, e.g, e.tags.length ? h("small", { text: " · " + posText(e) }) : null));
+  const tb = h("tbody");
+  for (const e of m.todays) tb.append(row(e));
+  if (m.extra.length) {
+    tb.append(h("tr", { class: "sep" }, h("td", { colspan: "4", text: "More of this week's words in the reading" })));
+    for (const e of m.extra) tb.append(row(e));
+  }
+  return h("table", { class: "ps-vocab" }, h("thead", null, h("tr", null, h("th", { text: "#" }), h("th", { class: "fa", text: "Farsi" }), h("th", { text: "Say it" }), h("th", { text: "Meaning" }))), tb);
+}
+function answersEl(x) {
+  const p = h("p", { class: "ps-a" }, h("b", { text: x.letter }));
+  if (x.kind === "match") x.left.forEach((e, i) => p.append(h("span", { class: "ps-ai", text: (i + 1) + " " + LETTERS[x.key[i]] })));
+  else if (x.kind === "write") x.items.forEach((e, i) => p.append(h("span", { class: "ps-ai" }, (i + 1) + " ", h("span", { lang: "fa", dir: "rtl", text: e.w }), " ", h("i", { text: e.r }))));
+  else x.items.forEach((g, i) => p.append(h("span", { class: "ps-ai" }, (i + 1) + " ", h("span", { lang: "fa", dir: "rtl", text: g.f.word }))));
+  return p;
+}
+function buildSheet(m) {
+  const lvl = LEVELS[m.p.level];
+  const date = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const head = (n, t) => h("div", { class: "ps-h" }, h("b", { text: String(n) }), h("span", { text: t }));
+  const ps = h("div", { class: "ps" }, h("header", { class: "ps-head" },
+    h("div", { class: "ps-top" }, h("span", { class: "ps-brand" }, h("span", { class: "ps-mark", lang: "fa", text: "آ" }), "World News Words"), h("span", null, "Name ", h("span", { class: "ps-line" }))),
+    h("h1", { text: "Farsi practice sheet" }),
+    h("p", { class: "ps-meta", text: date + " · This week: " + catTitle(m.plan.cat) + " · " + lvl.name + ", " + m.p.perDay + " words a day · Day " + (m.d + 1) + " of 7" })));
+  const r = h("section", { class: "ps-sec" }, head(1, "Reading"));
+  if (m.stories.length) {
+    r.append(h("h3", { class: "ps-sub", text: "In the news" }), h("p", { class: "ps-note", text: m.order.length ? "This week's words are underlined (today's are shaded); the small numbers match the vocabulary list." : "None of this week's words are in the current news." }));
+    const list = [];
+    for (const st of m.stories) r.append(tStoryEl(st, m, list, true));
+    markReading(list, m);
+  }
+  if (m.sentences.length) {
+    const ol = h("ol", { class: "fs" });
+    for (const x of m.sentences) ol.append(fsItem(x, m, true));
+    r.append(h("h3", { class: "ps-sub", text: "In Farsi" }), h("p", { class: "ps-note", text: "Today's words in real Persian sentences from A Frequency Dictionary of Persian." }), ol);
+  }
+  const v = h("section", { class: "ps-sec" }, head(2, "Vocabulary"));
+  v.append(m.todays.length || m.extra.length ? vocabTable(m) : h("p", { class: "ps-note", text: "No new words today." }));
+  if (m.earlier.length) {
+    const ul = h("ul", { class: "ps-earlier" });
+    for (const e of m.earlier) ul.append(h("li", null, h("span", { lang: "fa", dir: "rtl", text: e.w }), " " + e.r + " · " + e.g));
+    v.append(h("h3", { class: "ps-sub", text: "Earlier this week" }), ul);
+  }
+  ps.append(r, v);
+  if (m.exercises.length) {
+    const pr = h("section", { class: "ps-sec" }, head(3, "Practice"));
+    for (const x of m.exercises) pr.append(exerciseEl(x, true));
+    const an = h("section", { class: "ps-sec ps-ans" }, head("✓", "Answers"));
+    for (const x of m.exercises) an.append(answersEl(x));
+    ps.append(pr, an);
+  }
+  ps.append(h("p", { class: "ps-foot", text: "World News Words · " + location.origin + location.pathname + " · Words, meanings and example sentences from A Frequency Dictionary of Persian (Corey Miller & Karineh Aghajanian-Stewart, Routledge 2018). The news stories are short summaries written for practice; each names its original report." }));
+  return ps;
+}
+let printTitle = "", preparedAt = 0;
+function sheetModel() {
+  if (DICT.state !== "ready" || S.dataState === "loading") return null;
+  const p = effPrefs();
+  if (!p.set) return null;
+  const plan = buildPlan();
+  return plan ? todayModel(p, plan, dayIndex(Date.now())) : null;
+}
+function prepareSheet(m) {
+  $("#printSheet").replaceChildren(buildSheet(m));
+  document.body.classList.add("print-on");
+  preparedAt = Date.now();
+  if (!printTitle) { printTitle = document.title; document.title = "Farsi practice sheet " + isoDate(Date.now()); }   // the name a saved PDF gets
+}
+async function printSheet(btn) {
+  if (btn) btn.disabled = true;
+  try {
+    await loadExamples();
+    const m = sheetModel();
+    if (!m) { toast("Your plan is still loading. Try again in a moment."); return; }
+    prepareSheet(m);
+    try { if (document.fonts && document.fonts.ready) await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]); } catch (e) {}
+    window.print();
+  } finally { if (btn) btn.disabled = false; }
+}
+/* Printing from the Today tab (Ctrl+P too) prints the practice sheet; any other tab prints as it is. */
+function onBeforePrint() {
+  const today = S.tab === "today" && !CH.open && !ST.open;
+  if (!today) { document.body.classList.remove("print-on"); return; }
+  if (Date.now() - preparedAt < 4000) return;          // the Print button has just made the sheet
+  const m = sheetModel();
+  if (m) prepareSheet(m);
+  else document.body.classList.remove("print-on");
+}
+function onAfterPrint() {
+  preparedAt = 0;
+  setTimeout(() => { if (printTitle) { document.title = printTitle; printTitle = ""; } }, 600);
 }
 function challengeCard(plan, d) {
   const today = isoDate(Date.now()), done = STUDY.progress.days[today];
@@ -2450,27 +3071,6 @@ function challengeCard(plan, d) {
   card.append(h("div", null, h("h3", { text: "Daily challenge" }),
     h("p", { class: "plan-sub", text: done ? "Done today: " + done.score + " of " + done.total + " right." + (done.score === done.total ? " Perfect." : "") : words.length < 4 ? "Add a few more words to your week to unlock the challenge." : words.length + " quick questions on " + catTitle(plan ? plan.cat : "").toLowerCase() + ": meaning, Farsi and listening." })), b);
   return card;
-}
-function readingSection(plan, d) {
-  const sec = h("section", { class: "tsec" });
-  const ids = planStories(effPrefs())[d] || [];
-  const stories = ids.map(id => S.stories.find(s => s.id === id)).filter(Boolean);
-  sec.append(h("div", { class: "tsec-head" }, h("h3", { text: "Today's reading" }), h("span", { class: "label", text: stories.length ? stories.length + (stories.length === 1 ? " story" : " stories") : "" })));
-  if (!stories.length) sec.append(h("p", { class: "help", text: "No stories to show yet." }));
-  for (const st of stories) {
-    const card = h("button", { class: "rcard", type: "button" });
-    const meta = h("div", { class: "meta label" });
-    if (st.tag) { const t = h("span", { class: "tag", text: st.tag }); const v = TAGS[st.tag.toLowerCase()]; if (v) t.style.setProperty("--tag", "var(" + v + ")"); meta.append(t); }
-    addKid(meta, [levelPill(st._lvl), S.fy && S.fy[st.id] ? h("span", { class: "lvl fy", text: "For you" }) : null]);
-    const n = catCount(st, plan.cat);
-    card.append(meta, h("span", { class: "rc-title", text: st.title }), h("span", { class: "rc-sub", text: (n ? n + " " + catTitle(plan.cat).toLowerCase() + (n === 1 ? " word" : " words") + " · " : "") + (st.source || "") }));
-    card.addEventListener("click", () => goStory(st.id));
-    sec.append(card);
-  }
-  const all = h("button", { class: "link-btn", type: "button", text: "All this week's news" });
-  all.addEventListener("click", () => setTab("news"));
-  sec.append(all);
-  return sec;
 }
 
 /* ---------- daily challenge ---------- */
@@ -2600,16 +3200,30 @@ function nextQuestion() {
   if (CH.i >= CH.qs.length) finishChallenge();
   renderChallenge();
 }
+/* News tab underlines: this week's words (the plan's words, not the whole category), words at the person's
+   level (names left out), or none beyond each story's key words. */
 function refreshMarks() {
   if (DICT.state !== "ready") return;
   const p = effPrefs(), mode = HL_MODES.some(m => m[0] === S.hl) ? S.hl : "plan", band = LEVELS[p.level].band;
-  const members = mode === "plan" && p.cat ? catRanks(p.cat) : null;
+  const plan = p.set ? buildPlan() : null;
+  const week = p.set ? new Set(plan ? plan.words : []) : null;
   const inBand = n => n > 0 ? (band === 3 ? bandOf(n) >= 3 : bandOf(n) === band) : (band === 3 && n === 0);
-  const hit = n => mode === "key" || n < 0 ? false : members ? members.has(n) : inBand(n);
-  for (const sp of SENTS) for (const x of sp._ws) { if (x.node.nodeType !== 1) continue; x.node.classList.toggle("hi", x.node._n != null && hit(x.node._n)); }
+  for (const sp of SENTS) for (const x of sp._ws) {
+    const nd = x.node;
+    if (nd.nodeType !== 1) continue;
+    const n = nd._n;
+    const on = mode === "key" || n == null || n < 0 ? false : mode === "plan" && week ? !!(nd._ns && nd._ns.some(r => week.has(r))) : !nd._pn && inBand(n);
+    nd.classList.toggle("hi", on);
+  }
   const sel = $("#hlSel");
-  if (sel) { sel.value = mode; const o = sel.querySelector('option[value="plan"]'); if (o) o.textContent = p.cat ? "This week's words: " + catTitle(p.cat) : "Words at my level"; }
-  $$(".cat-n").forEach(el => { const st = S.stories.find(s => s.id === el.dataset.id); const n = st && p.cat ? catCount(st, p.cat) : 0; el.hidden = !n; el.textContent = n ? n + " " + catTitle(p.cat).toLowerCase() + (n === 1 ? " word" : " words") : ""; });
+  if (sel) { sel.value = mode; const o = sel.querySelector('option[value="plan"]'); if (o) o.textContent = p.set ? "This week's words" : "Words at my level"; }
+  $$("#newsBody .cat-n").forEach(el => {
+    const st = S.stories.find(s => s.id === el.dataset.id);
+    let n = 0;
+    if (st && st._ranks && week) for (const r of st._ranks) if (week.has(r)) n++;
+    el.hidden = !n;
+    el.textContent = n ? n + " of this week's words" : "";
+  });
 }
 
 /* ---------- Dictionary tab: search the 5,000 words, filter by category, level and part of speech ---------- */
@@ -2700,7 +3314,7 @@ function openDictSheet(e, btn) {
   S.dictCell = e;
   openSheet(e.g, null);
   showDictBody();
-  if (DICT.exState === "idle") loadExamples().then(() => { if (S.dictCell === e) showDictBody(); });
+  if (DICT.exState !== "ready") loadExamples().then(() => { if (S.dictCell === e) showDictBody(); });
   if (btn) requestAnimationFrame(() => requestAnimationFrame(() => ensureVisible(btn)));
 }
 function showDictBody() {
@@ -3023,6 +3637,9 @@ function bind() {
     const chip = e.target.closest(".chip");
     if (chip && chip._key) openChip(chip._key, chip._story);
   });
+  $("#todayBody").addEventListener("click", e => { const w = e.target.closest(".w"); if (w && w._s) openWord(w._s, w._i); });
+  window.addEventListener("beforeprint", onBeforePrint);
+  window.addEventListener("afterprint", onAfterPrint);
   $("#abcBody").addEventListener("click", e => { const t = e.target.closest(".tile"); if (t && t._cell) openLetter(t); });
   $("#abcBtn").addEventListener("click", () => { DV.view = DV.view === "abc" ? "search" : "abc"; STORE.set("dview", DV.view); if (!$("#sheet").hidden) closeSheet(); renderDict(); });
   let dqTimer = 0;

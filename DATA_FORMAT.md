@@ -1,7 +1,8 @@
 # Data format
 
-The site reads `data/news.json` (the stories), `data/glossary.json` (every tappable word in Japanese,
-Chinese, Farsi and English), `data/alphabets.json` (the ABC tab) and `data/audio/fa/*.mp3` (Farsi audio).
+The site teaches Farsi from English news. It reads `data/news.json` (the stories), `data/glossary.json`
+(every tappable word, in English and Farsi), `data/alphabets.json` (the Persian alphabet on the Alphabet tab)
+and `data/audio/fa/*.mp3` (recorded Farsi audio).
 
 After any change to the data:
 
@@ -67,8 +68,6 @@ Person, company and place names get entries too.
   "pos": "noun",
   "def": "a general rise in prices over time",
   "ipa": "/ɪnˈfleɪʃn/",
-  "ja": { "w": "インフレ", "k": "インフレ", "r": "infure" },
-  "zh": { "w": "通货膨胀", "p": "tōnghuò péngzhàng" },
   "fa": { "w": "تورم", "r": "tavarrom", "v": "تَوَرّم", "a": "<written by make_audio.py>" }
 }
 ```
@@ -81,15 +80,6 @@ Person, company and place names get entries too.
 - **def**: plain English for a learner, at most 10 words, for the sense used in the story. Verbs start
   with "to ...". Proper nouns say what they are ("country in northern Europe").
 - **ipa**: British dictionary-style IPA between slashes, with stress marks.
-
-**Japanese (`ja`)**: `w` the natural word a Japanese news article would use (verbs in dictionary form,
-する-verbs with する, な-adjectives with な); `k` the full reading in kana only; `r` Hepburn romaji with
-macrons (ō, ū; katakana ー becomes a macron). Foreign names in katakana, Japanese places in kanji.
-
-**Chinese (`zh`)**: `w` Simplified Chinese (Mainland standard), the natural word a Chinese news article
-would use for this sense; names in the standard Xinhua transliteration (`泽连斯基`). `p` Hanyu Pinyin with
-tone marks, syllables of one word written together, words separated by spaces, apostrophe before a/o/e
-syllables inside a word (`Xī'ān`), neutral tone unmarked, proper nouns capitalised.
 
 **Farsi (`fa`)**: `w` standard Iranian Persian in Persian letters (`ی` and `ک`, never Arabic `ي` `ك`), ZWNJ
 where Persian uses it, verbs in the infinitive. `r` lowercase Latin transliteration: `ā` long a, `a`,
@@ -105,13 +95,8 @@ Everything above, plus:
 
 ```json
 "key": true,
-"jaKanji": [ {"c": "原", "m": "origin"} ],
-"zhChars": [ {"c": "通", "m": "through"}, {"c": "货", "m": "goods"} ],
 "ex": {
   "en": "High oil prices can push up inflation.",
-  "ja": "原油[げんゆ]の値段[ねだん]が高[たか]いとインフレが進[すす]む。",
-  "zh": "油价高会推高通货膨胀。",
-  "zhP": "yóujià gāo huì tuīgāo tōnghuò péngzhàng.",
   "fa": "قیمت بالای نفت می‌تواند تورم را بالا ببرد.",
   "faR": "gheymat-e bālā-ye naft mi-tavānad tavarrom rā bālā bebarad.",
   "faV": "<ex.fa with vowel marks, same rules as fa.v>",
@@ -119,17 +104,18 @@ Everything above, plus:
 }
 ```
 
-- `jaKanji` / `zhChars`: one `{c, m}` per kanji of `ja.w` / Chinese character of `zh.w`, in order
-  (meaning in 1-3 English words); `[]` when there are none.
 - `ex.en`: one short, natural sentence (at most 12 words) on the story's topic, not copied from the story.
-- `ex.ja`: Japanese translation with the reading in brackets after every run of kanji: `原油[げんゆ]`.
-- `ex.zh` + `ex.zhP`: Chinese translation and its pinyin (words separated by spaces, Chinese punctuation).
 - `ex.fa` + `ex.faR` + `ex.faV`: Persian translation, its transliteration, and the vowel-marked version.
 
 ## alphabets.json
 
-Reference data for the ABC tab: `ja` (kana tables), `en` (letters and letter teams), `fa` (the 32 letters
-with their four joined forms, and vowels), `zh` (tones, initials, finals). Each language has `name`,
-`intro`, `sections` (`id`, `title`, `note`, `cols`, `cells`, with `null` for an empty slot) and `tips`.
-Farsi example words carry `v` (vowel-marked, for the voice) and `a` (audio id from `make_audio.py`).
+Reference data for the Alphabet tab: `fa` holds the 32 Persian letters (with their four joined forms) and the
+vowels, as `name`, `intro`, `sections` (`id`, `title`, `note`, `cols`, `cells`, with `null` for an empty slot)
+and `tips`. Example words carry `v` (vowel-marked, for the voice) and `a` (audio id from `make_audio.py`).
 This file rarely changes; the daily update leaves it alone.
+
+## Older data
+
+Until October 2026 the site also taught Japanese, Chinese and English, and every entry carried `ja`, `zh`,
+`jaKanji`, `zhChars` and Japanese/Chinese example sentences. Those fields are no longer written or read
+(`tools/check_data.py` rejects them); the git history still has them.

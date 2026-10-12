@@ -1,4 +1,4 @@
-"""Check World News Words data before publishing.
+"""Check World News Words data (English news, Farsi words) before publishing.
 
 usage:
   python3 tools/check_data.py            validate data/news.json and data/glossary.json
@@ -25,22 +25,14 @@ POS = {"noun", "verb", "adjective", "adverb", "preposition", "conjunction", "pro
 MAX_STORIES = 60
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SLUG = re.compile(r"^[a-z0-9][a-z0-9\-]{5,120}$")
-KANA = re.compile(r"^[ぁ-ゟ゠-ヿー\s・]+$")
-KANJI = re.compile(r"[㐀-䶿一-鿿々]")
-ROMAJI = re.compile(r"^[a-zāīūēō' \-]+$")
 PERSIAN = re.compile(r"^[؀-ۿ‌‏\s\-]+$")
 PERSIAN_SENT = re.compile(r"^[؀-ۿ‌‏\s\-.,،؛؟!«»:0-9۰-۹()$%]+$")
 ARABIC_ONLY = re.compile(r"[يك]")
 LATIN = re.compile(r"^[a-zāīūēō' \-]+$")
 LATIN_SENT = re.compile(r"^[A-Za-zāīūēōĀĪŪ' \-.,?!:;0-9()$%]+$")
-CJK = re.compile(r"[\u3400-\u4DBF\u4E00-\u9FFF]")
-ZH_W = re.compile(r"^[\u3400-\u4DBF\u4E00-\u9FFF·A-Za-z0-9]+$")
-PINYIN = re.compile(r"^[A-Za-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙ'’ ·\-0-9]+$")
-PINYIN_SENT = re.compile(r"^[A-Za-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüÜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙ'’ ·\-0-9.,?!:;，。？！：；、“”\"()（）%]+$")
 HARAKAT = re.compile(r"[\u064B-\u0652\u0670]")
 AUDIO_DIR = os.path.join(ROOT, "data", "audio", "fa")
 ALPHABETS = os.path.join(ROOT, "data", "alphabets.json")
-RUBY_BAD = re.compile(r"[㐀-䶿一-鿿々]+(?!\[)(?![㐀-䶿一-鿿々])")
 
 
 def has_audio(i):
@@ -52,30 +44,22 @@ def check_entry(k, e, errs, warns=None):
     where = f"glossary entry '{k}'"
     if k != k.lower():
         errs.append(f"{where}: key must be lowercase")
-    for f in ("t", "pos", "def", "ipa", "ja", "fa"):
+    for f in ("t", "pos", "def", "ipa", "fa"):
         if f not in e:
             errs.append(f"{where}: missing '{f}'")
+    for f in ("ja", "zh", "jaKanji", "zhChars"):
+        if f in e:
+            errs.append(f"{where}: '{f}' is not used any more (the site teaches Farsi only); leave it out")
     if e.get("pos") not in POS:
         errs.append(f"{where}: pos '{e.get('pos')}' not allowed")
     ipa = str(e.get("ipa", ""))
     if not (ipa.startswith("/") and ipa.endswith("/") and len(ipa) > 2):
         errs.append(f"{where}: ipa must be /.../")
-    ja, fa = e.get("ja") or {}, e.get("fa") or {}
-    if not ja.get("w"):
-        errs.append(f"{where}: ja.w missing")
-    if not KANA.match(str(ja.get("k", ""))):
-        errs.append(f"{where}: ja.k must be kana only: {ja.get('k')!r}")
-    if not ROMAJI.match(str(ja.get("r", ""))):
-        errs.append(f"{where}: ja.r bad romaji: {ja.get('r')!r}")
+    fa = e.get("fa") or {}
     if not PERSIAN.match(str(fa.get("w", ""))) or ARABIC_ONLY.search(str(fa.get("w", ""))):
         errs.append(f"{where}: fa.w must be Persian script (ی and ک): {fa.get('w')!r}")
     if not LATIN.match(str(fa.get("r", ""))):
         errs.append(f"{where}: fa.r bad transliteration: {fa.get('r')!r}")
-    zh = e.get("zh") or {}
-    if not ZH_W.match(str(zh.get("w", ""))):
-        errs.append(f"{where}: zh.w must be Simplified Chinese: {zh.get('w')!r}")
-    if not PINYIN.match(str(zh.get("p", ""))):
-        errs.append(f"{where}: zh.p must be pinyin with tone marks: {zh.get('p')!r}")
     if fa.get("v") and HARAKAT.sub("", fa["v"]) != HARAKAT.sub("", str(fa.get("w", ""))):
         errs.append(f"{where}: fa.v must be fa.w plus vowel marks only")
     if not fa.get("v"):
@@ -83,37 +67,23 @@ def check_entry(k, e, errs, warns=None):
     if not has_audio(fa.get("a")):
         warns.append(f"{where}: no Farsi audio (run python3 tools/make_audio.py)")
     if e.get("key"):
-        zc = e.get("zhChars")
-        want_zh = CJK.findall(str(zh.get("w", "")))
-        if not isinstance(zc, list) or [x.get("c") for x in zc if isinstance(x, dict)] != want_zh:
-            errs.append(f"{where}: zhChars must list each character of zh.w {want_zh}")
-        exz = e.get("ex") or {}
-        if not CJK.search(str(exz.get("zh", ""))):
-            errs.append(f"{where}: ex.zh missing")
-        if not PINYIN_SENT.match(str(exz.get("zhP", ""))):
-            errs.append(f"{where}: ex.zhP must be pinyin: {exz.get('zhP')!r}")
-        if exz.get("faV") and HARAKAT.sub("", exz["faV"]) != HARAKAT.sub("", str(exz.get("fa", ""))):
-            errs.append(f"{where}: ex.faV must be ex.fa plus vowel marks only")
-        if not has_audio(exz.get("faA")):
-            warns.append(f"{where}: no Farsi audio for the example (run python3 tools/make_audio.py)")
-        jk = e.get("jaKanji")
-        want = KANJI.findall(str(ja.get("w", "")))
-        if not isinstance(jk, list) or [x.get("c") for x in jk if isinstance(x, dict)] != want:
-            errs.append(f"{where}: jaKanji must list each kanji of ja.w {want}")
         ex = e.get("ex") or {}
-        for f in ("en", "ja", "fa", "faR"):
+        for f in ("en", "fa", "faR"):
             if not ex.get(f):
                 errs.append(f"{where}: ex.{f} missing")
-        exja = str(ex.get("ja", ""))
-        if RUBY_BAD.search(exja):
-            errs.append(f"{where}: ex.ja has kanji without [reading]: {exja!r}")
-        for m in re.finditer(r"\[([^\]]*)\]", exja):
-            if not KANA.match(m.group(1)):
-                errs.append(f"{where}: ex.ja reading not kana: {m.group(1)!r}")
+        for f in ("ja", "zh", "zhP"):
+            if f in ex:
+                errs.append(f"{where}: ex.{f} is not used any more; leave it out")
         if not PERSIAN_SENT.match(str(ex.get("fa", ""))) or ARABIC_ONLY.search(str(ex.get("fa", ""))):
             errs.append(f"{where}: ex.fa must be Persian script: {ex.get('fa')!r}")
         if not LATIN_SENT.match(str(ex.get("faR", ""))):
             errs.append(f"{where}: ex.faR bad transliteration: {ex.get('faR')!r}")
+        if ex.get("faV") and HARAKAT.sub("", ex["faV"]) != HARAKAT.sub("", str(ex.get("fa", ""))):
+            errs.append(f"{where}: ex.faV must be ex.fa plus vowel marks only")
+        if not ex.get("faV"):
+            warns.append(f"{where}: no ex.faV (vowel-marked example for the audio)")
+        if not has_audio(ex.get("faA")):
+            warns.append(f"{where}: no Farsi audio for the example (run python3 tools/make_audio.py)")
 
 
 def story_lookup(glossary, story, word):
@@ -136,9 +106,10 @@ def main():
     if os.path.exists(ALPHABETS):
         try:
             alpha = json.load(open(ALPHABETS, encoding="utf-8"))
-            for l in ("ja", "en", "fa", "zh"):
-                if not isinstance(alpha.get(l), dict) or not alpha[l].get("sections"):
-                    errs.append(f"alphabets.json: '{l}' missing")
+            if not isinstance(alpha.get("fa"), dict) or not alpha["fa"].get("sections"):
+                errs.append("alphabets.json: 'fa' missing")
+            for l in sorted(set(alpha) - {"fa"}):
+                errs.append(f"alphabets.json: '{l}' is not used any more (the site teaches Farsi only)")
             for sec in (alpha.get("fa") or {}).get("sections", []):
                 for c in sec.get("cells", []):
                     if c and not has_audio((c.get("ex") or {}).get("a")):
@@ -204,7 +175,7 @@ def main():
             if not e:
                 errs.append(f"{where}: key word '{k}' has no glossary entry")
             elif not e.get("key"):
-                errs.append(f"{where}: key word '{k}' needs a rich entry (\"key\": true, jaKanji, ex)")
+                errs.append(f"{where}: key word '{k}' needs a rich entry (\"key\": true and an ex example)")
         for f, k in (st.get("senses") or {}).items():
             if k not in entries:
                 errs.append(f"{where}: sense '{f}' -> '{k}': no such entry")

@@ -88,15 +88,23 @@ button,select,input,textarea{font:inherit;color:inherit}
 .badge{min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--hl);color:var(--on-hl);font:700 12px/21px var(--f-ui);text-align:center;font-variant-numeric:tabular-nums}
 .badge.bump{animation:bump .5s ease}
 @keyframes bump{40%{transform:scale(1.3)}}
-@media (max-width:599px){
+@media (max-width:719px){
   .top-in{flex-wrap:wrap;gap:0;min-height:0;padding-top:8px}
   .brand{flex:1 1 100%;padding-bottom:4px}
   .tabs{flex:1 1 100%;height:42px}
-  .tab{flex:1}
+  .tab{flex:1 1 auto;padding:0 3px;gap:4px;font-size:14px}
+  .tab[aria-selected="true"]::after{left:3px;right:3px}
+  .badge{min-width:18px;height:18px;padding:0 5px;border-radius:9px;font-size:11px;line-height:18px}
+}
+@media (max-width:370px){
+  .tab{font-size:13px}
+  .tab[aria-selected="true"]::after{bottom:0}
+  .tabs{overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
 }
 
 .main{max-width:40rem;margin:0 auto;padding-block:0 calc(56px + env(safe-area-inset-bottom,0px))}
-body.sheet-open #tab-today,body.sheet-open #tab-news,body.sheet-open #tab-dict{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
+body.sheet-open #tab-today,body.sheet-open #tab-news,body.sheet-open #tab-dict,body.sheet-open #tab-grammar{padding-bottom:calc(var(--sheet-h,0px) + 24px)}
 
 /* ---------- news ---------- */
 .news-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;padding-block:18px 2px}
@@ -380,6 +388,7 @@ body.sheet-open #tab-today,body.sheet-open #tab-news,body.sheet-open #tab-dict{p
 .sec-h h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:23px;line-height:1.15;letter-spacing:-.01em;white-space:nowrap}
 .sec-n{display:inline-grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:var(--ink);color:var(--paper);font:700 14px/1 var(--f-ui)}
 .sec-h .label{margin-left:auto;min-width:0;text-align:right}
+.g-h h3{white-space:normal}
 .sub-h{margin:20px 0 2px;font:650 12px/1.3 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--hl-ink)}
 .sub-h + .help{margin-top:2px}
 .tstory{padding-block:16px 20px;border-top:1px solid var(--rule)}
@@ -439,6 +448,91 @@ sup.vn{margin-left:1px;font:700 .6em/0 var(--f-ui);color:var(--hl-ink);vertical-
 .sheet-card{margin-top:34px;padding:18px;border-radius:16px;border:1px solid var(--rule);background:var(--surface);display:grid;gap:12px}
 .sheet-card h3{margin:0;font-family:var(--f-display);font-weight:650;font-size:21px;letter-spacing:-.01em}
 .sheet-card .primary .ic svg{width:19px;height:19px}
+
+/* ---------- Grammar tab: sentence patterns, each part of a sentence in its role's colour ---------- */
+.r-S{--rc:var(--t-world)}
+.r-O{--rc:var(--t-env)}
+.r-C{--rc:var(--t-sport)}
+.r-M{--rc:var(--t-politics)}
+.r-A{--rc:var(--ink-3)}
+.r-V{--rc:var(--learn)}
+.g-intro{margin-top:14px;padding:18px;border-radius:16px;background:var(--hl-wash);display:grid;gap:8px}
+.g-q{margin:0;font:650 13px/1.3 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--hl-ink)}
+.g-a{margin:0;font-family:var(--f-body);font-size:18px;line-height:1.55}
+.g-lead{margin:6px 0 0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.gs{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 6px;min-width:0;flex:1}
+.gc{display:inline-grid;justify-items:center;gap:1px;padding:3px 7px 5px;border:0;border-radius:9px;background:color-mix(in srgb,var(--rc) 9%,transparent);color:var(--ink);font:inherit;text-align:center;touch-action:manipulation}
+button.gc{cursor:pointer}
+@media (hover:hover){button.gc:hover{background:color-mix(in srgb,var(--rc) 17%,transparent)}}
+.gc.on{box-shadow:0 0 0 2px var(--rc)}
+.gc-l{font:700 9.5px/1.2 var(--f-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--rc);direction:ltr}
+.gc-t{padding:0 2px;border-bottom:3px solid var(--rc);font:600 21px/1.55 var(--f-fa)}
+.gc-g{font:500 12px/1.3 var(--f-ui);color:var(--ink-2);direction:ltr}
+.g-end{align-self:center;font:600 21px var(--f-fa)}
+.g-plain{font:600 23px/1.6 var(--f-fa)}
+.g-ex{display:grid;gap:5px;padding:14px 0;border-top:1px solid var(--rule)}
+.g-ex-top{display:flex;align-items:center;gap:6px}
+.g-r{margin:2px 0 0;font:500 13.5px/1.4 var(--f-ui);color:var(--ink-3)}
+.g-en{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 5px;font-size:15px;line-height:1.5}
+.ge{padding:0 4px;border-radius:4px;border-bottom:2px solid var(--rc);background:color-mix(in srgb,var(--rc) 8%,transparent)}
+.g-en-plain{margin:0;font-size:15px;color:var(--ink-2)}
+.g-note{margin:4px 0 0;padding:10px 12px;border-radius:10px;background:var(--tint);font-size:14px;line-height:1.5;color:var(--ink-2)}
+.g-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(16rem,100%),1fr));gap:8px;margin-top:12px}
+.g-leg{display:grid;gap:3px;padding:11px 13px;border-radius:12px;border:1px solid var(--rule);border-left:4px solid var(--rc);background:var(--surface)}
+.g-leg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.g-leg b{font:650 15px var(--f-ui);color:var(--rc)}
+.g-leg [lang="fa"]{font-size:18px;font-weight:600}
+.g-leg .rom{font-size:13px;color:var(--ink-3)}
+.g-leg p{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+.g-sum{list-style:none;margin:12px 0 0;padding:0;border-top:1px solid var(--rule)}
+.g-sum li{border-bottom:1px solid var(--rule)}
+.g-sum button{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:4px 12px;padding:10px 2px;border:0;background:none;color:var(--ink);text-align:left;cursor:pointer}
+.g-sum-rows{display:grid;gap:2px;min-width:0}
+.g-num{display:inline-grid;place-items:center;width:28px;height:28px;flex:none;border-radius:50%;background:var(--ink);color:var(--paper);font:700 14px/1 var(--f-ui)}
+.g-ord{display:grid;grid-template-columns:4.8em minmax(0,1fr);align-items:baseline;gap:2px 8px;font-size:14px}
+.g-seq{display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 6px;min-width:0}
+.g-pt{margin-left:-3px}
+.g-h .label{flex:none;white-space:nowrap}
+.g-role{font-weight:650;color:var(--rc)}
+.g-arrow{color:var(--ink-3);font-size:12px}
+.g-card{margin-top:16px;padding:18px 18px 8px;border:1px solid var(--rule);border-radius:16px;background:var(--surface);display:grid;gap:10px;scroll-margin-top:calc(var(--top-h) + 12px)}
+.g-card-head{display:flex;align-items:flex-start;gap:12px}
+.g-name{margin:2px 0 0;font:650 18px/1.3 var(--f-ui)}
+.g-pname{margin:3px 0 0;font-size:13.5px;color:var(--ink-3)}
+.g-pname [lang="fa"]{font-size:16px;font-weight:600;color:var(--ink-2)}
+.g-kind{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.g-order{display:grid;gap:3px;padding:10px 12px;border-radius:10px;background:var(--wash)}
+.g-card .g-note{margin-bottom:10px}
+.g-feat{margin-top:14px;padding:16px 18px 6px;border:1px solid var(--rule);border-radius:16px;background:var(--surface)}
+.g-feat h4{margin:0;font:650 16.5px/1.35 var(--f-ui)}
+.g-feat > p{margin:6px 0 4px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.g-table{width:100%;margin:2px 0 10px;border-collapse:collapse}
+.g-table caption{padding:6px 0;text-align:left;font:600 13px var(--f-ui);color:var(--ink-2)}
+.g-table td{padding:4px 6px;border-top:1px solid var(--rule);font-size:14px}
+.g-table td.fa{font:600 19px/1.5 var(--f-fa);text-align:right}
+.g-table td.r{color:var(--ink-3)}
+.g-table td.p{width:40px;padding:0}
+.gq{margin-top:14px;padding:16px;border:1px solid var(--rule);border-radius:16px;background:var(--surface);display:grid;gap:10px}
+.gq-top{display:flex;align-items:center;gap:10px}
+.gq-top .g-num{width:24px;height:24px;font-size:12.5px}
+.gq-en{margin:0;font:600 16px/1.4 var(--f-ui)}
+.gq-build{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:60px;padding:8px;border:1.5px dashed var(--ring);border-radius:12px}
+.gq-ph{font:500 13.5px var(--f-ui);color:var(--ink-3);direction:ltr}
+.gq-pool{display:flex;flex-wrap:wrap;gap:6px;min-height:8px}
+.gq-tile{display:inline-grid;justify-items:center;gap:0;padding:5px 11px 6px;border:1px solid var(--rule);border-radius:10px;background:var(--card);color:var(--ink);cursor:pointer;touch-action:manipulation}
+.gq-tile b{font:600 19px/1.45 var(--f-fa)}
+.gq-tile small{font:500 11.5px/1.2 var(--f-ui);color:var(--ink-3);direction:ltr}
+.gq-tile:hover{border-color:var(--ink-3)}
+.gq-tile:disabled{cursor:default;opacity:1}
+.gq.right .gq-build{border:1.5px solid var(--due);background:color-mix(in srgb,var(--due) 7%,transparent)}
+.gq.wrong .gq-build{border:1.5px solid var(--learn);background:color-mix(in srgb,var(--learn) 6%,transparent)}
+.gq-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.gq-verdict{margin:0;font:600 15px/1.45 var(--f-ui)}
+.gq-verdict.ok{color:var(--due)}
+.gq-verdict.no{color:var(--learn)}
+.gq .g-ex{padding-bottom:0}
+.g-score{font:600 13px var(--f-ui);color:var(--ink-2)}
+.g-src{margin-top:26px}
 
 /* ---------- the printed practice sheet: built when someone prints, shown only on paper ---------- */
 #printSheet{display:none}
@@ -590,6 +684,7 @@ sup.vn{margin-left:1px;font:700 .6em/0 var(--f-ui);color:var(--hl-ink);vertical-
       <button class="tab" role="tab" id="tabbtn-news" data-tab="news" aria-controls="tab-news" aria-selected="false" tabindex="-1" type="button">News</button>
       <button class="tab" role="tab" id="tabbtn-words" data-tab="words" aria-controls="tab-words" aria-selected="false" tabindex="-1" type="button">Words <span class="badge" id="badge" aria-hidden="true" hidden>0</span></button>
       <button class="tab" role="tab" id="tabbtn-dict" data-tab="dict" aria-controls="tab-dict" aria-selected="false" tabindex="-1" type="button">Dictionary</button>
+      <button class="tab" role="tab" id="tabbtn-grammar" data-tab="grammar" aria-controls="tab-grammar" aria-selected="false" tabindex="-1" type="button">Grammar</button>
     </div>
   </div>
 </header>
@@ -707,6 +802,13 @@ sup.vn{margin-left:1px;font:700 .6em/0 var(--f-ui);color:var(--hl-ink);vertical-
       </div>
     </div>
   </section>
+
+  <section id="tab-grammar" role="tabpanel" aria-labelledby="tabbtn-grammar" hidden>
+    <div class="dict-head">
+      <h2 class="abc-title">Grammar</h2>
+      <div id="gramBody"></div>
+    </div>
+  </section>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -741,6 +843,7 @@ sup.vn{margin-left:1px;font:700 .6em/0 var(--f-ui);color:var(--hl-ink);vertical-
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="sr" id="srLive" aria-live="polite"></div>
 
 <div id="printSheet" aria-hidden="true"></div>
 
@@ -1226,7 +1329,13 @@ function nextCard(now, avoid) {
     || null;
 }
 
-/* ---------- toast ---------- */
+/* ---------- toast, and a quiet message for screen readers ---------- */
+function announce(msg) {
+  const el = $("#srLive");
+  if (!el) return;
+  el.textContent = "";
+  setTimeout(() => { el.textContent = msg; }, 60);
+}
 let toastTimer = 0;
 function hideToast() { $("#toast").hidden = true; }
 function toast(msg, opt) {
@@ -1421,7 +1530,7 @@ function setSheetH() {
   const sh = $("#sheet");
   document.documentElement.style.setProperty("--sheet-h", (sh.hidden ? 0 : $(".sheet-in").offsetHeight) + "px");
 }
-function clearSel() { $$(".w.sel, .tile.on, .drow.on").forEach(w => w.classList.remove("sel", "on")); }
+function clearSel() { $$(".w.sel, .tile.on, .drow.on, .gc.on").forEach(w => w.classList.remove("sel", "on")); }
 function openSheet(title, context) {
   $("#shPhrase").textContent = title;
   const ctx = $("#shCtx");
@@ -1546,7 +1655,7 @@ function deleteCard(c) {
   toast("Deleted " + c.w, { action: "Undo", fn: () => { if (ACCT !== acct) return; untomb(l, c.id); S.decks[l].set(c.id, Object.assign({}, c, { mod: Date.now() })); saveDeck(l); cardsChanged(); } });
 }
 function cardsChanged(added) {
-  const prev = +$("#badge").textContent || 0;
+  const prev = +$("#badge").dataset.n || 0;
   const s = renderCounts();
   if (added && s.ready > prev) { const b = $("#badge"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
   markSaved();
@@ -1561,7 +1670,8 @@ function sortedCards() { return Array.from(deck().values()).sort((a, b) => b.add
 function renderCounts() {
   const s = stats(Date.now());
   const badge = $("#badge");
-  badge.textContent = s.ready;
+  badge.textContent = s.ready > 99 ? "99+" : String(s.ready);
+  badge.dataset.n = String(s.ready);
   badge.hidden = s.ready === 0;
   $("#tabbtn-words").setAttribute("aria-label", s.ready ? "Words, " + s.ready + " to study" : "Words");
   $("#cNew").textContent = s.fresh;
@@ -3459,6 +3569,225 @@ function showLetter() {
   setSheetH();
 }
 
+/* ---------- Grammar tab: the basic sentence patterns of Farsi (data/grammar.json) ---------- */
+const GR = { state: "idle", data: null, quiz: {} };
+const ROLE_SHORT = { S: "subject", O: "object", C: "complement", M: "prep. phrase", A: "adverbial", V: "verb" };
+const ROLE_LONG = { S: "subject", O: "object", C: "complement", M: "preposition phrase", A: "adverbial", V: "verb" };
+async function loadGrammar() {
+  if (GR.state === "loading" || GR.state === "ready") return;
+  GR.state = "loading"; renderGrammar();
+  try {
+    const r = await fetch("data/grammar.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error("http");
+    GR.data = await r.json();
+    GR.state = Array.isArray(GR.data && GR.data.patterns) && GR.data.patterns.length ? "ready" : "error";
+  } catch (e) { GR.state = "error"; }
+  renderGrammar();
+}
+/* Persian inside English text, set in the Persian font and kept right-to-left (an affix's hyphen stays with it: ن‑, ‑ی). */
+const FA_RUN = /‑?[؀-ۿ](?:[؀-ۿ‌\s]*[؀-ۿ])?‑?/g;
+function withFa(text) {
+  const f = document.createDocumentFragment();
+  const re = new RegExp(FA_RUN.source, "g");
+  let last = 0, m;
+  while ((m = re.exec(text))) {
+    if (m.index > last) f.append(text.slice(last, m.index));
+    f.append(h("span", { lang: "fa", dir: "rtl", text: m[0] }));
+    last = re.lastIndex;
+  }
+  if (last < text.length) f.append(text.slice(last));
+  return f;
+}
+/* One part of a Farsi sentence: its role, the Farsi, a word-by-word gloss. Tapping opens the word in the dictionary. */
+function gChunk(p) {
+  const [k, t, r, g, d] = p;
+  const el = h(d ? "button" : "span", { class: "gc r-" + k, type: d ? "button" : null, title: ROLE_LONG[k] + " · " + r },
+    h("span", { class: "gc-l", text: ROLE_SHORT[k] }), h("span", { class: "gc-t", lang: "fa", text: t }), h("span", { class: "gc-g", text: g }));
+  if (d) el.addEventListener("click", () => {
+    if (DICT.state !== "ready") { toast("The dictionary is still loading. Try again in a moment."); loadDict(); return; }
+    const e = DICT.byWord.get(normFa(d)) || dictFind(t);
+    if (!e) return;
+    openDictSheet(e, el);
+    el.classList.add("on");
+  });
+  return el;
+}
+/* A Farsi sentence part by part (right to left), its transliteration, and the English with the same colours. */
+function gSentence(s) {
+  const box = h("div", { class: "g-ex" });
+  let main;
+  if (Array.isArray(s.p) && s.p.length) {
+    main = h("div", { class: "gs", dir: "rtl" });       // lang="fa" sits on the Persian words; the glosses are English
+    for (const p of s.p) main.append(gChunk(p));
+    const end = /[.؟?!]$/.exec(s.fa);
+    if (end) main.append(h("span", { class: "g-end", "aria-hidden": "true", text: end[0] }));
+  } else main = h("div", { class: "gs g-plain", dir: "rtl", lang: "fa", text: s.fa });
+  box.append(h("div", { class: "g-ex-top" }, main, speakBtn(s.fa, s.a || "", "Play " + s.r)), h("p", { class: "g-r", text: s.r }));
+  if (Array.isArray(s.e) && s.e.length) {
+    const en = h("p", { class: "g-en" });
+    s.e.forEach(([k, t], i) => { if (i) en.append(" "); en.append(h("span", { class: "ge r-" + k, title: ROLE_LONG[k], text: t })); });
+    const end = /[.?!]$/.exec(s.en);
+    if (end) en.append(h("span", { class: "g-pt", text: end[0] }));
+    box.append(en);
+  } else box.append(h("p", { class: "g-en-plain", text: s.en }));
+  return box;
+}
+function gOrder(label, roles) {
+  const seq = h("span", { class: "g-seq" });
+  roles.forEach((k, i) => {
+    if (i) seq.append(h("span", { class: "g-arrow", "aria-hidden": "true", text: "→" }));
+    seq.append(h("span", { class: "g-role r-" + k, title: ROLE_LONG[k], text: ROLE_SHORT[k] }));
+  });
+  return h("div", { class: "g-ord" }, h("span", { class: "label", text: label }), seq);
+}
+function gPattern(pt) {
+  const card = h("section", { class: "g-card", id: "pattern-" + pt.n, tabindex: "-1", "aria-label": "Pattern " + pt.n + ": " + pt.name });
+  card.append(h("div", { class: "g-card-head" }, h("span", { class: "g-num", "aria-hidden": "true", text: String(pt.n) }),
+    h("div", null, h("h4", { class: "g-name", text: pt.name }), h("p", { class: "g-pname" }, h("span", { lang: "fa", dir: "rtl", text: pt.fa }), " · " + pt.r),
+      h("p", { class: "g-kind" }, withFa(pt.kind || "")))));
+  card.append(h("div", { class: "g-order" }, gOrder("Farsi", pt.order || []), gOrder("English", pt.en || [])));
+  for (const s of pt.ex || []) card.append(gSentence(s));
+  if (pt.note) card.append(h("p", { class: "g-note" }, withFa(pt.note)));
+  return card;
+}
+function gSummary(pats) {
+  const ul = h("ul", { class: "g-sum" });
+  for (const pt of pats) {
+    const b = h("button", { type: "button", "aria-label": "Pattern " + pt.n + ": " + pt.name + ". Go to the examples" },
+      h("span", { class: "g-num", "aria-hidden": "true", text: String(pt.n) }), h("span", { class: "g-sum-rows" }, gOrder("Farsi", pt.order || []), gOrder("English", pt.en || [])));
+    b.addEventListener("click", () => {
+      const el = document.getElementById("pattern-" + pt.n);
+      if (!el) return;
+      el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      try { el.focus({ preventScroll: true }); } catch (e) {}          // keyboard and screen-reader users land on the card too
+    });
+    ul.append(h("li", null, b));
+  }
+  return ul;
+}
+function gLegend(roles) {
+  const box = h("div", { class: "g-legend" });
+  for (const r of roles) box.append(h("div", { class: "g-leg r-" + r.k },
+    h("div", { class: "g-leg-top" }, h("b", { text: r.en }), h("span", { lang: "fa", dir: "rtl", text: r.fa }), h("span", { class: "rom", text: r.r })), h("p", null, withFa(r.about || ""))));
+  return box;
+}
+function gFeature(f) {
+  const box = h("section", { class: "g-feat" }, h("h4", null, withFa(f.title)), h("p", null, withFa(f.text || "")));
+  for (const s of f.ex || []) box.append(gSentence(s));
+  if (f.table && Array.isArray(f.table.rows)) {
+    const tb = h("tbody");
+    for (const r of f.table.rows) tb.append(h("tr", null, h("td", { class: "p" }, speakBtn(r.fa, r.a || "", "Play " + r.r)),
+      h("td", { class: "fa", lang: "fa", dir: "rtl", text: r.fa }), h("td", { class: "r", text: r.r }), h("td", { text: r.en })));
+    box.append(h("table", { class: "g-table" }, h("caption", null, withFa(f.table.title || "")), tb));
+  }
+  return box;
+}
+/* Practice: tap the parts of a sentence into Farsi order. Accepts the usual order and the listed alternatives. */
+function gPractice(q, i) {
+  const s = q.s, n = s.p.length;
+  const answers = [s.p.map((_, j) => j)].concat(Array.isArray(q.alt) ? q.alt : []);
+  const isAnswer = o => answers.some(a => a.length === o.length && a.every((v, j) => v === o[j]));
+  let st = GR.quiz[i];
+  if (!st) {
+    let order, tries = 0;
+    do { order = shuffled(s.p.map((_, j) => j)); } while (n > 1 && isAnswer(order) && ++tries < 30);   // don't start out solved
+    st = GR.quiz[i] = { order, picked: [], result: "" };
+  }
+  const card = h("section", { class: "gq" + (st.result ? " " + st.result : "") });
+  // redraw the card and put keyboard focus on the first of the given places that exists
+  const redraw = (...sels) => {
+    const c = gPractice(q, i);
+    card.replaceWith(c);
+    gScore();
+    const f = sels.map(x => c.querySelector(x)).find(Boolean);
+    if (f) try { f.focus({ preventScroll: true }); } catch (e) {}
+  };
+  card.append(h("div", { class: "gq-top" }, h("span", { class: "g-num", "aria-hidden": "true", text: String(i + 1) }), h("p", { class: "gq-en", text: s.en })));
+  const tile = (j, placed) => {
+    const p = s.p[j];
+    const b = h("button", { class: "gq-tile", type: "button", "aria-label": p[1] + " " + p[2] + (placed ? ", tap to take it back" : "") }, h("b", { lang: "fa", text: p[1] }), h("small", { text: p[2] }));
+    b.disabled = !!st.result;
+    b.addEventListener("click", () => {
+      if (st.result) return;
+      if (placed) st.picked.splice(st.picked.indexOf(j), 1); else st.picked.push(j);
+      if (st.picked.length === n) redraw(".gq-check"); else redraw(".gq-pool .gq-tile", ".gq-build .gq-tile");
+    });
+    return b;
+  };
+  const build = h("div", { class: "gq-build", dir: "rtl", role: "group", "aria-label": "Your sentence" });
+  for (const j of st.picked) build.append(tile(j, true));
+  if (!st.picked.length) build.append(h("span", { class: "gq-ph", text: "Tap the words in Farsi order" }));
+  const pool = h("div", { class: "gq-pool", dir: "rtl", role: "group", "aria-label": "Words to use" });
+  for (const j of st.order) if (!st.picked.includes(j)) pool.append(tile(j, false));
+  card.append(build, pool);
+  const actions = h("div", { class: "gq-actions" });
+  if (!st.result) {
+    const check = h("button", { class: "primary gq-check", type: "button", text: "Check" });
+    check.disabled = st.picked.length < n;
+    check.addEventListener("click", () => {
+      st.result = isAnswer(st.picked) ? "right" : "wrong";
+      if (st.result === "right") say(s.fa, s.a || "");
+      announce(st.result === "right" ? "Right! " + s.r : "Not quite. The usual order is: " + s.r);
+      redraw(".gq-again");
+    });
+    actions.append(check);
+    if (st.picked.length) {
+      const clear = h("button", { class: "link-btn", type: "button", text: "Start over" });
+      clear.addEventListener("click", () => { st.picked = []; redraw(".gq-pool .gq-tile"); });
+      actions.append(clear);
+    }
+  } else {
+    actions.append(h("p", { class: "gq-verdict " + (st.result === "right" ? "ok" : "no"),
+      text: st.result === "right" ? "Right!" : "Not quite. The usual order is:" }));
+    const again = h("button", { class: "ghost sm gq-again", type: "button", text: st.result === "right" ? "Do it again" : "Try again" });
+    again.addEventListener("click", () => { GR.quiz[i] = null; redraw(".gq-pool .gq-tile"); });
+    actions.append(again);
+  }
+  card.append(actions);
+  if (st.result) card.append(gSentence(s));
+  return card;
+}
+function gScore() {
+  const el = $("#gScore");
+  if (!el || !GR.data) return;
+  const all = GR.data.practice.length, done = Object.values(GR.quiz).filter(x => x && x.result);
+  el.textContent = done.length ? done.filter(x => x.result === "right").length + " of " + all + " right" : all + " sentences";
+}
+function renderGrammar() {
+  const box = $("#gramBody");
+  if (!box) return;
+  box.replaceChildren();
+  if (GR.state !== "ready") {
+    if (GR.state === "error") {
+      const retry = h("button", { class: "ghost", type: "button", text: "Try again" });
+      retry.addEventListener("click", () => { GR.state = "idle"; loadGrammar(); });
+      box.append(h("div", { class: "state" }, h("h2", { text: "The grammar didn't load" }), h("p", { text: "Check your connection, then try again." }), retry));
+    } else box.append(h("div", { class: "sk-story", "aria-hidden": "true" }, h("div", { class: "sk t2" }), h("div", { class: "sk" }), h("div", { class: "sk p2" })));
+    return;
+  }
+  const G = GR.data;
+  const head = (t, note, id) => h("div", { class: "sec-h g-h" }, h("h3", { text: t }), note != null ? h("span", { class: "label", id, text: note }) : null);
+  box.append(h("div", { class: "g-intro" }, h("p", { class: "g-q", text: "Does Farsi have basic sentence patterns like English?" }), h("p", { class: "g-a" }, withFa(G.intro || ""))));
+  if (G.compare && G.compare.s) box.append(head("The big difference"), gSentence(G.compare.s), G.compare.note ? h("p", { class: "g-note" }, withFa(G.compare.note)) : null);
+  if (Array.isArray(G.roles)) box.append(head("The parts of a sentence"), gLegend(G.roles));
+  box.append(head("The " + G.patterns.length + " basic patterns"),
+    h("p", { class: "g-lead", text: "Tap a pattern to see its examples. In the examples, tap any part to open its word in the dictionary, or play the sentence." }), gSummary(G.patterns));
+  for (const pt of G.patterns) box.append(gPattern(pt));
+  const D = G.detail;
+  if (D && Array.isArray(D.steps)) {
+    box.append(head(D.title || "Adding detail"), h("p", { class: "g-lead" }, withFa(D.text || "")));
+    for (const s of D.steps) box.append(gSentence(s));
+    if (D.note) box.append(h("p", { class: "g-note" }, withFa(D.note)));
+  }
+  if (Array.isArray(G.features) && G.features.length) { box.append(head("Good to know")); for (const f of G.features) box.append(gFeature(f)); }
+  if (Array.isArray(G.practice) && G.practice.length) {
+    box.append(head("Practice: put the words in order", "", "gScore"), h("p", { class: "g-lead", text: "Tap the Farsi words in the order a Persian speaker would say them, then check. The English tells you what the sentence means." }));
+    G.practice.forEach((q, i) => box.append(gPractice(q, i)));
+    gScore();
+  }
+  if (G.source) box.append(h("p", { class: "help g-src" }, withFa(G.source)));
+}
+
 /* ---------- study ---------- */
 const ST = { open: false, id: null, shown: false, done: 0, lastFocus: null };
 function openStudy() {
@@ -3585,8 +3914,8 @@ function renderDemo() {
   box.append(h("span", { class: "demo-w", text: e.t }), h("span", { class: "demo-arrow", text: "→" }));
   addKid(box, [h("span", { class: "demo-t", lang: "fa", dir: "rtl", text: v.w }), v.r ? h("span", { class: "demo-r", text: v.r }) : null]);
 }
-const TABS = ["today", "news", "words", "dict"];
-const scrollMem = { today: 0, news: 0, words: 0, dict: 0 };
+const TABS = ["today", "news", "words", "dict", "grammar"];
+const scrollMem = { today: 0, news: 0, words: 0, dict: 0, grammar: 0 };
 function setTab(t, save) {
   if (t === "abc") { t = "dict"; DV.view = "abc"; }
   if (!TABS.includes(t)) t = "today";
@@ -3594,12 +3923,15 @@ function setTab(t, save) {
   if (changed) scrollMem[S.tab] = window.scrollY;
   S.tab = t;
   $$(".tab").forEach(b => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; });
+  const bar = $(".tabs"), cur = $("#tabbtn-" + t);
+  if (bar && cur && bar.scrollWidth > bar.clientWidth) bar.scrollLeft += cur.getBoundingClientRect().left - bar.getBoundingClientRect().left - (bar.clientWidth - cur.offsetWidth) / 2;
   for (const x of TABS) $("#tab-" + x).hidden = t !== x;
   if (save !== false) STORE.set("tab", t);
   if (changed && !$("#sheet").hidden) closeSheet();
   if (t === "today") renderToday();
   if (t === "words") renderWords();
   if (t === "dict") { fillDictFilters(); renderDict(); }
+  if (t === "grammar" && (changed || GR.state !== "ready")) { renderGrammar(); loadGrammar(); }
   if (changed) window.scrollTo(0, scrollMem[t] || 0);
 }
 function onKey(e) {

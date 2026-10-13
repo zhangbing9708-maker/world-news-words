@@ -2,14 +2,14 @@
 
 The site teaches Farsi from English news. It reads `data/news.json` (the stories), `data/glossary.json`
 (every tappable word, in English and Farsi), `data/dict.json` and `data/dict-examples.json` (the frequency
-dictionary: ranks, categories, examples), `data/alphabets.json` (the Persian alphabet on the Dictionary tab)
-and `data/audio/fa/*.mp3` (recorded Farsi audio).
+dictionary: ranks, categories, examples), `data/alphabets.json` (the Persian alphabet on the Dictionary tab),
+`data/grammar.json` (the Grammar tab's sentence patterns) and `data/audio/fa/*.mp3` (recorded Farsi audio).
 
 After any change to the data:
 
 1. `python3 tools/check_data.py --missing` lists story words that still need a glossary entry.
-2. `python3 tools/make_audio.py` makes Farsi audio for every new entry (glossary, alphabet and dictionary)
-   and writes the audio ids back into the JSON (it downloads an open-source Persian voice from GitHub the
+2. `python3 tools/make_audio.py` makes Farsi audio for every new entry (glossary, alphabet, dictionary and
+   grammar) and writes the audio ids back into the JSON (it downloads an open-source Persian voice from GitHub the
    first time). Commit the new `data/audio/fa/*.mp3` files together with the JSON.
 3. `python3 tools/check_data.py` must print `OK` before anything is committed. Warnings (for example a
    missing audio file) do not block publishing, but should be fixed.
@@ -137,6 +137,26 @@ Reference data for the alphabet view on the Dictionary tab: `fa` holds the 32 Pe
 vowels, as `name`, `intro`, `sections` (`id`, `title`, `note`, `cols`, `cells`, with `null` for an empty slot)
 and `tips`. Example words carry `v` (vowel-marked, for the voice) and `a` (audio id from `make_audio.py`).
 This file rarely changes; the daily update leaves it alone.
+
+## grammar.json
+
+The Grammar tab: the basic sentence patterns of Persian school grammar (two-, three- and four-part sentences)
+next to their English counterparts. It is written by hand and kept indented for editing; the weekly news
+update leaves it alone.
+
+- `intro`, `roles` (`k`, `en`, `fa`, `r`, `about`), `compare` (`s`, `note`), `patterns` (`n`, `name`, `fa`, `r`,
+  `kind`, `order` and `en`: the roles in Farsi and in English order, `note`, `ex`), `detail` (`title`, `text`,
+  `steps`, `note`), `features` (`title`, `text`, `ex`, optional `table` with `title` and `rows`), `practice`
+  (`pattern`, `s`, optional `alt`: other accepted orders as lists of part indexes) and `source`.
+- Roles: `S` subject (نهاد), `O` object (مفعول), `C` complement (مسند), `M` preposition phrase the verb needs
+  (متمم), `A` adverbial (قید), `V` verb (فعل).
+- A sentence: `fa` (plain Persian, with ZWNJ), `faV` (the same letters with vowel marks, for the voice; no kasra
+  before a final silent ه), `r` (transliteration in the site's style), `en`, `p` (parts in Farsi order:
+  `[role, Persian, transliteration, English gloss, dictionary headword]`; joined with spaces they must spell
+  `fa` without its final full stop), `e` (English parts `[role, text]`) and `a` (audio id). Phrases and the
+  rows of a table have no parts.
+- After changing any `faV`, run `python3 tools/make_audio.py`: `tools/check_data.py` fails while a recording
+  is out of date. `make_audio.py` rewrites the file only when an audio id changes.
 
 ## Older data
 

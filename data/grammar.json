@@ -1,0 +1,2050 @@
+{
+ "title": "Sentence patterns",
+ "intro": "Yes. Persian grammar books sort simple sentences by how many parts the verb needs: two, three or four. That gives seven basic patterns (one with two parts, three with three, three with four), close to the five to seven that English grammars list. The parts are the same as in English. The big difference is the order: Farsi puts the verb last.",
+ "roles": [
+  {
+   "k": "S",
+   "en": "subject",
+   "fa": "نهاد",
+   "r": "nahād",
+   "about": "who or what the sentence is about. Often left out, because the verb's ending already says who."
+  },
+  {
+   "k": "O",
+   "en": "object",
+   "fa": "مفعول",
+   "r": "maf'ul",
+   "about": "what the action is done to. It takes را when it is something specific."
+  },
+  {
+   "k": "C",
+   "en": "complement",
+   "fa": "مسند",
+   "r": "mosnad",
+   "about": "what the subject or object is or becomes: cold, a teacher, happy."
+  },
+  {
+   "k": "M",
+   "en": "preposition phrase",
+   "fa": "متمم",
+   "r": "motammam",
+   "about": "a phrase with به، از، با، برای… that the verb needs, like English 'listen to'."
+  },
+  {
+   "k": "A",
+   "en": "adverbial",
+   "fa": "قید",
+   "r": "gheyd",
+   "about": "extra detail: when, where, how. You can leave it out."
+  },
+  {
+   "k": "V",
+   "en": "verb",
+   "fa": "فعل",
+   "r": "fe'l",
+   "about": "usually last (in everyday speech a destination can follow it: رفتم خونه 'I went home'). Its ending shows the person: رفتم I went, رفتیم we went."
+  }
+ ],
+ "compare": {
+  "s": {
+   "fa": "علی کتاب را می‌خواند.",
+   "faV": "عَلی کِتاب را می‌خوانَد.",
+   "r": "ali ketāb rā mi-khānad.",
+   "en": "Ali is reading the book.",
+   "p": [
+    [
+     "S",
+     "علی",
+     "ali",
+     "Ali",
+     "علی"
+    ],
+    [
+     "O",
+     "کتاب را",
+     "ketāb rā",
+     "the book",
+     "کتاب"
+    ],
+    [
+     "V",
+     "می‌خواند",
+     "mi-khānad",
+     "is reading",
+     "خواندن"
+    ]
+   ],
+   "e": [
+    [
+     "S",
+     "Ali"
+    ],
+    [
+     "V",
+     "is reading"
+    ],
+    [
+     "O",
+     "the book"
+    ]
+   ],
+   "a": "a79dbd159d01"
+  },
+  "note": "English goes subject, verb, object. Farsi goes subject, object, verb, and the object takes را because it is one particular book."
+ },
+ "patterns": [
+  {
+   "n": 1,
+   "name": "Subject + Verb",
+   "fa": "جمله‌ی دوجزئی",
+   "r": "jomle-ye do-joz'i",
+   "kind": "two parts · a verb that needs nothing more (فعل ناگذر)",
+   "order": [
+    "S",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V"
+   ],
+   "note": "The simplest sentence. Because the verb's ending shows the person, the verb alone can be a whole sentence: رفتیم means 'we went'.",
+   "ex": [
+    {
+     "fa": "بچه خوابید.",
+     "faV": "بَچّه خوابید.",
+     "r": "bacche khābid.",
+     "en": "The child slept.",
+     "p": [
+      [
+       "S",
+       "بچه",
+       "bacche",
+       "the child",
+       "بچه"
+      ],
+      [
+       "V",
+       "خوابید",
+       "khābid",
+       "slept",
+       "خوابیدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The child"
+      ],
+      [
+       "V",
+       "slept"
+      ]
+     ],
+     "a": "71960d9ef09e"
+    },
+    {
+     "fa": "قطار رسید.",
+     "faV": "قَطار رِسید.",
+     "r": "ghatār resid.",
+     "en": "The train arrived.",
+     "p": [
+      [
+       "S",
+       "قطار",
+       "ghatār",
+       "the train",
+       "قطار"
+      ],
+      [
+       "V",
+       "رسید",
+       "resid",
+       "arrived",
+       "رسیدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The train"
+      ],
+      [
+       "V",
+       "arrived"
+      ]
+     ],
+     "a": "eef52b70ae97"
+    },
+    {
+     "fa": "رفتیم.",
+     "faV": "رَفتیم.",
+     "r": "raftim.",
+     "en": "We went.",
+     "p": [
+      [
+       "V",
+       "رفتیم",
+       "raftim",
+       "(we) went",
+       "رفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "We"
+      ],
+      [
+       "V",
+       "went"
+      ]
+     ],
+     "a": "64e78c9e9311"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "name": "Subject + Object + Verb",
+   "fa": "جمله‌ی سه‌جزئی با مفعول",
+   "r": "jomle-ye se-joz'i bā maf'ul",
+   "kind": "three parts · a verb with an object",
+   "order": [
+    "S",
+    "O",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V",
+    "O"
+   ],
+   "note": "A specific object (the book, this letter, Ali) takes را after it. A general one doesn't: چای می‌خورد 'drinks tea'.",
+   "ex": [
+    {
+     "fa": "علی کتاب را خواند.",
+     "faV": "عَلی کِتاب را خوانْد.",
+     "r": "ali ketāb rā khānd.",
+     "en": "Ali read the book.",
+     "p": [
+      [
+       "S",
+       "علی",
+       "ali",
+       "Ali",
+       "علی"
+      ],
+      [
+       "O",
+       "کتاب را",
+       "ketāb rā",
+       "the book",
+       "کتاب"
+      ],
+      [
+       "V",
+       "خواند",
+       "khānd",
+       "read",
+       "خواندن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "Ali"
+      ],
+      [
+       "V",
+       "read"
+      ],
+      [
+       "O",
+       "the book"
+      ]
+     ],
+     "a": "7b4bc0f271b9"
+    },
+    {
+     "fa": "مریم چای می‌خورد.",
+     "faV": "مَریَم چای می‌خورَد.",
+     "r": "maryam chāy mi-khorad.",
+     "en": "Maryam drinks tea.",
+     "p": [
+      [
+       "S",
+       "مریم",
+       "maryam",
+       "Maryam",
+       "مریم"
+      ],
+      [
+       "O",
+       "چای",
+       "chāy",
+       "tea",
+       "چای"
+      ],
+      [
+       "V",
+       "می‌خورد",
+       "mi-khorad",
+       "drinks",
+       "خوردن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "Maryam"
+      ],
+      [
+       "V",
+       "drinks"
+      ],
+      [
+       "O",
+       "tea"
+      ]
+     ],
+     "a": "3dc375e63fd4"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "name": "Subject + Complement + Linking verb",
+   "fa": "جمله‌ی سه‌جزئی با مسند",
+   "r": "jomle-ye se-joz'i bā mosnad",
+   "kind": "three parts · a linking verb: است is, بود was, شد became",
+   "order": [
+    "S",
+    "C",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V",
+    "C"
+   ],
+   "note": "The linking verb also has short endings that join the word before it: خسته‌ام 'I'm tired', خوبی؟ 'are you well?'. In speech است itself often shrinks to ‑e: سرده 'it's cold'. Its negative is نیست 'is not'.",
+   "ex": [
+    {
+     "fa": "هوا سرد است.",
+     "faV": "هَوا سَرد اَست.",
+     "r": "havā sard ast.",
+     "en": "The weather is cold.",
+     "p": [
+      [
+       "S",
+       "هوا",
+       "havā",
+       "the weather",
+       "هوا"
+      ],
+      [
+       "C",
+       "سرد",
+       "sard",
+       "cold",
+       "سرد"
+      ],
+      [
+       "V",
+       "است",
+       "ast",
+       "is",
+       "بودن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The weather"
+      ],
+      [
+       "V",
+       "is"
+      ],
+      [
+       "C",
+       "cold"
+      ]
+     ],
+     "a": "16387bf74b97"
+    },
+    {
+     "fa": "پدرم معلم شد.",
+     "faV": "پِدَرَم مُعَلِّم شُد.",
+     "r": "pedaram mo'allem shod.",
+     "en": "My father became a teacher.",
+     "p": [
+      [
+       "S",
+       "پدرم",
+       "pedaram",
+       "my father",
+       "پدر"
+      ],
+      [
+       "C",
+       "معلم",
+       "mo'allem",
+       "a teacher",
+       "معلم"
+      ],
+      [
+       "V",
+       "شد",
+       "shod",
+       "became",
+       "شدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "My father"
+      ],
+      [
+       "V",
+       "became"
+      ],
+      [
+       "C",
+       "a teacher"
+      ]
+     ],
+     "a": "267f8ea1f940"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "name": "Subject + Preposition phrase + Verb",
+   "fa": "جمله‌ی سه‌جزئی با متمم",
+   "r": "jomle-ye se-joz'i bā motammam",
+   "kind": "three parts · a verb that needs a preposition",
+   "order": [
+    "S",
+    "M",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V",
+    "M"
+   ],
+   "note": "Some verbs come with their own preposition, as English 'listen to' does: ترسیدن از 'be afraid of', گوش دادن به 'listen to', نگاه کردن به 'look at', صحبت کردن با 'talk with'.",
+   "ex": [
+    {
+     "fa": "بچه از سگ می‌ترسد.",
+     "faV": "بَچّه اَز سَگ می‌تَرسَد.",
+     "r": "bacche az sag mi-tarsad.",
+     "en": "The child is afraid of dogs.",
+     "p": [
+      [
+       "S",
+       "بچه",
+       "bacche",
+       "the child",
+       "بچه"
+      ],
+      [
+       "M",
+       "از سگ",
+       "az sag",
+       "of dogs",
+       "سگ"
+      ],
+      [
+       "V",
+       "می‌ترسد",
+       "mi-tarsad",
+       "is afraid",
+       "ترسیدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The child"
+      ],
+      [
+       "V",
+       "is afraid"
+      ],
+      [
+       "M",
+       "of dogs"
+      ]
+     ],
+     "a": "74ad2079c27c"
+    },
+    {
+     "fa": "ما به موسیقی گوش دادیم.",
+     "faV": "ما به موسیقی گوش دادیم.",
+     "r": "mā be musighi gush dādim.",
+     "en": "We listened to music.",
+     "p": [
+      [
+       "S",
+       "ما",
+       "mā",
+       "we",
+       "ما"
+      ],
+      [
+       "M",
+       "به موسیقی",
+       "be musighi",
+       "to music",
+       "موسیقی"
+      ],
+      [
+       "V",
+       "گوش دادیم",
+       "gush dādim",
+       "listened",
+       "گوش دادن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "We"
+      ],
+      [
+       "V",
+       "listened"
+      ],
+      [
+       "M",
+       "to music"
+      ]
+     ],
+     "a": "68b4425dbccc"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "name": "Subject + Object + Preposition phrase + Verb",
+   "fa": "جمله‌ی چهارجزئی با مفعول و متمم",
+   "r": "jomle-ye chahār-joz'i bā maf'ul va motammam",
+   "kind": "four parts · giving, sending, telling",
+   "order": [
+    "S",
+    "O",
+    "M",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V",
+    "O",
+    "M"
+   ],
+   "note": "The one who receives comes with به 'to' or برای 'for'. An object with را usually comes first; a general object moves next to the verb: علی به مریم کتاب داد 'Ali gave Maryam a book'.",
+   "ex": [
+    {
+     "fa": "علی کتاب را به مریم داد.",
+     "faV": "عَلی کِتاب را به مَریَم داد.",
+     "r": "ali ketāb rā be maryam dād.",
+     "en": "Ali gave the book to Maryam.",
+     "p": [
+      [
+       "S",
+       "علی",
+       "ali",
+       "Ali",
+       "علی"
+      ],
+      [
+       "O",
+       "کتاب را",
+       "ketāb rā",
+       "the book",
+       "کتاب"
+      ],
+      [
+       "M",
+       "به مریم",
+       "be maryam",
+       "to Maryam",
+       "مریم"
+      ],
+      [
+       "V",
+       "داد",
+       "dād",
+       "gave",
+       "دادن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "Ali"
+      ],
+      [
+       "V",
+       "gave"
+      ],
+      [
+       "O",
+       "the book"
+      ],
+      [
+       "M",
+       "to Maryam"
+      ]
+     ],
+     "a": "581ae4ad8858"
+    },
+    {
+     "fa": "مادرم عکس‌ها را برای من فرستاد.",
+     "faV": "مادَرَم عَکس‌ها را بَرایِ مَن فِرِستاد.",
+     "r": "mādaram aks-hā rā barāye man ferestād.",
+     "en": "My mother sent the photos to me.",
+     "p": [
+      [
+       "S",
+       "مادرم",
+       "mādaram",
+       "my mother",
+       "مادر"
+      ],
+      [
+       "O",
+       "عکس‌ها را",
+       "aks-hā rā",
+       "the photos",
+       "عکس"
+      ],
+      [
+       "M",
+       "برای من",
+       "barāye man",
+       "to me",
+       "من"
+      ],
+      [
+       "V",
+       "فرستاد",
+       "ferestād",
+       "sent",
+       "فرستادن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "My mother"
+      ],
+      [
+       "V",
+       "sent"
+      ],
+      [
+       "O",
+       "the photos"
+      ],
+      [
+       "M",
+       "to me"
+      ]
+     ],
+     "a": "7930b9f0863b"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "name": "Subject + Object + Complement + Verb",
+   "fa": "جمله‌ی چهارجزئی با مفعول و مسند",
+   "r": "jomle-ye chahār-joz'i bā maf'ul va mosnad",
+   "kind": "four parts · making, calling, considering",
+   "order": [
+    "S",
+    "O",
+    "C",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V",
+    "O",
+    "C"
+   ],
+   "note": "Verbs like کردن 'make', دانستن 'consider', نامیدن 'name' and انتخاب کردن 'choose as' say what the object is or becomes.",
+   "ex": [
+    {
+     "fa": "برف همه‌جا را سفید کرد.",
+     "faV": "بَرف هَمه‌جا را سِفید کَرد.",
+     "r": "barf hame-jā rā sefid kard.",
+     "en": "The snow made everything white.",
+     "p": [
+      [
+       "S",
+       "برف",
+       "barf",
+       "the snow",
+       "برف"
+      ],
+      [
+       "O",
+       "همه‌جا را",
+       "hame-jā rā",
+       "everywhere",
+       "همه"
+      ],
+      [
+       "C",
+       "سفید",
+       "sefid",
+       "white",
+       "سفید"
+      ],
+      [
+       "V",
+       "کرد",
+       "kard",
+       "made",
+       "کردن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The snow"
+      ],
+      [
+       "V",
+       "made"
+      ],
+      [
+       "O",
+       "everything"
+      ],
+      [
+       "C",
+       "white"
+      ]
+     ],
+     "a": "3a14f9889754"
+    },
+    {
+     "fa": "مردم او را قهرمان می‌دانند.",
+     "faV": "مَردُم او را قَهرِمان می‌دانَند.",
+     "r": "mardom u rā ghahremān mi-dānand.",
+     "en": "People consider him a hero.",
+     "p": [
+      [
+       "S",
+       "مردم",
+       "mardom",
+       "people",
+       "مردم"
+      ],
+      [
+       "O",
+       "او را",
+       "u rā",
+       "him",
+       "او"
+      ],
+      [
+       "C",
+       "قهرمان",
+       "ghahremān",
+       "a hero",
+       "قهرمان"
+      ],
+      [
+       "V",
+       "می‌دانند",
+       "mi-dānand",
+       "consider",
+       "دانستن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "People"
+      ],
+      [
+       "V",
+       "consider"
+      ],
+      [
+       "O",
+       "him"
+      ],
+      [
+       "C",
+       "a hero"
+      ]
+     ],
+     "a": "42641ebe0585"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "name": "Subject + Preposition phrase + Complement + Verb",
+   "fa": "جمله‌ی چهارجزئی با متمم و مسند",
+   "r": "jomle-ye chahār-joz'i bā motammam va mosnad",
+   "kind": "four parts · mostly with گفتن 'call'",
+   "order": [
+    "S",
+    "M",
+    "C",
+    "V"
+   ],
+   "en": [
+    "S",
+    "V",
+    "O",
+    "C"
+   ],
+   "note": "The person or thing that is named takes به. English uses a plain object instead: call Ali a champion. This is the least common of the seven patterns.",
+   "ex": [
+    {
+     "fa": "مردم محل به علی پهلوان می‌گویند.",
+     "faV": "مَردُمِ مَحَل به عَلی پَهلَوان می‌گویَند.",
+     "r": "mardom-e mahal be ali pahlavān mi-guyand.",
+     "en": "The locals call Ali a champion.",
+     "p": [
+      [
+       "S",
+       "مردم محل",
+       "mardom-e mahal",
+       "the locals",
+       "مردم"
+      ],
+      [
+       "M",
+       "به علی",
+       "be ali",
+       "Ali",
+       "علی"
+      ],
+      [
+       "C",
+       "پهلوان",
+       "pahlavān",
+       "a champion",
+       "پهلوان"
+      ],
+      [
+       "V",
+       "می‌گویند",
+       "mi-guyand",
+       "call",
+       "گفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The locals"
+      ],
+      [
+       "V",
+       "call"
+      ],
+      [
+       "O",
+       "Ali"
+      ],
+      [
+       "C",
+       "a champion"
+      ]
+     ],
+     "a": "5dbe3e79f07f"
+    },
+    {
+     "fa": "به این غذا آش می‌گویند.",
+     "faV": "به این غَذا آش می‌گویَند.",
+     "r": "be in ghazā āsh mi-guyand.",
+     "en": "They call this dish āsh.",
+     "p": [
+      [
+       "M",
+       "به این غذا",
+       "be in ghazā",
+       "this dish",
+       "غذا"
+      ],
+      [
+       "C",
+       "آش",
+       "āsh",
+       "āsh",
+       "آش"
+      ],
+      [
+       "V",
+       "می‌گویند",
+       "mi-guyand",
+       "(they) call",
+       "گفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "They"
+      ],
+      [
+       "V",
+       "call"
+      ],
+      [
+       "O",
+       "this dish"
+      ],
+      [
+       "C",
+       "āsh"
+      ]
+     ],
+     "a": "eaa9be3e68c3"
+    }
+   ]
+  }
+ ],
+ "detail": {
+  "title": "Adding when, where and how",
+  "text": "Any pattern can take extra detail. It goes before the verb, usually right after the subject: time first, then place.",
+  "steps": [
+   {
+    "fa": "مریم کتاب خواند.",
+    "faV": "مَریَم کِتاب خوانْد.",
+    "r": "maryam ketāb khānd.",
+    "en": "Maryam read a book.",
+    "p": [
+     [
+      "S",
+      "مریم",
+      "maryam",
+      "Maryam",
+      "مریم"
+     ],
+     [
+      "O",
+      "کتاب",
+      "ketāb",
+      "a book",
+      "کتاب"
+     ],
+     [
+      "V",
+      "خواند",
+      "khānd",
+      "read",
+      "خواندن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "Maryam"
+     ],
+     [
+      "V",
+      "read"
+     ],
+     [
+      "O",
+      "a book"
+     ]
+    ],
+    "a": "ffc7cd14e4b1"
+   },
+   {
+    "fa": "مریم دیروز کتاب خواند.",
+    "faV": "مَریَم دیروز کِتاب خوانْد.",
+    "r": "maryam diruz ketāb khānd.",
+    "en": "Maryam read a book yesterday.",
+    "p": [
+     [
+      "S",
+      "مریم",
+      "maryam",
+      "Maryam",
+      "مریم"
+     ],
+     [
+      "A",
+      "دیروز",
+      "diruz",
+      "yesterday",
+      "دیروز"
+     ],
+     [
+      "O",
+      "کتاب",
+      "ketāb",
+      "a book",
+      "کتاب"
+     ],
+     [
+      "V",
+      "خواند",
+      "khānd",
+      "read",
+      "خواندن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "Maryam"
+     ],
+     [
+      "V",
+      "read"
+     ],
+     [
+      "O",
+      "a book"
+     ],
+     [
+      "A",
+      "yesterday"
+     ]
+    ],
+    "a": "139c245549fe"
+   },
+   {
+    "fa": "مریم دیروز در کتابخانه کتاب خواند.",
+    "faV": "مَریَم دیروز دَر کِتابخانه کِتاب خوانْد.",
+    "r": "maryam diruz dar ketābkhāne ketāb khānd.",
+    "en": "Maryam read a book in the library yesterday.",
+    "p": [
+     [
+      "S",
+      "مریم",
+      "maryam",
+      "Maryam",
+      "مریم"
+     ],
+     [
+      "A",
+      "دیروز",
+      "diruz",
+      "yesterday",
+      "دیروز"
+     ],
+     [
+      "A",
+      "در کتابخانه",
+      "dar ketābkhāne",
+      "in the library",
+      "کتابخانه"
+     ],
+     [
+      "O",
+      "کتاب",
+      "ketāb",
+      "a book",
+      "کتاب"
+     ],
+     [
+      "V",
+      "خواند",
+      "khānd",
+      "read",
+      "خواندن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "Maryam"
+     ],
+     [
+      "V",
+      "read"
+     ],
+     [
+      "O",
+      "a book"
+     ],
+     [
+      "A",
+      "in the library"
+     ],
+     [
+      "A",
+      "yesterday"
+     ]
+    ],
+    "a": "97125f990a95"
+   }
+  ],
+  "note": "English puts when and where at the end; Farsi puts them before the object and the verb. A general object like کتاب 'a book' stays right next to the verb."
+ },
+ "features": [
+  {
+   "title": "The subject can stay in the verb",
+   "text": "Every verb ends with a person ending, so the subject is often left out. A pronoun like من 'I' or ما 'we' is added mainly for emphasis or contrast.",
+   "ex": [
+    {
+     "fa": "دیروز به بازار رفتم.",
+     "faV": "دیروز به بازار رَفتَم.",
+     "r": "diruz be bāzār raftam.",
+     "en": "I went to the bazaar yesterday.",
+     "p": [
+      [
+       "A",
+       "دیروز",
+       "diruz",
+       "yesterday",
+       "دیروز"
+      ],
+      [
+       "A",
+       "به بازار",
+       "be bāzār",
+       "to the bazaar",
+       "بازار"
+      ],
+      [
+       "V",
+       "رفتم",
+       "raftam",
+       "(I) went",
+       "رفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "went"
+      ],
+      [
+       "A",
+       "to the bazaar"
+      ],
+      [
+       "A",
+       "yesterday"
+      ]
+     ],
+     "a": "49627cf2322c"
+    }
+   ],
+   "table": {
+    "title": "رفتن raftan 'go', past",
+    "rows": [
+     {
+      "fa": "رفتم",
+      "faV": "رَفتَم",
+      "r": "raftam",
+      "en": "I went",
+      "a": "1f39ae7bda45"
+     },
+     {
+      "fa": "رفتی",
+      "faV": "رَفتی",
+      "r": "rafti",
+      "en": "you went",
+      "a": "723d0c0cf732"
+     },
+     {
+      "fa": "رفت",
+      "faV": "رَفت",
+      "r": "raft",
+      "en": "he / she went",
+      "a": "10d803843807"
+     },
+     {
+      "fa": "رفتیم",
+      "faV": "رَفتیم",
+      "r": "raftim",
+      "en": "we went",
+      "a": "887eb4d6e02c"
+     },
+     {
+      "fa": "رفتید",
+      "faV": "رَفتید",
+      "r": "raftid",
+      "en": "you (plural) went",
+      "a": "40603f6fb101"
+     },
+     {
+      "fa": "رفتند",
+      "faV": "رَفتَند",
+      "r": "raftand",
+      "en": "they went",
+      "a": "f48047608934"
+     }
+    ]
+   }
+  },
+  {
+   "title": "را marks a specific object",
+   "text": "Put را after an object you could point to: the book, that letter, Ali. Leave it out for an object in general (a book or books; it doesn't say which), and add ‑ی for 'a' (one, but not a particular one).",
+   "ex": [
+    {
+     "fa": "کتاب را خریدم.",
+     "faV": "کِتاب را خَریدَم.",
+     "r": "ketāb rā kharidam.",
+     "en": "I bought the book.",
+     "p": [
+      [
+       "O",
+       "کتاب را",
+       "ketāb rā",
+       "the book",
+       "کتاب"
+      ],
+      [
+       "V",
+       "خریدم",
+       "kharidam",
+       "(I) bought",
+       "خریدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "bought"
+      ],
+      [
+       "O",
+       "the book"
+      ]
+     ],
+     "a": "411354eca322"
+    },
+    {
+     "fa": "کتابی خریدم.",
+     "faV": "کِتابی خَریدَم.",
+     "r": "ketābi kharidam.",
+     "en": "I bought a book.",
+     "p": [
+      [
+       "O",
+       "کتابی",
+       "ketābi",
+       "a book",
+       "کتاب"
+      ],
+      [
+       "V",
+       "خریدم",
+       "kharidam",
+       "(I) bought",
+       "خریدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "bought"
+      ],
+      [
+       "O",
+       "a book"
+      ]
+     ],
+     "a": "41ef5df7b255"
+    },
+    {
+     "fa": "کتاب خریدم.",
+     "faV": "کِتاب خَریدَم.",
+     "r": "ketāb kharidam.",
+     "en": "I bought a book / books.",
+     "p": [
+      [
+       "O",
+       "کتاب",
+       "ketāb",
+       "a book / books",
+       "کتاب"
+      ],
+      [
+       "V",
+       "خریدم",
+       "kharidam",
+       "(I) bought",
+       "خریدن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "bought"
+      ],
+      [
+       "O",
+       "a book / books"
+      ]
+     ],
+     "a": "8cfdbf52ddc9"
+    }
+   ]
+  },
+  {
+   "title": "Questions keep the same order",
+   "text": "A yes/no question is the same sentence with a rising voice, or with آیا at the front. A question word sits where the answer goes.",
+   "ex": [
+    {
+     "fa": "آیا علی آمد؟",
+     "faV": "آیا عَلی آمَد؟",
+     "r": "āyā ali āmad?",
+     "en": "Did Ali come?",
+     "p": [
+      [
+       "A",
+       "آیا",
+       "āyā",
+       "(question)",
+       "آیا"
+      ],
+      [
+       "S",
+       "علی",
+       "ali",
+       "Ali",
+       "علی"
+      ],
+      [
+       "V",
+       "آمد",
+       "āmad",
+       "came",
+       "آمدن"
+      ]
+     ],
+     "e": [
+      [
+       "V",
+       "Did"
+      ],
+      [
+       "S",
+       "Ali"
+      ],
+      [
+       "V",
+       "come"
+      ]
+     ],
+     "a": "0f60ee0b649f"
+    },
+    {
+     "fa": "علی کجا رفت؟",
+     "faV": "عَلی کُجا رَفت؟",
+     "r": "ali kojā raft?",
+     "en": "Where did Ali go?",
+     "p": [
+      [
+       "S",
+       "علی",
+       "ali",
+       "Ali",
+       "علی"
+      ],
+      [
+       "A",
+       "کجا",
+       "kojā",
+       "where",
+       "کجا"
+      ],
+      [
+       "V",
+       "رفت",
+       "raft",
+       "went",
+       "رفتن"
+      ]
+     ],
+     "e": [
+      [
+       "A",
+       "Where"
+      ],
+      [
+       "V",
+       "did"
+      ],
+      [
+       "S",
+       "Ali"
+      ],
+      [
+       "V",
+       "go"
+      ]
+     ],
+     "a": "beca504925ce"
+    },
+    {
+     "fa": "علی به مدرسه رفت.",
+     "faV": "عَلی به مَدرِسه رَفت.",
+     "r": "ali be madrese raft.",
+     "en": "Ali went to school.",
+     "p": [
+      [
+       "S",
+       "علی",
+       "ali",
+       "Ali",
+       "علی"
+      ],
+      [
+       "A",
+       "به مدرسه",
+       "be madrese",
+       "to school",
+       "مدرسه"
+      ],
+      [
+       "V",
+       "رفت",
+       "raft",
+       "went",
+       "رفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "Ali"
+      ],
+      [
+       "V",
+       "went"
+      ],
+      [
+       "A",
+       "to school"
+      ]
+     ],
+     "a": "b5d585db289c"
+    }
+   ]
+  },
+  {
+   "title": "Saying 'not'",
+   "text": "Put ن‑ in front of the verb (نمی‑ for verbs with می‑). In a compound verb it goes on the verb part: کار نمی‌کنم 'I don't work'. است 'is' becomes نیست 'is not'.",
+   "ex": [
+    {
+     "fa": "نرفتم.",
+     "faV": "نَرَفتَم.",
+     "r": "naraftam.",
+     "en": "I didn't go.",
+     "p": [
+      [
+       "V",
+       "نرفتم",
+       "naraftam",
+       "(I) didn't go",
+       "رفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "didn't go"
+      ]
+     ],
+     "a": "1562799ecf25"
+    },
+    {
+     "fa": "نمی‌دانم.",
+     "faV": "نِمی‌دانَم.",
+     "r": "nemi-dānam.",
+     "en": "I don't know.",
+     "p": [
+      [
+       "V",
+       "نمی‌دانم",
+       "nemi-dānam",
+       "(I) don't know",
+       "دانستن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "don't know"
+      ]
+     ],
+     "a": "e4f095b05924"
+    },
+    {
+     "fa": "هوا سرد نیست.",
+     "faV": "هَوا سَرد نیست.",
+     "r": "havā sard nist.",
+     "en": "The weather isn't cold.",
+     "p": [
+      [
+       "S",
+       "هوا",
+       "havā",
+       "the weather",
+       "هوا"
+      ],
+      [
+       "C",
+       "سرد",
+       "sard",
+       "cold",
+       "سرد"
+      ],
+      [
+       "V",
+       "نیست",
+       "nist",
+       "isn't",
+       "بودن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "The weather"
+      ],
+      [
+       "V",
+       "isn't"
+      ],
+      [
+       "C",
+       "cold"
+      ]
+     ],
+     "a": "3836075369ca"
+    }
+   ]
+  },
+  {
+   "title": "The hidden ‑e that links words",
+   "text": "A noun is joined to a word that describes it, or to its owner, by an ‑e sound called ezafe (‑ye after a vowel). After a consonant it is said but usually not written (shown here with a small mark: کتابِ خوب); after a vowel it is written ی: خانه‌ی علی.",
+   "ex": [
+    {
+     "fa": "کتابِ خوب",
+     "faV": "کِتابِ خوب",
+     "r": "ketāb-e khub",
+     "en": "a good book",
+     "a": "fe6b2d2c185e"
+    },
+    {
+     "fa": "خانه‌ی علی",
+     "faV": "خانه‌یِ عَلی",
+     "r": "khāne-ye ali",
+     "en": "Ali's house",
+     "a": "e6bbaab0b59b"
+    }
+   ]
+  },
+  {
+   "title": "Compound verbs stay together",
+   "text": "Many verbs are a noun or adjective plus a light verb such as کردن 'do', دادن 'give', گرفتن 'take' or زدن 'hit'. The pair works as one verb and stays together at the end.",
+   "ex": [
+    {
+     "fa": "من هر روز کار می‌کنم.",
+     "faV": "مَن هَر روز کار می‌کُنَم.",
+     "r": "man har ruz kār mi-konam.",
+     "en": "I work every day.",
+     "p": [
+      [
+       "S",
+       "من",
+       "man",
+       "I",
+       "من"
+      ],
+      [
+       "A",
+       "هر روز",
+       "har ruz",
+       "every day",
+       "روز"
+      ],
+      [
+       "V",
+       "کار می‌کنم",
+       "kār mi-konam",
+       "work",
+       "کار کردن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "I"
+      ],
+      [
+       "V",
+       "work"
+      ],
+      [
+       "A",
+       "every day"
+      ]
+     ],
+     "a": "d473739f2a17"
+    },
+    {
+     "fa": "تصمیم گرفتیم.",
+     "faV": "تَصمیم گِرِفتیم.",
+     "r": "tasmim gereftim.",
+     "en": "We decided.",
+     "p": [
+      [
+       "V",
+       "تصمیم گرفتیم",
+       "tasmim gereftim",
+       "(we) decided",
+       "تصمیم گرفتن"
+      ]
+     ],
+     "e": [
+      [
+       "S",
+       "We"
+      ],
+      [
+       "V",
+       "decided"
+      ]
+     ],
+     "a": "d504b16bdf8e"
+    }
+   ]
+  }
+ ],
+ "practice": [
+  {
+   "pattern": 1,
+   "s": {
+    "fa": "مهمان‌ها دیر آمدند.",
+    "faV": "مِهمان‌ها دیر آمَدَند.",
+    "r": "mehmān-hā dir āmadand.",
+    "en": "The guests came late.",
+    "p": [
+     [
+      "S",
+      "مهمان‌ها",
+      "mehmān-hā",
+      "the guests",
+      "مهمان"
+     ],
+     [
+      "A",
+      "دیر",
+      "dir",
+      "late",
+      "دیر"
+     ],
+     [
+      "V",
+      "آمدند",
+      "āmadand",
+      "came",
+      "آمدن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "The guests"
+     ],
+     [
+      "V",
+      "came"
+     ],
+     [
+      "A",
+      "late"
+     ]
+    ],
+    "a": "5c8136fb9a55"
+   }
+  },
+  {
+   "pattern": 2,
+   "s": {
+    "fa": "سارا دیشب نامه را نوشت.",
+    "faV": "سارا دیشَب نامه را نِوِشت.",
+    "r": "sārā dishab nāme rā nevesht.",
+    "en": "Sara wrote the letter last night.",
+    "p": [
+     [
+      "S",
+      "سارا",
+      "sārā",
+      "Sara",
+      "سارا"
+     ],
+     [
+      "A",
+      "دیشب",
+      "dishab",
+      "last night",
+      "دیشب"
+     ],
+     [
+      "O",
+      "نامه را",
+      "nāme rā",
+      "the letter",
+      "نامه"
+     ],
+     [
+      "V",
+      "نوشت",
+      "nevesht",
+      "wrote",
+      "نوشتن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "Sara"
+     ],
+     [
+      "V",
+      "wrote"
+     ],
+     [
+      "O",
+      "the letter"
+     ],
+     [
+      "A",
+      "last night"
+     ]
+    ],
+    "a": "3af82dbd8fbd"
+   },
+   "alt": [
+    [
+     1,
+     0,
+     2,
+     3
+    ],
+    [
+     0,
+     2,
+     1,
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": 3,
+   "s": {
+    "fa": "این خیابان خیلی شلوغ است.",
+    "faV": "این خیابان خَیلی شُلوغ اَست.",
+    "r": "in khiyābān kheyli sholugh ast.",
+    "en": "This street is very busy.",
+    "p": [
+     [
+      "S",
+      "این خیابان",
+      "in khiyābān",
+      "this street",
+      "خیابان"
+     ],
+     [
+      "C",
+      "خیلی شلوغ",
+      "kheyli sholugh",
+      "very busy",
+      "خیلی"
+     ],
+     [
+      "V",
+      "است",
+      "ast",
+      "is",
+      "بودن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "This street"
+     ],
+     [
+      "V",
+      "is"
+     ],
+     [
+      "C",
+      "very busy"
+     ]
+    ],
+    "a": "acd4eea666f4"
+   }
+  },
+  {
+   "pattern": 4,
+   "s": {
+    "fa": "من با دوستم صحبت کردم.",
+    "faV": "مَن با دوستَم صُحبَت کَردَم.",
+    "r": "man bā dustam sohbat kardam.",
+    "en": "I talked with my friend.",
+    "p": [
+     [
+      "S",
+      "من",
+      "man",
+      "I",
+      "من"
+     ],
+     [
+      "M",
+      "با دوستم",
+      "bā dustam",
+      "with my friend",
+      "دوست"
+     ],
+     [
+      "V",
+      "صحبت کردم",
+      "sohbat kardam",
+      "talked",
+      "صحبت کردن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "I"
+     ],
+     [
+      "V",
+      "talked"
+     ],
+     [
+      "M",
+      "with my friend"
+     ]
+    ],
+    "a": "85902350e5d3"
+   }
+  },
+  {
+   "pattern": 5,
+   "s": {
+    "fa": "پلیس کلید را به صاحبش داد.",
+    "faV": "پُلیس کِلید را به صاحِبَش داد.",
+    "r": "polis kelid rā be sāhebash dād.",
+    "en": "The police gave the key to its owner.",
+    "p": [
+     [
+      "S",
+      "پلیس",
+      "polis",
+      "the police",
+      "پلیس"
+     ],
+     [
+      "O",
+      "کلید را",
+      "kelid rā",
+      "the key",
+      "کلید"
+     ],
+     [
+      "M",
+      "به صاحبش",
+      "be sāhebash",
+      "to its owner",
+      "صاحب"
+     ],
+     [
+      "V",
+      "داد",
+      "dād",
+      "gave",
+      "دادن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "The police"
+     ],
+     [
+      "V",
+      "gave"
+     ],
+     [
+      "O",
+      "the key"
+     ],
+     [
+      "M",
+      "to its owner"
+     ]
+    ],
+    "a": "fd20a4269a39"
+   },
+   "alt": [
+    [
+     0,
+     2,
+     1,
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": 6,
+   "s": {
+    "fa": "این خبر همه را خوشحال کرد.",
+    "faV": "این خَبَر هَمه را خوشحال کَرد.",
+    "r": "in khabar hame rā khoshhāl kard.",
+    "en": "This news made everyone happy.",
+    "p": [
+     [
+      "S",
+      "این خبر",
+      "in khabar",
+      "this news",
+      "خبر"
+     ],
+     [
+      "O",
+      "همه را",
+      "hame rā",
+      "everyone",
+      "همه"
+     ],
+     [
+      "C",
+      "خوشحال",
+      "khoshhāl",
+      "happy",
+      "خوشحال"
+     ],
+     [
+      "V",
+      "کرد",
+      "kard",
+      "made",
+      "کردن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "This news"
+     ],
+     [
+      "V",
+      "made"
+     ],
+     [
+      "O",
+      "everyone"
+     ],
+     [
+      "C",
+      "happy"
+     ]
+    ],
+    "a": "24bf8df867ef"
+   }
+  },
+  {
+   "pattern": 7,
+   "s": {
+    "fa": "دوستانش به او استاد می‌گویند.",
+    "faV": "دوستانَش به او اُستاد می‌گویَند.",
+    "r": "dustānash be u ostād mi-guyand.",
+    "en": "His friends call him 'professor'.",
+    "p": [
+     [
+      "S",
+      "دوستانش",
+      "dustānash",
+      "his friends",
+      "دوست"
+     ],
+     [
+      "M",
+      "به او",
+      "be u",
+      "him",
+      "او"
+     ],
+     [
+      "C",
+      "استاد",
+      "ostād",
+      "professor",
+      "استاد"
+     ],
+     [
+      "V",
+      "می‌گویند",
+      "mi-guyand",
+      "call",
+      "گفتن"
+     ]
+    ],
+    "e": [
+     [
+      "S",
+      "His friends"
+     ],
+     [
+      "V",
+      "call"
+     ],
+     [
+      "O",
+      "him"
+     ],
+     [
+      "C",
+      "'professor'"
+     ]
+    ],
+    "a": "8548a72128e9"
+   }
+  }
+ ],
+ "source": "The patterns follow Persian school grammar (dastur-e zabān-e fārsi), which sorts simple sentences by the parts their verb needs. Tap a part of an example to open its word in the dictionary."
+}

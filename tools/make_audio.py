@@ -10,6 +10,8 @@ the device's text-to-speech. This script creates data/audio/fa/<id>.mp3 for:
   - every key-word example sentence (ex.faV, or else ex.fa)                  -> stored as ex.faA
   - every example word in data/alphabets.json for Farsi (ex.v, or else ex.w)  -> stored as ex.a
   - every word of the frequency dictionary in data/dict.json (v, or else w)  -> stored as a
+  - every sentence, phrase and word of the Grammar tab in data/grammar.json that has a vowel-marked
+    spelling faV                                                               -> stored as a
 The voice is the open-source Piper "gyro" Persian voice, run with sherpa-onnx. Both are downloaded from
 GitHub into ~/.cache/wnw-tts the first time. ffmpeg turns the speech into small MP3 files.
 An id is a hash of the spoken text, so files are reused and only new words are synthesised.
@@ -29,6 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GLOSSARY = os.path.join(ROOT, "data", "glossary.json")
 ALPHABETS = os.path.join(ROOT, "data", "alphabets.json")
 DICT = os.path.join(ROOT, "data", "dict.json")
+GRAMMAR = os.path.join(ROOT, "data", "grammar.json")
 AUDIO_DIR = os.path.join(ROOT, "data", "audio", "fa")
 CACHE = os.path.expanduser("~/.cache/wnw-tts")
 RELEASES = "https://github.com/k2-fsa/sherpa-onnx/releases/download"
@@ -70,6 +73,8 @@ def main():
     glossary = json.load(open(GLOSSARY, encoding="utf-8"))
     alphabets = json.load(open(ALPHABETS, encoding="utf-8")) if os.path.exists(ALPHABETS) else None
     dictionary = json.load(open(DICT, encoding="utf-8")) if os.path.exists(DICT) else None
+    grammar_text = open(GRAMMAR, encoding="utf-8").read() if os.path.exists(GRAMMAR) else None
+    grammar = json.loads(grammar_text) if grammar_text else None
 
     jobs = {}  # id -> text
     def want(text):
@@ -104,6 +109,24 @@ def main():
             i = want(e.get("v") or e.get("w"))
             if i:
                 e["a"] = i
+
+    grammar_changed = False
+
+    def grammar_walk(x):
+        nonlocal grammar_changed
+        if isinstance(x, dict):
+            if isinstance(x.get("faV"), str) and x["faV"].strip():
+                i = want(x["faV"])
+                if i and x.get("a") != i:
+                    x["a"] = i
+                    grammar_changed = True
+            for v in x.values():
+                grammar_walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                grammar_walk(v)
+    if grammar:
+        grammar_walk(grammar)
 
     os.makedirs(AUDIO_DIR, exist_ok=True)
     todo = {i: t for i, t in jobs.items() if not os.path.exists(os.path.join(AUDIO_DIR, i + ".mp3"))}
@@ -140,6 +163,9 @@ def main():
         json.dump(alphabets, open(ALPHABETS, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     if dictionary is not None:
         json.dump(dictionary, open(DICT, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    if grammar is not None and grammar_changed:
+        # grammar.json is edited by hand, so it is only rewritten when an audio id changed (never just for layout)
+        open(GRAMMAR, "w", encoding="utf-8").write(json.dumps(grammar, ensure_ascii=False, indent=1))
 
     removed = 0
     if prune:

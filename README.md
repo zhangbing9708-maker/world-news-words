@@ -31,9 +31,16 @@ around the 5,000 most common Persian words.
   spelling, English or rank), filter by category, level and part of speech, hear each word, read the book's
   example sentence and add words to your flashcards. The Persian alphabet (32 letters with their joined
   forms, the vowels, example words) lives here too.
+- **Grammar** – how Farsi sentences are built. Persian school grammar sorts simple sentences by how many
+  parts the verb needs (two, three or four), giving seven basic patterns that line up with English's.
+  Each pattern shows its Farsi and English word order and example sentences with every part in its role's
+  colour (subject, object, complement, preposition phrase, adverbial, verb), a word-by-word gloss,
+  transliteration and recorded audio; tap a part to open its word in the dictionary. Then where time and
+  place go, notes on dropped subjects, را, questions, negation, ezafe and compound verbs, and a practice
+  that has you tap the words of a sentence into Farsi order.
 
-Sound: most devices have no Persian voice, so every dictionary word, news word, example sentence and
-alphabet example plays a recorded MP3 made with an open-source Persian voice (Piper "gyro", run with
+Sound: most devices have no Persian voice, so every dictionary word, news word, example sentence,
+grammar example and alphabet example plays a recorded MP3 made with an open-source Persian voice (Piper "gyro", run with
 sherpa-onnx) by `tools/make_audio.py`. Dictionary words are vowel-marked from their IPA by
 `tools/vowelize.py` so the voice reads them correctly.
 
@@ -107,6 +114,7 @@ republishes the site, and each person's device builds their plan for the week fr
 | `data/glossary.json` | Every tappable news word, in English and Farsi |
 | `data/dict.json`, `data/dict-examples.json` | The frequency dictionary as the site loads it (built by `tools/build_dict.py`) |
 | `data/alphabets.json` | The Persian alphabet for the Dictionary tab |
+| `data/grammar.json` | The Grammar tab: sentence patterns, examples and practice (written by hand) |
 | `data/audio/fa/` | Recorded Farsi audio (MP3) for dictionary words, news words and examples |
 | `dictionary/` | The dictionary's source data, extraction scripts and notes |
 | `lib/` | sql.js 1.13.0 (MIT licence, see `lib/sql.js-LICENSE.txt`), used only for the Anki export |

@@ -6,6 +6,7 @@ usage:
 
 Exit code 1 means something must be fixed before committing.
 """
+import hashlib
 import json
 import os
 import re
@@ -34,10 +35,81 @@ HARAKAT = re.compile(r"[\u064B-\u0652\u0670]")
 AUDIO_DIR = os.path.join(ROOT, "data", "audio", "fa")
 ALPHABETS = os.path.join(ROOT, "data", "alphabets.json")
 DICT = os.path.join(ROOT, "data", "dict.json")
+GRAMMAR = os.path.join(ROOT, "data", "grammar.json")
+ROLES = {"S", "O", "C", "M", "A", "V"}
 
 
 def has_audio(i):
     return bool(i) and os.path.exists(os.path.join(AUDIO_DIR, str(i) + ".mp3"))
+
+
+def spoken_id(text):
+    """The audio id tools/make_audio.py gives a text (a hash of what the voice is asked to say)."""
+    t = re.sub(r"\s+", " ", str(text or "").replace("ـ", "")).strip()
+    return hashlib.sha1(t.encode("utf-8")).hexdigest()[:12]
+
+
+def check_grammar(g, errs, warns):
+    """data/grammar.json (the Grammar tab): every example's parts spell its sentence, roles are known,
+    the vowel-marked text has the same letters, and its recording is there and up to date."""
+    def sentence(s, where, parts=True):
+        if not isinstance(s, dict) or not all(isinstance(s.get(k), str) and s.get(k).strip() for k in ("fa", "faV", "r", "en")):
+            errs.append(f"grammar.json {where}: needs fa, faV, r and en")
+            return
+        if ARABIC_ONLY.search(s["fa"]):
+            errs.append(f"grammar.json {where}: use Persian ی and ک in {s['fa']!r}")
+        if HARAKAT.sub("", s["faV"]) != HARAKAT.sub("", s["fa"]):
+            errs.append(f"grammar.json {where}: faV has different letters from fa ({s['faV']!r} / {s['fa']!r})")
+        if not s.get("a"):
+            warns.append(f"grammar.json {where}: no audio (run python3 tools/make_audio.py)")
+        elif s["a"] != spoken_id(s["faV"]):
+            errs.append(f"grammar.json {where}: the recording is for an older faV (run python3 tools/make_audio.py)")
+        elif not has_audio(s["a"]):
+            warns.append(f"grammar.json {where}: audio file {s['a']}.mp3 is missing (run python3 tools/make_audio.py)")
+        p = s.get("p")
+        if not parts:
+            return
+        if not isinstance(p, list) or not p:
+            errs.append(f"grammar.json {where}: no parts (p)")
+            return
+        for x in p:
+            if not (isinstance(x, list) and len(x) in (4, 5) and x[0] in ROLES and all(isinstance(v, str) and v for v in x[1:])):
+                errs.append(f"grammar.json {where}: bad part {x!r}")
+                return
+        if " ".join(x[1] for x in p) != re.sub(r"[.؟?!]$", "", s["fa"]):
+            errs.append(f"grammar.json {where}: the parts don't spell {s['fa']!r}")
+        for x in s.get("e") or []:
+            if not (isinstance(x, list) and len(x) == 2 and x[0] in ROLES and isinstance(x[1], str) and x[1]):
+                errs.append(f"grammar.json {where}: bad English part {x!r}")
+    pats = g.get("patterns") or []
+    if len(pats) < 6:
+        errs.append(f"grammar.json: {len(pats)} patterns (expected the 6–7 basic sentence patterns)")
+    for r in g.get("roles") or []:
+        if r.get("k") not in ROLES:
+            errs.append(f"grammar.json: unknown role {r.get('k')!r}")
+    sentence((g.get("compare") or {}).get("s"), "compare")
+    for pt in pats:
+        where = f"pattern {pt.get('n')}"
+        if not pt.get("name") or not all(k in ROLES for k in (pt.get("order") or ["?"]) + (pt.get("en") or ["?"])):
+            errs.append(f"grammar.json {where}: needs a name and role orders (order, en)")
+        if not pt.get("ex"):
+            errs.append(f"grammar.json {where}: no examples")
+        for i, s in enumerate(pt.get("ex") or []):
+            sentence(s, f"{where} example {i + 1}")
+    for i, s in enumerate((g.get("detail") or {}).get("steps") or []):
+        sentence(s, f"detail step {i + 1}")
+    for f in g.get("features") or []:
+        for i, s in enumerate(f.get("ex") or []):
+            sentence(s, f"feature '{f.get('title')}' example {i + 1}", parts=bool(isinstance(s, dict) and s.get("p")))
+        for i, s in enumerate((f.get("table") or {}).get("rows") or []):
+            sentence(s, f"feature '{f.get('title')}' table row {i + 1}", parts=False)
+    for i, q in enumerate(g.get("practice") or []):
+        s = q.get("s")
+        sentence(s, f"practice {i + 1}")
+        n = len((s or {}).get("p") or [])
+        for alt in q.get("alt") or []:
+            if sorted(alt) != list(range(n)):
+                errs.append(f"grammar.json practice {i + 1}: alternative order {alt} is not an order of its {n} parts")
 
 
 def check_entry(k, e, errs, warns=None):
@@ -140,6 +212,11 @@ def main():
             errs.append(f"dict.json: not valid JSON ({ex})")
     else:
         errs.append("data/dict.json is missing; run python3 tools/build_dict.py")
+    if os.path.exists(GRAMMAR):
+        try:
+            check_grammar(json.load(open(GRAMMAR, encoding="utf-8")), errs, warns)
+        except ValueError as ex:
+            errs.append(f"grammar.json: not valid JSON ({ex})")
     for f, k in forms.items():
         if f != f.lower() and not is_acronym(f):
             errs.append(f"glossary form '{f}': must be lowercase (only all-capital acronyms keep capitals)")

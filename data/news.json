@@ -1,6 +1,473 @@
 {
-  "updated": "2026-10-12",
+  "updated": "2026-10-26",
   "stories": [
+    {
+      "id": "2026-10-24-iran-warns-us-warships-as-trump-weighs-attacks",
+      "edition": "2026-10-26",
+      "rank": 1,
+      "date": "2026-10-24",
+      "tag": "World",
+      "place": "Iran",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/24/iran-says-wont-allow-us-warships-to-get-close-as-trump-ponders-new-attacks",
+      "title": "Iran warns US warships to stay away as Trump considers new attacks",
+      "summary": [
+        "Iran's top military commander, Ali Abdollahi, said Iran can hit any US ship near its waters.",
+        "At a rally in Florida, President Donald Trump said the US might start another big bombing campaign, or keep up its naval blockade and sanctions.",
+        "Ships near the Strait of Hormuz are still being attacked, and the price of Brent oil rose to about $117 a barrel, the highest since April."
+      ],
+      "why": [
+        "The war began with a US and Israeli attack on Iran on 28 February, and talks to end it have made no clear progress.",
+        "Foreign ministers from Turkey, Saudi Arabia, Pakistan, Egypt and four European countries met in Istanbul and warned that new attacks would widen the war."
+      ],
+      "keywords": [
+        "warship",
+        "commander",
+        "campaign",
+        "naval",
+        "widen"
+      ],
+      "senses": {
+        "top": "top#highest",
+        "european": "european",
+        "met": "meet#gather",
+        "waters": "water#sea",
+        "made": "make#achieve"
+      }
+    },
+    {
+      "id": "2026-10-25-serbia-vucic-concedes-to-student-list",
+      "edition": "2026-10-26",
+      "rank": 2,
+      "date": "2026-10-25",
+      "tag": "Politics",
+      "place": "Serbia",
+      "source": "CBS News",
+      "url": "https://www.cbsnews.com/news/serbia-election-aleksandar-vucic-concedes-defeat/",
+      "title": "Serbia's Vucic admits defeat as a student-led list wins the election",
+      "summary": [
+        "Aleksandar Vucic, who has led Serbia for more than a decade, admitted that his party lost Sunday's parliamentary election.",
+        "He said the Students' List would win 135 to 140 of the 250 seats, while his Serbian Progressive Party would get about 105.",
+        "Supporters of the winners filled the streets of Belgrade and other cities, and turnout was expected to be around 70%, the highest since 2000."
+      ],
+      "why": [
+        "The protest movement began in 2024, after a concrete roof at a train station in Novi Sad fell and killed 16 people.",
+        "Protesters blamed the disaster on corruption, which Vucic and his party deny."
+      ],
+      "keywords": [
+        "defeat",
+        "seat#parliament",
+        "turnout",
+        "corruption",
+        "movement"
+      ],
+      "senses": {
+        "led": "lead#guide",
+        "seats": "seat#parliament",
+        "streets": "street#road",
+        "fell": "fall#drop",
+        "sad": "novi sad"
+      }
+    },
+    {
+      "id": "2026-10-24-brazil-runoff-lula-flavio-bolsonaro",
+      "edition": "2026-10-26",
+      "rank": 3,
+      "date": "2026-10-24",
+      "tag": "Politics",
+      "place": "Brazil",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/24/brazils-lula-bolsonaro-draw-thousands-to-election-eve-rallies",
+      "title": "Brazil chooses between Lula and Flavio Bolsonaro in a close runoff",
+      "summary": [
+        "Brazilians voted on Sunday in a second round between President Luiz Inacio Lula da Silva and Senator Flavio Bolsonaro.",
+        "Bolsonaro won 47% in the first round and Lula 45%, and the last polls showed a very close race.",
+        "On the final day of campaigning, both men held big rallies in Rio de Janeiro and Sao Paulo."
+      ],
+      "why": [
+        "Lula, a left-wing leader, wants a fourth term, while Bolsonaro, a right-wing ally of Donald Trump, has promised to build more prisons and cut government spending.",
+        "His father, former president Jair Bolsonaro, is serving a 27-year prison sentence for trying to stay in power after losing the 2022 election."
+      ],
+      "keywords": [
+        "runoff",
+        "poll",
+        "senator",
+        "rally",
+        "prison"
+      ],
+      "senses": {
+        "close": "close#tight",
+        "race": "race#contest",
+        "cut": "cut#reduce",
+        "power": "power#control",
+        "da": "lula",
+        "de": "rio de janeiro",
+        "promised": "promise#verb",
+        "serving": "serve#sentence"
+      }
+    },
+    {
+      "id": "2026-10-24-france-protests-living-costs-schools",
+      "edition": "2026-10-26",
+      "rank": 4,
+      "date": "2026-10-24",
+      "tag": "World",
+      "place": "France",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/24/france-braces-for-another-day-of-mass-protests-as-security-on-high-alert",
+      "title": "Hundreds of thousands march in France over living costs and schools",
+      "summary": [
+        "French officials said 410,000 people protested across the country on Saturday, including 110,000 in Paris, while unions said the numbers were almost twice as high.",
+        "Police used tear gas and water cannon in Paris in the evening, and nearly 1,000 people were arrested nationwide.",
+        "More than 70,000 police officers were on duty, and the Louvre museum closed for the day."
+      ],
+      "why": [
+        "The movement began in September, when high school students blocked schools over old buildings and a lack of teachers.",
+        "It has grown into a wider protest against rising prices, inequality and President Emmanuel Macron, six months before a presidential election."
+      ],
+      "keywords": [
+        "march",
+        "union#workers",
+        "arrest",
+        "nationwide",
+        "inequality"
+      ],
+      "senses": {
+        "unions": "union#workers",
+        "tear": "tear gas",
+        "gas": "tear gas",
+        "water": "water cannon",
+        "cannon": "water cannon",
+        "high": "high school"
+      }
+    },
+    {
+      "id": "2026-10-24-israel-locks-down-hebron",
+      "edition": "2026-10-26",
+      "rank": 5,
+      "date": "2026-10-24",
+      "tag": "World",
+      "place": "West Bank",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/24/more-than-2000-forced-from-homes-in-hebron-amid-israels-west-bank-raids",
+      "title": "Israel closes Hebron, and about 2,000 people must leave their homes",
+      "summary": [
+        "Israel closed the West Bank city of Hebron after two Palestinian gunmen killed two Israeli soldiers at an army base on Friday.",
+        "Israel's defence minister said about 2,000 people had been told to leave their homes and could not return for now.",
+        "People in the city of about 200,000 cannot enter or leave, and Israeli forces arrested about 70 Palestinians in raids across the West Bank."
+      ],
+      "why": [
+        "The Palestinian Authority and the Israeli rights group B'Tselem called the measures collective punishment, and the UN chief said he was deeply concerned.",
+        "Israel holds a general election on 27 October."
+      ],
+      "keywords": [
+        "soldier",
+        "gunman",
+        "raid#military",
+        "punishment",
+        "concerned"
+      ],
+      "senses": {
+        "leave": "leave#go",
+        "west": "west bank",
+        "bank": "west bank",
+        "raids": "raid#military",
+        "authority": "palestinian authority"
+      }
+    },
+    {
+      "id": "2026-10-22-php-flaws-found-with-ai-push-websites-offline",
+      "edition": "2026-10-26",
+      "rank": 6,
+      "date": "2026-10-22",
+      "tag": "Technology",
+      "place": "Europe",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/22/whats-the-php-coding-flaw-that-could-pull-down-70-percent-of-the-internet",
+      "title": "Serious flaws in PHP, found with AI, push websites offline",
+      "summary": [
+        "The makers of PHP, a programming language used by more than 70% of websites, released urgent fixes after details of two serious flaws leaked online.",
+        "The flaws could let hackers run their own code on a website and steal data such as passwords.",
+        "Government websites in the Netherlands, Finland, France and Belgium were taken offline as a precaution, and Wikipedia also shut down some systems."
+      ],
+      "why": [
+        "Two security companies, Calif and Wiz, found the flaws with the help of AI, and say they had been hidden in PHP's code for more than ten years.",
+        "Website owners are being told to update PHP immediately."
+      ],
+      "keywords": [
+        "flaw",
+        "hacker",
+        "leak",
+        "precaution",
+        "update"
+      ],
+      "senses": {
+        "run": "run#operate"
+      }
+    },
+    {
+      "id": "2026-10-25-machado-returns-to-venezuela",
+      "edition": "2026-10-26",
+      "rank": 7,
+      "date": "2026-10-25",
+      "tag": "Politics",
+      "place": "Venezuela",
+      "source": "Fox News",
+      "url": "https://www.foxnews.com/world/venezuelan-opposition-leader-maria-corina-machado-surprise-return-home-after-nearly-year-abroad",
+      "title": "Opposition leader Maria Corina Machado returns to Venezuela",
+      "summary": [
+        "Maria Corina Machado, who won the 2025 Nobel Peace Prize, returned to Venezuela on Sunday after almost a year abroad.",
+        "She did not say where she was or how she returned, but wrote online that she was with the people.",
+        "Another opposition leader, Edmundo Gonzalez, said he would join her very soon."
+      ],
+      "why": [
+        "Venezuela has been led by acting president Delcy Rodriguez since US forces captured Nicolas Maduro in January, and no presidential election has been planned.",
+        "Machado and her allies want a date for an election."
+      ],
+      "keywords": [
+        "opposition",
+        "abroad",
+        "acting",
+        "ally",
+        "capture"
+      ],
+      "senses": {
+        "led": "lead#guide"
+      }
+    },
+    {
+      "id": "2026-10-19-china-economy-grows-faster-than-expected",
+      "edition": "2026-10-26",
+      "rank": 8,
+      "date": "2026-10-19",
+      "tag": "Business",
+      "place": "China",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/economy/2026/10/19/chinas-economy-grows-4-5-percent-in-q3-beating-forecasts",
+      "title": "China's economy grows faster than expected thanks to tech exports",
+      "summary": [
+        "China's economy grew by 4.5% from July to September compared with a year earlier, faster than most experts had forecast.",
+        "Growth rose from 4.3% in the previous three months, helped by strong sales of computer chips and other tech goods abroad during the AI boom.",
+        "But people at home are spending little: retail sales grew by only 1.1% in September."
+      ],
+      "why": [
+        "The government's growth target for 2026 is 4.5% to 5%, one of the lowest in decades outside the COVID years.",
+        "A weak property market is still slowing the world's second-biggest economy."
+      ],
+      "keywords": [
+        "forecast",
+        "export",
+        "boom",
+        "retail",
+        "property#real estate"
+      ],
+      "senses": {
+        "target": "target#goal",
+        "property": "property#real estate"
+      }
+    },
+    {
+      "id": "2026-10-23-personal-melanoma-vaccine-trial",
+      "edition": "2026-10-26",
+      "rank": 9,
+      "date": "2026-10-23",
+      "tag": "Health",
+      "place": "Australia",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-23/melanoma-cancer-vaccine-breakthrough-georgina-long/107303082",
+      "title": "A personal cancer vaccine cuts the risk of melanoma returning",
+      "summary": [
+        "A vaccine made from each patient's own tumour lowered the risk of melanoma returning by 42% in a large trial led from Australia.",
+        "The trial included 1,137 people at very high risk at 157 sites around the world, and compared the vaccine plus an existing immune treatment with the immune treatment alone.",
+        "Lead researcher Georgina Long called the results transformational."
+      ],
+      "why": [
+        "The vaccine, made by Moderna and MSD, does not prevent cancer, and it could take several years before it is approved.",
+        "Australia has the highest rate of melanoma in the world, and experts say protection from the sun is still the best way to prevent it."
+      ],
+      "keywords": [
+        "vaccine",
+        "tumour",
+        "trial",
+        "risk",
+        "approve"
+      ],
+      "senses": {
+        "cuts": "cut#reduce",
+        "lead": "lead#main",
+        "long": "georgina long",
+        "led": "lead#guide",
+        "made": "make#produce"
+      }
+    },
+    {
+      "id": "2026-10-25-measles-spreads-among-pennsylvania-amish",
+      "edition": "2026-10-26",
+      "rank": 10,
+      "date": "2026-10-25",
+      "tag": "Health",
+      "place": "United States",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-25/pennsylvania-us-measles-outbreak-impacts-amish-communities/107287196",
+      "title": "Measles spreads fast among the Amish in Pennsylvania",
+      "summary": [
+        "Pennsylvania has had more than 1,300 measles cases since April, its worst outbreak in more than 30 years.",
+        "At least six people have died, including two babies, and none of them had been vaccinated.",
+        "Officials say low vaccination rates in Amish communities, where families are large and people often meet at church, have helped the virus spread."
+      ],
+      "why": [
+        "The US has had more than 4,500 cases this year, the most since 1991.",
+        "Governor Josh Shapiro has clashed with US Health Secretary Robert F Kennedy Jr, who has raised doubts about vaccines."
+      ],
+      "keywords": [
+        "measles",
+        "outbreak",
+        "vaccinate",
+        "community",
+        "virus"
+      ],
+      "senses": {
+        "meet": "meet#gather",
+        "secretary": "secretary#minister",
+        "f": "robert f kennedy jr",
+        "jr": "robert f kennedy jr"
+      }
+    },
+    {
+      "id": "2026-10-21-un-report-world-will-pass-1-5-degrees",
+      "edition": "2026-10-26",
+      "rank": 11,
+      "date": "2026-10-21",
+      "tag": "Environment",
+      "place": "World",
+      "source": "TIME",
+      "url": "https://time.com/article/2026/10/21/un-emissions-gap-report-what-to-know/",
+      "title": "UN report says the world can no longer avoid passing 1.5 degrees of warming",
+      "summary": [
+        "A yearly UN report says current policies put the planet on track for 2.8 degrees Celsius of warming by 2100.",
+        "If countries keep their newest promises, warming would be about 2.6 degrees, still far above the goals of the Paris Agreement.",
+        "The report says US emissions grew far more than those of other big economies, partly because of power demand from data centres and support for coal."
+      ],
+      "why": [
+        "The report says it is still possible to bring warming back below 1.5 degrees by 2100, but only with very fast cuts in emissions.",
+        "Clean energy has grown faster than expected: solar power has been built seven times faster than predicted ten years ago."
+      ],
+      "keywords": [
+        "emissions",
+        "warming",
+        "policy",
+        "planet",
+        "coal"
+      ],
+      "senses": {
+        "cuts": "cut#reduction",
+        "passing": "pass#exceed",
+        "report": "report#noun",
+        "times": "time#multiply"
+      }
+    },
+    {
+      "id": "2026-10-19-japan-launches-mmx-mission-to-phobos",
+      "edition": "2026-10-26",
+      "rank": 12,
+      "date": "2026-10-19",
+      "tag": "Science",
+      "place": "Japan",
+      "source": "Space.com",
+      "url": "https://www.space.com/space-exploration/launches-spacecraft/japan-launches-historic-mmx-sample-return-mission-to-mars-moon-phobos",
+      "title": "Japan launches a mission to bring back soil from a moon of Mars",
+      "summary": [
+        "Japan's space agency, JAXA, launched its MMX spacecraft on an H3 rocket from the Tanegashima Space Center.",
+        "It should reach Mars in August 2027 and try to become the first spacecraft to land on Phobos, the larger of Mars's two moons.",
+        "It plans to collect about 10 grams of material and send it back to Earth, landing in Australia in 2031."
+      ],
+      "why": [
+        "A small rover built by the French and German space agencies will also be dropped onto Phobos, and NASA will receive at least 15% of the samples."
+      ],
+      "keywords": [
+        "launch",
+        "spacecraft",
+        "rocket",
+        "sample",
+        "mission"
+      ],
+      "senses": {
+        "reach": "reach#arrive"
+      }
+    },
+    {
+      "id": "2026-10-25-antonelli-wins-united-states-grand-prix",
+      "edition": "2026-10-26",
+      "rank": 13,
+      "date": "2026-10-25",
+      "tag": "Sport",
+      "place": "United States",
+      "source": "RaceFans",
+      "url": "https://www.racefans.net/2026/10/25/2026-united-states-grand-prix-race-result-and-championship-points/",
+      "title": "Antonelli wins in Texas and is near the Formula 1 title",
+      "summary": [
+        "Mercedes driver Kimi Antonelli won the United States Grand Prix in Austin after starting in first place.",
+        "Charles Leclerc of Ferrari was second and Max Verstappen of Red Bull third, while Australia's Oscar Piastri finished seventh.",
+        "Antonelli now leads the championship by 123 points, with five races still to go."
+      ],
+      "why": [
+        "He could not quite win the title in Texas, but he needs only a few more points to become world champion."
+      ],
+      "keywords": [
+        "driver",
+        "championship",
+        "title#sport",
+        "champion",
+        "race#contest"
+      ],
+      "senses": {
+        "title": "title#sport",
+        "races": "race#contest",
+        "points": "point#score",
+        "leads": "lead#ahead",
+        "place": "place#position",
+        "united": "united states",
+        "states": "united states",
+        "grand": "grand prix",
+        "prix": "grand prix",
+        "red": "red bull",
+        "bull": "red bull",
+        "max": "max verstappen",
+        "formula": "formula one",
+        "finished": "come#finish"
+      }
+    },
+    {
+      "id": "2026-10-26-us-fights-sale-of-titanic-objects",
+      "edition": "2026-10-26",
+      "rank": 14,
+      "date": "2026-10-26",
+      "tag": "Culture",
+      "place": "United States",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-26/why-us-government-battling-titanic-artefact-auction/107296170",
+      "title": "The US government fights a plan to sell objects from the Titanic",
+      "summary": [
+        "RMS Titanic Inc, the company with the rights to the Titanic wreck, wants to auction more than 100 objects, including jewellery, cutlery and a bronze statue from the ship's famous staircase.",
+        "A US judge paused the sale in August, and the company has appealed.",
+        "The US ocean agency NOAA says the items should stay together as one collection for the public."
+      ],
+      "why": [
+        "The company says these items, found in 1987, are not covered by the court's rules.",
+        "The Titanic hit an iceberg and sank in April 1912, and about 1,500 people died."
+      ],
+      "keywords": [
+        "auction",
+        "wreck",
+        "collection",
+        "appeal",
+        "judge"
+      ],
+      "senses": {
+        "objects": "object#thing",
+        "rights": "right#legal"
+      }
+    },
     {
       "id": "2026-10-11-hormuz-attacks-grow-as-iran-talks-stall",
       "edition": "2026-10-12",

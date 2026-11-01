@@ -1,6 +1,464 @@
 {
-  "updated": "2026-10-26",
+  "updated": "2026-11-02",
   "stories": [
+    {
+      "id": "2026-10-28-spain-high-speed-train-crash",
+      "edition": "2026-11-02",
+      "rank": 1,
+      "date": "2026-10-28",
+      "tag": "World",
+      "place": "Spain",
+      "source": "Al Jazeera",
+      "url": "https://aljazeera.com/news/2026/10/28/injuries-reported-after-two-trains-collide-in-spain",
+      "title": "A high-speed train crash in Spain kills at least 68 people",
+      "summary": [
+        "Early on 28 October, a Renfe high-speed train from Madrid to Seville hit the back of an Iryo train that had stopped near Urda, in Toledo province.",
+        "The Renfe train was carrying 397 passengers and the Iryo train 147.",
+        "At least 68 people died and about 80 were hurt, according to the regional government.",
+        "Transport Minister Óscar Puente said a train control system had failed on a 63 km stretch of the line, and he could not explain why trains were allowed to keep running."
+      ],
+      "why": [
+        "Prime Minister Pedro Sánchez announced three days of national mourning and promised to find out who was responsible.",
+        "It is the second deadly collision on the same line this year: in January, a crash between trains of the same two companies killed 46 people."
+      ],
+      "keywords": [
+        "crash",
+        "passenger",
+        "mourning",
+        "collision",
+        "responsible"
+      ],
+      "senses": {
+        "back": "back#rear",
+        "line": "line#railway",
+        "hurt": "hurt#injure",
+        "running": "run#operate",
+        "stopped": "stop#cease"
+      }
+    },
+    {
+      "id": "2026-10-29-israel-election-no-majority",
+      "edition": "2026-11-02",
+      "rank": 2,
+      "date": "2026-10-29",
+      "tag": "Politics",
+      "place": "Israel",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/29/israel-election-result-shows-no-overall-majority-as-vote-count-complete",
+      "title": "Israel's election leaves no group with a majority",
+      "summary": [
+        "Israelis voted on 27 October in the first election since the attacks of 7 October 2023 and the start of the war in Gaza.",
+        "With almost all votes counted, Prime Minister Benjamin Netanyahu's bloc has 53 of the 120 seats in parliament, and the opposition bloc led by Gadi Eisenkot has 48.",
+        "Arab-led parties won 19 seats, so neither side has the 61 seats it needs to form a coalition government."
+      ],
+      "why": [
+        "The opposition cannot easily form a government without the Arab-led parties, but Eisenkot has promised not to work with them.",
+        "Netanyahu's Likud party claimed, without evidence, that the election was stolen, and the head of the election committee asked the security service to investigate reports of foreign interference."
+      ],
+      "keywords": [
+        "majority",
+        "bloc",
+        "opposition",
+        "coalition",
+        "interference"
+      ],
+      "senses": {
+        "led": "lead#guide",
+        "form": "form#create",
+        "reports": "report#noun"
+      }
+    },
+    {
+      "id": "2026-10-25-lula-wins-fourth-term-brazil",
+      "edition": "2026-11-02",
+      "rank": 3,
+      "date": "2026-10-26",
+      "tag": "Politics",
+      "place": "Brazil",
+      "source": "Reuters",
+      "url": "https://www.khaleejtimes.com/americas/brazil-president-lula-da-silva-wins-fourth-term",
+      "title": "Lula wins a fourth term as Brazil's president",
+      "summary": [
+        "President Luiz Inácio Lula da Silva, who is 80, won Brazil's runoff election on 25 October against right-wing senator Flávio Bolsonaro.",
+        "Lula won by more than 4 million votes, although Bolsonaro had been ahead in the first round on 4 October.",
+        "Bolsonaro, the son of former president Jair Bolsonaro, refused to accept the result and said he would ask for it to be cancelled because the Supreme Court let voting continue for two extra hours."
+      ],
+      "why": [
+        "Lula first led Brazil from 2003 to 2010 and returned to power in 2023.",
+        "Analysts say the result is very unlikely to be overturned."
+      ],
+      "keywords": [
+        "term",
+        "runoff",
+        "senator",
+        "result#outcome",
+        "overturn"
+      ],
+      "senses": {
+        "power": "power#control",
+        "result": "result#outcome",
+        "court": "supreme court"
+      }
+    },
+    {
+      "id": "2026-10-31-us-midterms-early-voting",
+      "edition": "2026-11-02",
+      "rank": 4,
+      "date": "2026-10-31",
+      "tag": "Politics",
+      "place": "United States",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/31/us-midterms-3-days-to-go-what-latest-polls-say-as-early-voting-surges",
+      "title": "Early voting surges before the US midterm elections",
+      "summary": [
+        "Americans vote on 3 November in midterm elections that will decide who controls Congress.",
+        "More than 43 million people had already voted in person or sent mail ballots five days before election day, almost 10 million more than at the same point in 2022, according to an AP analysis.",
+        "A national average of polls gives Democrats 51.4 percent and Republicans 43.2 percent."
+      ],
+      "why": [
+        "Experts say Democrats are very likely to win the House of Representatives, but the race for the Senate is much closer.",
+        "Control of Congress will decide which laws can pass during the last two years of President Donald Trump's term."
+      ],
+      "keywords": [
+        "midterm",
+        "ballot",
+        "poll",
+        "surge",
+        "control"
+      ],
+      "senses": {
+        "race": "race#contest",
+        "pass": "pass#law",
+        "person": "in person",
+        "house": "house of representatives",
+        "representatives": "house of representatives"
+      }
+    },
+    {
+      "id": "2026-10-30-oil-prices-keep-rising",
+      "edition": "2026-11-02",
+      "rank": 5,
+      "date": "2026-10-30",
+      "tag": "Business",
+      "place": "Middle East",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/economy/2026/10/30/oil-flows-are-up-as-iran-war-turmoil-eases-why-do-prices-keep-rising",
+      "title": "Oil prices keep rising even though more oil is leaving the Gulf",
+      "summary": [
+        "The price of Brent crude oil briefly went above $117 a barrel on 30 October, its highest level since April and more than 60 percent above pre-war levels.",
+        "Gulf countries are exporting more oil again, partly through pipelines that avoid the Strait of Hormuz.",
+        "But the cost of shipping oil from the region has risen to about $40 a barrel, around ten times the usual rate, because of insurance costs and attacks on ships."
+      ],
+      "why": [
+        "October has been the worst month for attacks on commercial ships since the US war on Iran began, with 32 incidents.",
+        "Oil stocks around the world are low, and analysts say prices will not return to normal without a lasting peace deal."
+      ],
+      "keywords": [
+        "crude",
+        "barrel",
+        "pipeline",
+        "insurance",
+        "shipping"
+      ],
+      "senses": {
+        "times": "time#multiply",
+        "stocks": "stock#supply",
+        "deal": "deal#agreement"
+      }
+    },
+    {
+      "id": "2026-10-31-oleshky-evacuation-truce",
+      "edition": "2026-11-02",
+      "rank": 6,
+      "date": "2026-10-31",
+      "tag": "World",
+      "place": "Ukraine",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/31/hundreds-from-russian-occupied-oleshky-land-in-belarus-en-route-to-ukraine",
+      "title": "Hundreds leave a Russian-held Ukrainian town during a short truce",
+      "summary": [
+        "Hundreds of residents were evacuated by bus from Oleshky, a town in southern Ukraine held by Russia, during a rare local truce.",
+        "The convoy travelled through Russia and Belarus, and the people crossed into Ukraine on 31 October.",
+        "The White House said US First Lady Melania Trump helped arrange the truce, and Ukrainian and Russian officials visited the town together to deliver aid."
+      ],
+      "why": [
+        "People who left said there had been almost no basic food in the town since spring, after years of fighting.",
+        "Fighting continued in other areas, and Russian strikes left more than 200,000 homes in the Dnipro region without power."
+      ],
+      "keywords": [
+        "truce",
+        "evacuate",
+        "convoy",
+        "resident",
+        "aid"
+      ],
+      "senses": {
+        "lady": "first lady",
+        "white": "white house",
+        "house": "white house",
+        "trump": "melania trump"
+      }
+    },
+    {
+      "id": "2026-10-30-binance-crypto-exchange-hack",
+      "edition": "2026-11-02",
+      "rank": 7,
+      "date": "2026-10-30",
+      "tag": "Technology",
+      "place": "Global",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-30/asx-markets-business-live-news-oct-30/107326558",
+      "title": "Hackers steal billions from the crypto exchange Binance",
+      "summary": [
+        "Binance, the world's largest cryptocurrency exchange, says attackers stole about $6.3 billion in an attack on 29 October.",
+        "The company believes a hacker entered its systems through the laptop of one of its engineers and then made withdrawals without permission.",
+        "About $3 billion has already been frozen, and Binance stopped all deposits and withdrawals for security checks."
+      ],
+      "why": [
+        "Binance says users' money is safe because it will pay for the losses with its own money.",
+        "The price of bitcoin fell to a six-week low of about $77,600 after the attack."
+      ],
+      "keywords": [
+        "hacker",
+        "cryptocurrency",
+        "withdrawal",
+        "freeze",
+        "deposit"
+      ],
+      "senses": {
+        "exchange": "exchange#market",
+        "frozen": "freeze"
+      }
+    },
+    {
+      "id": "2026-10-31-nigeria-suspected-ebola-cases",
+      "edition": "2026-11-02",
+      "rank": 8,
+      "date": "2026-10-31",
+      "tag": "Health",
+      "place": "Nigeria",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/31/health-authorities-probe-two-suspected-ebola-cases-in-northeast-nigeria",
+      "title": "Nigeria tests two suspected Ebola cases as an outbreak spreads",
+      "summary": [
+        "Health officials in Nigeria are testing two people in the northeast of the country who may have Ebola.",
+        "Both people have been isolated, and officials are looking for anyone they were in contact with.",
+        "Nigeria found its first Ebola case in more than ten years on 20 October."
+      ],
+      "why": [
+        "The outbreak, caused by the Bundibugyo type of Ebola, began in the Democratic Republic of the Congo in May and has caused more than 5,000 deaths there.",
+        "Cases have also been found in Uganda, Kenya and France, and there is still no approved vaccine or treatment for this type."
+      ],
+      "keywords": [
+        "suspected",
+        "outbreak",
+        "isolate",
+        "contact",
+        "vaccine"
+      ],
+      "senses": {
+        "looking": "look for"
+      }
+    },
+    {
+      "id": "2026-10-28-cyclone-arnab-hits-india",
+      "edition": "2026-11-02",
+      "rank": 9,
+      "date": "2026-10-28",
+      "tag": "Environment",
+      "place": "India",
+      "source": "AAP",
+      "url": "https://www.canberratimes.com.au/story/9381960/thousands-flee-as-deadly-cyclone-wreaks-havoc-in-india/",
+      "title": "Cyclone Arnab hits India's east coast",
+      "summary": [
+        "Cyclone Arnab, a very severe cyclonic storm, reached the coast of Andhra Pradesh state early on 28 October and then moved inland.",
+        "More than 180,000 people were moved out of Andhra Pradesh and Odisha before it arrived, and at least three people died.",
+        "Strong winds and heavy rain destroyed at least 180 houses, knocked over many trees and left several areas without power."
+      ],
+      "why": [
+        "Schools were closed and some trains and flights along the coast were cancelled.",
+        "Nearby Nepal stopped trekking permits for high mountain areas for three days because of the risk of heavy rain and snow."
+      ],
+      "keywords": [
+        "cyclone",
+        "severe",
+        "inland",
+        "destroy",
+        "permit"
+      ],
+      "senses": {
+        "reached": "reach#arrive",
+        "moved": "move#go",
+        "state": "state#region",
+        "left": "leave#remain"
+      }
+    },
+    {
+      "id": "2026-10-28-lancet-report-climate-deaths",
+      "edition": "2026-11-02",
+      "rank": 10,
+      "date": "2026-10-28",
+      "tag": "Health",
+      "place": "Global",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/2026-10-28/lancet-study-counts-three-million-climate-change-related-deaths/107315006",
+      "title": "Report links almost 3 million deaths to climate change",
+      "summary": [
+        "The Lancet Countdown, a yearly report on health and climate change, says about 3 million deaths between 2016 and 2023 can be linked to a warming planet.",
+        "Heat is linked to more than 500,000 deaths a year, and the report says 68 percent of those are caused by human-driven climate change.",
+        "Heat also cost 573 billion hours of work in 2025, mostly in poorer countries."
+      ],
+      "why": [
+        "The researchers want climate change to be declared a global health emergency.",
+        "The report says cleaner energy is already saving lives, with about 400,000 fewer deaths from air pollution in 2023 than in 2016.",
+        "It was published before the COP31 climate talks in Türkiye in November."
+      ],
+      "keywords": [
+        "link",
+        "warming",
+        "researcher",
+        "emergency",
+        "pollution"
+      ],
+      "senses": {
+        "report": "report#noun"
+      }
+    },
+    {
+      "id": "2026-10-27-possible-new-dwarf-planet",
+      "edition": "2026-11-02",
+      "rank": 11,
+      "date": "2026-10-27",
+      "tag": "Science",
+      "place": "Solar system",
+      "source": "GBH News",
+      "url": "https://www.wgbh.org/news/local/2026-10-27/potential-new-dwarf-planet-found-by-harvard-astrophysicists",
+      "title": "Astronomers find what may be a new dwarf planet beyond Neptune",
+      "summary": [
+        "Scientists from Harvard and the Smithsonian have found a large, bright object in the Kuiper Belt, the icy region beyond Neptune.",
+        "It is probably between 600 and 1,500 kilometres across, so it would be one of the seven largest known objects in the outer solar system.",
+        "It was found in pictures from the Rubin Observatory in Chile, which scans the whole visible sky about every three nights."
+      ],
+      "why": [
+        "The object stayed hidden because the Milky Way, one of the brightest parts of the night sky, is behind it.",
+        "It is bright enough for skilled amateur astronomers to see, and more observations are needed to measure its real size."
+      ],
+      "keywords": [
+        "astronomer",
+        "observatory",
+        "region",
+        "visible",
+        "amateur"
+      ],
+      "senses": {
+        "object": "object#thing",
+        "objects": "object#thing",
+        "way": "milky way",
+        "milky": "milky way",
+        "measure": "measure#size"
+      }
+    },
+    {
+      "id": "2026-10-27-netherlands-quits-eurovision-2027",
+      "edition": "2026-11-02",
+      "rank": 12,
+      "date": "2026-10-27",
+      "tag": "Culture",
+      "place": "Netherlands",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/10/27/the-netherlands-pulls-out-of-eurovision-2027-due-to-israel-sensitivities",
+      "title": "The Netherlands will not take part in Eurovision 2027",
+      "summary": [
+        "The Dutch public broadcaster NPO says it will not send a singer to the Eurovision Song Contest in 2027 because of disagreement over Israel taking part.",
+        "Its media director, Jurre Bosman, said Israel's participation divides people in the Netherlands.",
+        "The 2027 contest will be held in Burgas, Bulgaria, after the Bulgarian singer Dara won this year's contest with the song Bangaranga."
+      ],
+      "why": [
+        "The Netherlands, Spain, Ireland, Slovenia and Iceland all boycotted the 2026 contest in Vienna, and Ireland will also miss the 2027 contest.",
+        "Dutch viewers will still be able to watch the show on public television."
+      ],
+      "keywords": [
+        "broadcaster",
+        "contest",
+        "participation",
+        "divide",
+        "boycott"
+      ],
+      "senses": {
+        "over": "over#about",
+        "show": "show#programme",
+        "part": "take part",
+        "taking": "take part",
+        "take": "take part"
+      }
+    },
+    {
+      "id": "2026-10-28-brewers-win-world-series",
+      "edition": "2026-11-02",
+      "rank": 13,
+      "date": "2026-10-28",
+      "tag": "Sport",
+      "place": "United States",
+      "source": "NPR",
+      "url": "https://www.hppr.org/npr-news/2026-10-28/brewers-beat-the-rays-to-win-the-first-world-series-title-in-franchise-history",
+      "title": "The Milwaukee Brewers win their first World Series",
+      "summary": [
+        "The Milwaukee Brewers beat the Tampa Bay Rays 4-1 in Game 5 on 28 October to win baseball's World Series by four games to one.",
+        "Pitcher Jacob Misiorowski did not allow a run in almost six innings, and William Contreras was named the most valuable player of the series.",
+        "It is the first World Series title for the club, which moved to Milwaukee in 1970."
+      ],
+      "why": [
+        "The Brewers had the best record in the major leagues this season, with 103 wins.",
+        "It was the first World Series since 1991 between two teams that spend less than most other clubs on player salaries."
+      ],
+      "keywords": [
+        "pitcher",
+        "valuable",
+        "title#sport",
+        "record#sport",
+        "salary"
+      ],
+      "senses": {
+        "title": "title#sport",
+        "record": "record#sport",
+        "brewers": "milwaukee brewers",
+        "run": "run#baseball",
+        "named": "name#identify",
+        "season": "season#sport",
+        "series": "world series",
+        "world": "world series"
+      }
+    },
+    {
+      "id": "2026-10-27-jumping-spiders-sleep-stage",
+      "edition": "2026-11-02",
+      "rank": 14,
+      "date": "2026-10-27",
+      "tag": "Science",
+      "place": "Australia",
+      "source": "ABC News",
+      "url": "https://www.abc.net.au/news/science/2026-10-27/jumping-spider-rem-sleep/107309370",
+      "title": "Jumping spiders have a sleep stage like the one in which people dream",
+      "summary": [
+        "Researchers filmed Australian fringed jumping spiders at night and found that they go through at least two stages of sleep.",
+        "In one stage, the spiders curl their legs, twitch and move their eyes, much like people in REM sleep, when most dreaming happens.",
+        "When a loud noise woke them in this stage, the spiders reacted slowly, and some did not react at all."
+      ],
+      "why": [
+        "Spiders and animals with backbones split from each other about 500 million years ago, so the basic pattern of sleep may be much older than scientists thought.",
+        "The study, by researchers from the University of Bonn in Germany and others, was published on 27 October."
+      ],
+      "keywords": [
+        "stage",
+        "twitch",
+        "react",
+        "backbone",
+        "pattern"
+      ],
+      "senses": {
+        "move": "move#go"
+      }
+    },
     {
       "id": "2026-10-24-iran-warns-us-warships-as-trump-weighs-attacks",
       "edition": "2026-10-26",
